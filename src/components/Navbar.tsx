@@ -2,20 +2,26 @@
 import { useState } from "react";
 import { siteContent } from "@/data/mockData";
 import Link from "next/link";
-
-function smoothScroll(e: React.MouseEvent<HTMLAnchorElement>, href: string, callback?: () => void) {
-  if (href.startsWith("#")) {
-    e.preventDefault();
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-    if (callback) callback();
-  }
-}
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, callback?: () => void) => {
+    // If the link is an anchor and we are currently on the home page, smooth scroll
+    if (href.startsWith("/#") && pathname === "/") {
+      e.preventDefault();
+      const targetId = href.substring(1); // Extract "#section" from "/#section"
+      const el = document.querySelector(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    // If we are NOT on the home page, we let Next.js <Link> handle the routing to "/"
+    
+    if (callback) callback();
+  };
 
   return (
     <>
@@ -28,28 +34,28 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <div className="flex gap-8">
             {siteContent.navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
                 className={`font-label uppercase tracking-[-0.02em] text-[0.75rem] font-mono px-2 py-1 transition-colors duration-300 ${
                   link.label === "SERVICES" 
                     ? "text-gold-accent border-b border-gold-accent" 
                     : "text-bone-white/70 hover:text-gold-accent"
                 }`}
-                href={link.href}
-                onClick={(e) => smoothScroll(e, link.href)}
+                href={link.href.startsWith("#") ? `/${link.href}` : link.href}
+                onClick={(e) => handleNavClick(e, link.href.startsWith("#") ? `/${link.href}` : link.href)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
-          <a 
-            href="#request" 
-            onClick={(e) => smoothScroll(e, "#request")}
+          <Link 
+            href="/#request" 
+            onClick={(e) => handleNavClick(e, "/#request")}
             className="font-label uppercase tracking-[-0.02em] text-[0.75rem] font-mono text-obsidian bg-gold-accent px-6 py-2 hover:bg-bone-white transition-colors duration-300 inline-block text-center font-bold"
           >
             CONTACT
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -72,30 +78,30 @@ export default function Navbar() {
         <div className="flex flex-col h-full pb-12">
           <div className="flex flex-col gap-6 mt-8 flex-grow">
             {siteContent.navLinks.map((link, i) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
-                onClick={(e) => smoothScroll(e, link.href, () => setIsOpen(false))}
+                href={link.href.startsWith("#") ? `/${link.href}` : link.href}
+                onClick={(e) => handleNavClick(e, link.href.startsWith("#") ? `/${link.href}` : link.href, () => setIsOpen(false))}
                 style={{ transitionDelay: `${isOpen ? 150 + i * 100 : 0}ms` }}
                 className={`font-headline uppercase text-5xl font-black text-bone-white border-b border-[#333333]/50 pb-6 transform transition-all duration-700 ${
                   isOpen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
           
-          <a 
-            href="#request" 
-            onClick={(e) => smoothScroll(e, "#request", () => setIsOpen(false))}
+          <Link 
+            href="/#request" 
+            onClick={(e) => handleNavClick(e, "/#request", () => setIsOpen(false))}
             className={`font-label uppercase tracking-[0.1em] text-base font-mono text-obsidian bg-gold-accent w-full py-4 hover:bg-bone-white transition-all duration-700 text-center font-bold mt-auto ${
               isOpen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
             }`}
             style={{ transitionDelay: `${isOpen ? 150 + siteContent.navLinks.length * 100 : 0}ms` }}
           >
             CONTACT
-          </a>
+          </Link>
         </div>
       </div>
     </>
