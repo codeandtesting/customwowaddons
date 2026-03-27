@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ARCANUM_DEV | High-Fantasy WoW Development Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;800&amp;family=Inter:wght@400;700&amp;family=Cinzel:wght@400;700;900&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f3ffca",
+                        "on-error-container": "#ffd2c8",
+                        "on-error": "#450900",
+                        "secondary-fixed": "#ebc3ff",
+                        "on-primary-fixed": "#3a4a00",
+                        "surface-container-high": "#1f1f22",
+                        "tertiary-dim": "#f77c00",
+                        "on-primary": "#516700",
+                        "on-background": "#f9f5f8",
+                        "on-tertiary": "#512400",
+                        "surface-variant": "#262528",
+                        "tertiary-container": "#ff8000",
+                        "inverse-on-surface": "#565457",
+                        "on-surface-variant": "#adaaad",
+                        "error-dim": "#d53d18",
+                        "on-primary-fixed-variant": "#526900",
+                        "on-tertiary-fixed-variant": "#5e2b00",
+                        "secondary-container": "#9200db",
+                        "error": "#ff7351",
+                        "tertiary-fixed-dim": "#ff8000",
+                        "outline": "#767577",
+                        "primary-fixed": "#cafd00",
+                        "surface-container": "#19191c",
+                        "inverse-surface": "#fcf8fb",
+                        "surface-container-low": "#131315",
+                        "on-primary-container": "#4a5e00",
+                        "outline-variant": "#48474a",
+                        "surface-container-lowest": "#000000",
+                        "on-secondary-fixed-variant": "#7e00bd",
+                        "surface-tint": "#f3ffca",
+                        "primary-dim": "#beee00",
+                        "background": "#0e0e10",
+                        "on-secondary-container": "#fff5fe",
+                        "tertiary-fixed": "#ff9649",
+                        "surface-container-highest": "#262528",
+                        "surface-bright": "#2c2c2f",
+                        "primary-container": "#cafd00",
+                        "error-container": "#b92902",
+                        "tertiary": "#ff9649",
+                        "surface": "#0e0e10",
+                        "secondary": "#cc7aff",
+                        "on-tertiary-container": "#401b00",
+                        "on-secondary": "#360055",
+                        "inverse-primary": "#516700",
+                        "secondary-fixed-dim": "#e3b1ff",
+                        "secondary-dim": "#af25fe",
+                        "surface-dim": "#0e0e10",
+                        "on-secondary-fixed": "#540080",
+                        "on-tertiary-fixed": "#2b1000",
+                        "on-surface": "#f9f5f8",
+                        "primary-fixed-dim": "#beee00",
+                        "bone-white": "#E8E1D3",
+                        "gold-accent": "#D4AF37",
+                        "obsidian": "#0B0A0D",
+                        "grid-border": "#3A332A"
+                    },
+                    fontFamily: {
+                        "headline": ["Cinzel", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Fira Code", "monospace"]
+                    },
+                    borderRadius: {
+                        "none": "0px",
+                        "DEFAULT": "0px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0B0A0D;
+            color: #E8E1D3;
+            overflow-x: hidden;
+        }
+        .text-shadow-gold {
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        .grid-line-v {
+            width: 1px;
+            background-color: #3A332A;
+        }
+        .grid-line-h {
+            height: 1px;
+            background-color: #3A332A;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-gold-accent selection:text-obsidian">
+<!-- TOP NAVIGATION BAR -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#09090B] border-b border-[#333333]">
+<div class="text-2xl font-black text-[#F3EFE0] tracking-tighter font-headline uppercase">ARCANUM_DEV</div>
+<div class="hidden md:flex gap-8">
+<a class="font-['Space_Grotesk'] uppercase tracking-[-0.02em] text-[0.75rem] font-mono text-[#CCFF00] border-b border-[#CCFF00] hover:bg-[#CCFF00] hover:text-[#09090B] transition-none px-2 py-1" href="#">CHRONICLE</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-[-0.02em] text-[0.75rem] font-mono text-[#F3EFE0] hover:bg-[#CCFF00] hover:text-[#09090B] transition-none px-2 py-1" href="#">FORGE</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-[-0.02em] text-[0.75rem] font-mono text-[#F3EFE0] hover:bg-[#CCFF00] hover:text-[#09090B] transition-none px-2 py-1" href="#">LOOT</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-[-0.02em] text-[0.75rem] font-mono text-[#F3EFE0] hover:bg-[#CCFF00] hover:text-[#09090B] transition-none px-2 py-1" href="#">VOID_STATS</a>
+</div>
+<button class="font-['Space_Grotesk'] uppercase tracking-[-0.02em] text-[0.75rem] font-mono text-obsidian bg-[#CCFF00] px-4 py-2 hover:bg-[#B026FF] transition-none">INITIATE_SESSION</button>
+</nav>
+<!-- HERO SECTION -->
+<section class="relative min-h-[921px] flex flex-col pt-16 border-b border-grid-border overflow-hidden">
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<img class="w-full h-full object-cover" data-alt="abstract dark void background with swirling purple and gold energy particles and sharp crystalline structures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk-uoRFktePkkgRdbtWSGlPWlowLYAsR4-u7d2jR90lWI_1OAhtC5J9LG5EX8J2ZHTTR_lOrZbc7SDNQjpWbEiNmQ9_vcTptsW2wsCJ1QLWDwWmzfJWLayXanHRYoiP6RMtKUY_INuHGhwx1xXK5uY050pV89xJoX6ZsaUU7bU3Tin3u8D_-h8fHyqhx9Ecw6SqAMw4KWH-1WZ8C1hu28G8EMvagfpT_OoUFV4VTSiyH5iokt_3BJb-M-kYvGS9t-lywyXZnyBmSo"/>
+</div>
+<!-- Massive Headers -->
+<div class="flex-grow flex flex-col justify-center px-6 md:px-12 relative z-10">
+<h1 class="font-headline text-[12vw] leading-[0.85] font-black tracking-tighter text-bone-white uppercase mb-4">
+                CUSTOM <span class="text-gold-accent text-shadow-gold">ADDONS.</span><br/>
+                PRO <span class="text-gold-accent text-shadow-gold">WEAKAURAS.</span><br/>
+                BUILT <span class="text-gold-accent text-shadow-gold">FOR YOU.</span>
+</h1>
+<div class="max-w-2xl mt-8">
+<p class="text-xl md:text-2xl text-bone-white/80 font-body leading-relaxed">
+                    We build custom World of Warcraft Addons and WeakAura suites from scratch. Stop settling for broken public CurseForge files. Get a custom, bug-free UI built exactly how you want it.
+                </p>
+</div>
+</div>
+<!-- Corner Navigation / Bottom Hero Bar -->
+<div class="border-t border-grid-border flex flex-wrap justify-between items-center p-6 bg-obsidian/80 backdrop-blur-md relative z-10">
+<div class="flex gap-12 text-[10px] font-mono uppercase tracking-[0.2em] text-gold-accent">
+<a class="hover:text-primary transition-colors" href="#services">[ WHAT WE DO ]</a>
+<a class="hover:text-primary transition-colors" href="#versions">[ VERSIONS ]</a>
+<a class="hover:text-primary transition-colors" href="#request">[ REQUEST A BUILD ]</a>
+</div>
+<div class="hidden md:block text-[10px] font-mono uppercase tracking-[0.2em] text-bone-white/40">
+                STRIKE_TEAM_ID: // 2035-DIGITAL-WARLOCK
+            </div>
+</div>
+</section>
+<!-- SERVICES (3-COLUMN GRID) -->
+<section class="grid grid-cols-1 md:grid-cols-3 border-b border-grid-border" id="services">
+<!-- Col 1 -->
+<div class="p-12 border-b md:border-b-0 md:border-r border-grid-border hover:bg-surface-container transition-colors group cursor-default">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-gold-accent text-4xl">code</span>
+<span class="text-[10px] font-mono text-gold-accent uppercase tracking-widest">MODULE_01</span>
+</div>
+<h2 class="font-headline text-4xl mb-6 text-bone-white uppercase">CUSTOM ADDONS</h2>
+<p class="text-bone-white/70 leading-relaxed font-body">
+                Full Lua development. From standalone auction scanners to custom guild trackers. Lightweight, optimized, and built to your exact specs. No bloated libraries, just pure performance.
+            </p>
+<div class="mt-12 h-1 w-0 bg-gold-accent group-hover:w-full transition-all duration-300"></div>
+</div>
+<!-- Col 2 -->
+<div class="p-12 border-b md:border-b-0 md:border-r border-grid-border hover:bg-surface-container transition-colors group cursor-default">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-gold-accent text-4xl">psychology</span>
+<span class="text-[10px] font-mono text-gold-accent uppercase tracking-widest">MODULE_02</span>
+</div>
+<h2 class="font-headline text-4xl mb-6 text-bone-white uppercase">PRO WEAKAURAS</h2>
+<p class="text-bone-white/70 leading-relaxed font-body">
+                Complex WA suites. We write custom trigger logic and build raid-specific alerts that you can't find anywhere else. Predictive resource tracking and dynamic CD management.
+            </p>
+<div class="mt-12 h-1 w-0 bg-gold-accent group-hover:w-full transition-all duration-300"></div>
+</div>
+<!-- Col 3 -->
+<div class="p-12 hover:bg-surface-container transition-colors group cursor-default">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-gold-accent text-4xl">dashboard_customize</span>
+<span class="text-[10px] font-mono text-gold-accent uppercase tracking-widest">MODULE_03</span>
+</div>
+<h2 class="font-headline text-4xl mb-6 text-bone-white uppercase">UI SETUPS</h2>
+<p class="text-bone-white/70 leading-relaxed font-body">
+                Complete interface overhauls. We configure ElvUI, Plater, and Details to create a clean, minimalist setup tailored to your class. Pixel-perfect alignment and professional readability.
+            </p>
+<div class="mt-12 h-1 w-0 bg-gold-accent group-hover:w-full transition-all duration-300"></div>
+</div>
+</section>
+<!-- VERSIONS (50/50 SPLIT) -->
+<section class="grid grid-cols-1 md:grid-cols-2 border-b border-grid-border min-h-[600px]" id="versions">
+<!-- Left: Midnight -->
+<div class="relative group cursor-pointer overflow-hidden border-b md:border-b-0 md:border-r border-grid-border flex flex-col justify-end p-12 transition-colors duration-0 hover:bg-[#B026FF]">
+<div class="absolute inset-0 z-0 opacity-40 group-hover:opacity-20 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="cinematic dark void portal with swirling cosmic purple energy and shadowy mystical atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHEHwaczADYacp6jS7lKWfhzrr-VcX8l-NTUjkmZmK6awRPTy2SAcVxJrXkDL1nIBzPrhWugcLaPX3pQEt4_illRs99mcHitKva-bVPTqAQncsmqO8mK7SLBJPRTuZO1O2mx9tCbcIYV3txEFrIYYvsD3fz2x2Osl3gLVGNYFs_kevnV-HMpryZav6UMlnblC1zwZXUFjrWn-BeH3ncLi5rKy2Ioa2Rs1rKYO5_7SqqN3CxB4C_e_Ctjc0bscddPAQ8aqEfS4alC4"/>
+</div>
+<div class="relative z-10 group-hover:text-obsidian transition-colors">
+<h3 class="font-headline text-6xl font-black mb-6 uppercase tracking-tighter">MIDNIGHT EXPANSION</h3>
+<p class="max-w-md text-lg font-body leading-relaxed group-hover:text-obsidian">
+                    We script custom layout savers for the new Player Housing system, automate inventory logic, and design high-performance HUDs for the modern Retail endgame.
+                </p>
+<div class="mt-8 font-mono text-sm group-hover:font-bold">[ INITIALIZING VOID_PROTOCOL ]</div>
+</div>
+</div>
+<!-- Right: TBC -->
+<div class="relative group cursor-pointer overflow-hidden flex flex-col justify-end p-12 transition-colors duration-0 hover:bg-[#CCFF00]">
+<div class="absolute inset-0 z-0 opacity-40 group-hover:opacity-20 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="glowing green fel energy storm with dark silhouetted landscapes and chaotic magical essence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ3g2oKR4Qt7cgner1XSQT4JU_3oGHC7m-Ow0GqC4MNQa9tm1Sfa4ThYqqao_WXt0haCkCltXB-4LtiHed-_oLfUAnqti5tR0wu2idnk2heE2qYXAM-D9C55B-402JGPoktTdaOpA6fNwApzRQadDNvRjk4UIE1lOUmB0oV9Q40D57HQHBH1lzqQWGXFuFB8-FFrRR0V_56yWz7LCS8GqXMBdSbDW1GVmPhOWdaUSLUg_0umbBKDCIEuSj9ZkZj9_x7kHR30FAibM"/>
+</div>
+<div class="relative z-10 group-hover:text-obsidian transition-colors">
+<h3 class="font-headline text-6xl font-black mb-6 uppercase tracking-tighter">TBC ANNIVERSARY</h3>
+<p class="max-w-md text-lg font-body leading-relaxed group-hover:text-obsidian">
+                    We build zero-lag raid frames, precise swing timers, and modern Quality-of-Life features that actually work on the Classic client. Vintage soul, modern engine.
+                </p>
+<div class="mt-8 font-mono text-sm group-hover:font-bold">[ RECALLING FEL_CHRONICLE ]</div>
+</div>
+</div>
+</section>
+<!-- WHY HIRE A DEV (TEXT GRID) -->
+<section class="border-b border-grid-border">
+<div class="p-12 border-b border-grid-border text-center">
+<h2 class="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter text-bone-white">WHY NOT JUST USE CURSEFORGE?</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3">
+<div class="p-12 border-b md:border-b-0 md:border-r border-grid-border">
+<div class="text-gold-accent font-mono text-4xl mb-6">01_</div>
+<h4 class="font-headline text-2xl mb-4 text-bone-white uppercase">ZERO BLOAT</h4>
+<p class="text-bone-white/60 font-body leading-relaxed">
+                    Most public addons ship with thousands of lines of unused code. We strip everything but the essentials, reclaiming precious FPS for high-intensity mythic raiding.
+                </p>
+</div>
+<div class="p-12 border-b md:border-b-0 md:border-r border-grid-border">
+<div class="text-gold-accent font-mono text-4xl mb-6">02_</div>
+<h4 class="font-headline text-2xl mb-4 text-bone-white uppercase">PATCH UPDATES</h4>
+<p class="text-bone-white/60 font-body leading-relaxed">
+                    Don't wait for an abandoned GitHub repo to update. Our development contracts include direct support for X.0 and X.X patches, ensuring your UI never breaks on reset.
+                </p>
+</div>
+<div class="p-12">
+<div class="text-gold-accent font-mono text-4xl mb-6">03_</div>
+<h4 class="font-headline text-2xl mb-4 text-bone-white uppercase">EXACTLY WHAT YOU WANT</h4>
+<p class="text-bone-white/60 font-body leading-relaxed">
+                    Need an addon that only tracks your guild's specific DKP system? Or a WA that triggers on a specific combat log event? If you can dream it, we can script it.
+                </p>
+</div>
+</div>
+</section>
+<!-- REQUEST FORM -->
+<section class="p-6 md:p-24 bg-obsidian flex justify-center border-b border-grid-border" id="request">
+<div class="w-full max-w-4xl bg-[#131315] border-2 border-gold-accent p-12 relative">
+<div class="absolute -top-4 -left-4 bg-gold-accent text-obsidian font-mono px-4 py-1 text-xs uppercase tracking-widest font-bold">REQUEST_TERMINAL_V.2</div>
+<form class="space-y-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-4">
+<label class="block font-mono text-gold-accent text-xs uppercase tracking-[0.2em] font-bold">[ DISCORD USERNAME ]</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-bone-white/20 focus:border-gold-accent focus:ring-0 text-bone-white py-2 transition-colors" placeholder="WARLOCK#0001" type="text"/>
+</div>
+<div class="space-y-4">
+<label class="block font-mono text-gold-accent text-xs uppercase tracking-[0.2em] font-bold">[ MIDNIGHT OR TBC? ]</label>
+<select class="w-full bg-transparent border-t-0 border-x-0 border-b border-bone-white/20 focus:border-gold-accent focus:ring-0 text-bone-white py-2 transition-colors uppercase font-mono text-sm">
+<option class="bg-obsidian">RETAIL: MIDNIGHT</option>
+<option class="bg-obsidian">CLASSIC: TBC</option>
+<option class="bg-obsidian">BOTH</option>
+</select>
+</div>
+</div>
+<div class="space-y-4">
+<label class="block font-mono text-gold-accent text-xs uppercase tracking-[0.2em] font-bold">[ ADDON OR WEAKAURA? ]</label>
+<div class="flex flex-wrap gap-8 pt-4">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-radio bg-transparent border-gold-accent text-gold-accent focus:ring-offset-obsidian focus:ring-gold-accent" name="type" type="radio"/>
+<span class="font-mono text-bone-white/80 group-hover:text-bone-white">ADDON</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-radio bg-transparent border-gold-accent text-gold-accent focus:ring-offset-obsidian focus:ring-gold-accent" name="type" type="radio"/>
+<span class="font-mono text-bone-white/80 group-hover:text-bone-white">WEAKAURA</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-radio bg-transparent border-gold-accent text-gold-accent focus:ring-offset-obsidian focus:ring-gold-accent" name="type" type="radio"/>
+<span class="font-mono text-bone-white/80 group-hover:text-bone-white">FULL UI SUITE</span>
+</label>
+</div>
+</div>
+<div class="space-y-4">
+<label class="block font-mono text-gold-accent text-xs uppercase tracking-[0.2em] font-bold">[ WHAT DO YOU NEED BUILT? ]</label>
+<textarea class="w-full bg-transparent border-t-0 border-x-0 border-b border-bone-white/20 focus:border-gold-accent focus:ring-0 text-bone-white py-2 transition-colors resize-none" placeholder="DESCRIBE YOUR PROJECT SPECIFICATIONS..." rows="4"></textarea>
+</div>
+<button class="w-full py-8 bg-gold-accent text-obsidian font-headline text-4xl font-black uppercase tracking-tighter hover:bg-[#B026FF] transition-none border-none" type="submit">
+                    REQUEST YOUR BUILD
+                </button>
+</form>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="w-full border-t border-[#333333] py-8 px-6 flex flex-col md:flex-row justify-between items-center bg-[#09090B]">
+<div class="text-lg font-bold text-[#F3EFE0] font-headline uppercase mb-4 md:mb-0">ARCANUM_DEV</div>
+<div class="flex gap-8 mb-4 md:mb-0">
+<a class="font-mono text-[10px] uppercase tracking-widest text-[#F3EFE0] hover:text-[#CCFF00] transition-none" href="#">PROTOCOL</a>
+<a class="font-mono text-[10px] uppercase tracking-widest text-[#F3EFE0] hover:text-[#CCFF00] transition-none" href="#">GRID_COORDINATES</a>
+<a class="font-mono text-[10px] uppercase tracking-widest text-[#F3EFE0] hover:text-[#CCFF00] transition-none" href="#">MANA_TERMS</a>
+</div>
+<div class="font-mono text-[10px] uppercase tracking-widest text-[#F3EFE0]/40">©2035_DIGITAL_WARLOCK_STRIKE_TEAM</div>
+</footer>
+</body></html>
