@@ -11,6 +11,7 @@ interface PageSEOProps {
   image?: string;
   noIndex?: boolean;
   canonical?: string;
+  datePublished?: string;
 }
 
 export function generatePageSEO({
@@ -19,6 +20,7 @@ export function generatePageSEO({
   image = "/og-image.jpg",
   noIndex = false,
   canonical,
+  datePublished,
 }: PageSEOProps): Metadata {
   return {
     title,
@@ -30,8 +32,9 @@ export function generatePageSEO({
     openGraph: {
       title,
       description,
-      type: "website",
+      type: datePublished ? "article" : "website",
       images: [{ url: image, width: 1200, height: 630 }],
+      ...(datePublished && { publishedTime: datePublished, modifiedTime: datePublished }),
     },
     twitter: {
       card: "summary_large_image",

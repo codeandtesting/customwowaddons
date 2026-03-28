@@ -8,6 +8,7 @@ export const metadata: Metadata = generatePageSEO({
   title: "What Programming Language Does WoW Use?",
   description: "Discover the programming languages behind World of Warcraft addons. Compare Lua scripting and XML structures.",
   canonical: "https://www.customwowaddon.com/how-to-create-world-of-warcraft-addon/programming-language",
+  datePublished: "2026-03-28T12:00:00Z",
 });
 
 export default function ProgrammingLanguage() {
@@ -20,12 +21,16 @@ export default function ProgrammingLanguage() {
           ← Back to Guides
         </Link>
         
-        <header className="mb-12 border-b border-[#FF8000]/20 pb-8">
+        <header className="mb-8 border-b border-[#FF8000]/20 pb-8">
           <div className="font-mono text-[#FF8000]/60 mb-2">PART_02</div>
           <h1 className="font-headline text-4xl md:text-5xl font-black uppercase tracking-tighter text-bone-white leading-[1.1]">
             What Programming Language Does WoW Use?
           </h1>
         </header>
+
+        <div className="font-mono text-xs text-[#FF8000]/80 mb-10 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
+          Published: March 28, 2026
+        </div>
 
         <article className="space-y-6 font-body text-lg text-bone-white/80 leading-relaxed">
           <p>

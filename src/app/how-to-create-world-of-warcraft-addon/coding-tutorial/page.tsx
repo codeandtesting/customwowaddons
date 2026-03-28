@@ -8,6 +8,7 @@ export const metadata: Metadata = generatePageSEO({
   title: "Step-by-Step Tutorial: Writing Your First Addon",
   description: "A technical masterclass. Build a World of Warcraft addon from absolute scratch using TOC files and raw Lua code.",
   canonical: "https://www.customwowaddon.com/how-to-create-world-of-warcraft-addon/coding-tutorial",
+  datePublished: "2026-03-28T12:00:00Z",
 });
 
 export default function CodingTutorial() {
@@ -20,12 +21,16 @@ export default function CodingTutorial() {
           ← Back to Guides
         </Link>
         
-        <header className="mb-12 border-b border-[#FF8000]/20 pb-8">
+        <header className="mb-8 border-b border-[#FF8000]/20 pb-8">
           <div className="font-mono text-[#FF8000]/60 mb-2">PART_03</div>
           <h1 className="font-headline text-4xl md:text-5xl font-black uppercase tracking-tighter text-bone-white leading-[1.1]">
             Step-by-Step Tutorial: Writing Your First Addon
           </h1>
         </header>
+
+        <div className="font-mono text-xs text-[#FF8000]/80 mb-10 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
+          Published: March 28, 2026
+        </div>
 
         <article className="space-y-12 font-body text-lg text-bone-white/80 leading-relaxed">
           <p className="mb-6">

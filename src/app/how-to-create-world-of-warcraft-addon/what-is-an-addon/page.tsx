@@ -8,6 +8,7 @@ export const metadata: Metadata = generatePageSEO({
   title: "What is a World of Warcraft Addon & How Does It Help?",
   description: "Learn how custom World of Warcraft addons provide a massive tactical advantage in competitive gameplay, Mythic+, and Arena brackets.",
   canonical: "https://www.customwowaddon.com/how-to-create-world-of-warcraft-addon/what-is-an-addon",
+  datePublished: "2026-03-28T12:00:00Z",
 });
 
 export default function WhatIsAnAddon() {
@@ -20,12 +21,16 @@ export default function WhatIsAnAddon() {
           ← Back to Guides
         </Link>
         
-        <header className="mb-12 border-b border-[#FF8000]/20 pb-8">
+        <header className="mb-8 border-b border-[#FF8000]/20 pb-8">
           <div className="font-mono text-[#FF8000]/60 mb-2">PART_01</div>
           <h1 className="font-headline text-4xl md:text-5xl font-black uppercase tracking-tighter text-bone-white leading-[1.1]">
             What is a World of Warcraft Addon & How Does It Help?
           </h1>
         </header>
+
+        <div className="font-mono text-xs text-[#FF8000]/80 mb-10 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
+          Published: March 28, 2026
+        </div>
 
         <article className="space-y-6 font-body text-lg text-bone-white/80 leading-relaxed">
           <p>
