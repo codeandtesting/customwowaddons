@@ -44,9 +44,9 @@ export default function Home() {
         }}
       />
 
-      {/* Google Analytics 4 - Replace G-XXXXXXXXXX with your Measurement ID */}
+      {/* Google Analytics 4 - Replace G-5KTW7E883R with your Measurement ID */}
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+        src="https://www.googletagmanager.com/gtag/js?id=G-5KTW7E883R"
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
@@ -54,7 +54,7 @@ export default function Home() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-XXXXXXXXXX');
+          gtag('config', 'G-5KTW7E883R');
         `}
       </Script>
 
