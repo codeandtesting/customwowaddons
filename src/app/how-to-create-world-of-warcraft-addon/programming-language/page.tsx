@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { generatePageSEO } from "@/lib/seo";
+import { generatePageSEO, generateArticleSchema, generateBreadcrumbSchema, SITE_URL } from "@/lib/seo";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata: Metadata = generatePageSEO({
   title: "What Programming Language Does WoW Use?",
@@ -15,6 +16,30 @@ export default function ProgrammingLanguage() {
   return (
     <main className="relative z-[2] min-h-screen text-bone-white selection:bg-[#FF8000] selection:text-obsidian flex flex-col pt-24 bg-[#09090B]">
       <Navbar />
+
+      <Script
+        id="article-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateArticleSchema({
+            title: "What Programming Language Does WoW Use?",
+            description: "Discover the programming languages behind World of Warcraft addons. Compare Lua scripting and XML structures.",
+            url: `${SITE_URL}/how-to-create-world-of-warcraft-addon/programming-language`,
+            datePublished: "2026-03-28T12:00:00Z",
+          })),
+        }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbSchema([
+            { name: "Home", url: SITE_URL },
+            { name: "How to Create a WoW Addon", url: `${SITE_URL}/how-to-create-world-of-warcraft-addon` },
+            { name: "Programming Language", url: `${SITE_URL}/how-to-create-world-of-warcraft-addon/programming-language` },
+          ])),
+        }}
+      />
       
       <div className="flex-grow container mx-auto px-6 max-w-3xl py-12">
         <Link href="/how-to-create-world-of-warcraft-addon" className="font-label text-[#FF8000] text-xs uppercase tracking-widest hover:text-white transition-colors mb-8 inline-flex items-center">
@@ -100,6 +125,20 @@ export default function ProgrammingLanguage() {
             Request a Custom Build
           </Link>
         </section>
+        {/* Cross-links */}
+        <nav className="mt-12 border-t border-[#FF8000]/20 pt-8">
+          <h3 className="font-label text-xs text-[#FF8000]/60 uppercase tracking-widest mb-6">Continue Reading</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Link href="/how-to-create-world-of-warcraft-addon/what-is-an-addon" className="group block border border-[#FF8000]/20 p-4 hover:border-[#FF8000] transition-colors">
+              <div className="font-mono text-[#FF8000]/60 text-xs mb-1">PART_01</div>
+              <div className="font-headline text-sm font-bold text-bone-white uppercase group-hover:text-[#FF8000] transition-colors">What is a WoW Addon & How Does It Help?</div>
+            </Link>
+            <Link href="/how-to-create-world-of-warcraft-addon/coding-tutorial" className="group block border border-[#FF8000]/20 p-4 hover:border-[#FF8000] transition-colors">
+              <div className="font-mono text-[#FF8000]/60 text-xs mb-1">PART_03</div>
+              <div className="font-headline text-sm font-bold text-bone-white uppercase group-hover:text-[#FF8000] transition-colors">Step-by-Step Tutorial: Writing Your First Addon</div>
+            </Link>
+          </div>
+        </nav>
       </div>
 
       <Footer />

@@ -29,6 +29,15 @@ export default function HowToCreateAddon() {
             A comprehensive, step-by-step masterclass on building custom UI modifications and scripts for World of Warcraft using Lua.
           </p>
         </header>
+
+        <div className="mb-12 font-body text-lg text-bone-white/70 leading-relaxed max-w-3xl space-y-4">
+          <p>
+            Learning how to create a World of Warcraft addon can be overwhelming. Between understanding the WoW API, writing Lua scripts, structuring XML frames, and packaging everything into a TOC file, there is a lot of ground to cover. This guide series breaks the entire process down into three focused articles, each designed to take you from zero knowledge to a fully functional, custom-built addon.
+          </p>
+          <p>
+            Whether you want to build a personal raid tracker, a custom auction house scanner, or a private PvP cooldown monitor, these guides will give you the foundation you need. Select an article below to get started.
+          </p>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Post 3 Card */}

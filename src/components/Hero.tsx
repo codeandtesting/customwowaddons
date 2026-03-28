@@ -1,16 +1,20 @@
 "use client";
 import { siteContent } from "@/data/mockData";
 import FireParticles from "./FireParticles";
+import Image from "next/image";
 
 export default function Hero() {
   const { hero } = siteContent;
   return (
     <section className="relative min-h-[921px] flex flex-col pt-16 border-b border-grid-border overflow-hidden">
       <div className="absolute inset-0 opacity-20 pointer-events-none z-0">
-        <img 
+        <Image 
           className="w-full h-full object-cover grayscale brightness-50 contrast-125" 
           src={hero.backgroundImage} 
-          alt="The Lav Forge logo"
+          alt="The Lav Forge - Custom WoW Addon Development Studio"
+          fill
+          priority
+          sizes="100vw"
         />
       </div>
 
