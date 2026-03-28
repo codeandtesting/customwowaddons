@@ -105,7 +105,7 @@ ForgeTracker.lua`}</pre>
           <p className="text-white/60 mb-6 font-body text-sm max-w-xl mx-auto">
             Printing text to a chatbox is easy. Building a localized, memory-efficient WeakAura suite with custom textures that flawlessly calculates diminishing returns across an entire 40-man raid? That&apos;s what we do.
           </p>
-          <Link href="/form" className="inline-block bg-[#FF8000] text-obsidian px-8 py-4 font-label tracking-widest uppercase font-bold text-sm hover:bg-white transition-colors duration-300 transform hover:scale-105">
+          <Link href="/#request" className="inline-block bg-[#FF8000] text-obsidian px-8 py-4 font-label tracking-widest uppercase font-bold text-sm hover:bg-white transition-colors duration-300 transform hover:scale-105">
             Hire Our Engineers
           </Link>
         </section>

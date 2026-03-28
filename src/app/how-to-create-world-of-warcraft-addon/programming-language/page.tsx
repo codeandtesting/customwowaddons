@@ -47,7 +47,7 @@ export default function ProgrammingLanguage() {
         <section className="mt-16 bg-obsidian border border-[#FF8000]/40 p-8 text-center">
           <h2 className="text-2xl font-headline font-black text-white uppercase mb-4">Don't want to learn Lua?</h2>
           <p className="text-white/60 mb-6 font-body text-sm">Skip the countless hours of debugging. We code the Lua logic specifically tailored to your needs.</p>
-          <Link href="/form" className="inline-block bg-[#FF8000] text-obsidian px-6 py-3 font-label tracking-widest uppercase font-bold text-sm hover:bg-white transition-colors">
+          <Link href="/#request" className="inline-block bg-[#FF8000] text-obsidian px-6 py-3 font-label tracking-widest uppercase font-bold text-sm hover:bg-white transition-colors">
             Request a Custom Build
           </Link>
         </section>
