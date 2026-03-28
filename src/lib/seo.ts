@@ -17,7 +17,7 @@ interface PageSEOProps {
 export function generatePageSEO({
   title,
   description,
-  image = "/og-image.jpg",
+  image = "/og-image.png",
   noIndex = false,
   canonical,
   datePublished,
