@@ -31,15 +31,15 @@ export default function HowToCreateAddon() {
         </header>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Post 1 Card */}
-          <Link href="/how-to-create-world-of-warcraft-addon/what-is-an-addon" className="group block h-full">
+          {/* Post 3 Card */}
+          <Link href="/how-to-create-world-of-warcraft-addon/coding-tutorial" className="group block h-full">
             <div className="border border-[#FF8000]/40 bg-obsidian/60 backdrop-blur-sm p-8 h-full flex flex-col hover:border-[#FF8000] hover:bg-[#FF8000]/5 transition-all duration-300 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_01</div>
+              <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_03</div>
               <h3 className="font-headline text-2xl font-black text-bone-white uppercase mb-4 mt-4 leading-tight group-hover:text-[#FF8000] transition-colors">
-                What is a WoW Addon & How Does It Help?
+                Step-by-Step Tutorial: Writing Your First Addon
               </h3>
               <p className="font-body text-bone-white/60 text-sm leading-relaxed mb-6 flex-grow">
-                Discover the tactical advantages of custom interfaces in high-level Mythic+ and Arena brackets.
+                A technical masterclass. We build an addon from absolute scratch using TOC files and raw Lua.
               </p>
               <div className="font-label text-[#FF8000] text-xs tracking-widest uppercase mt-auto flex items-center group-hover:translate-x-2 transition-transform">
                 Read Guide 
@@ -69,15 +69,15 @@ export default function HowToCreateAddon() {
             </div>
           </Link>
 
-          {/* Post 3 Card */}
-          <Link href="/how-to-create-world-of-warcraft-addon/coding-tutorial" className="group block h-full">
+          {/* Post 1 Card */}
+          <Link href="/how-to-create-world-of-warcraft-addon/what-is-an-addon" className="group block h-full">
             <div className="border border-[#FF8000]/40 bg-obsidian/60 backdrop-blur-sm p-8 h-full flex flex-col hover:border-[#FF8000] hover:bg-[#FF8000]/5 transition-all duration-300 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_03</div>
+              <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_01</div>
               <h3 className="font-headline text-2xl font-black text-bone-white uppercase mb-4 mt-4 leading-tight group-hover:text-[#FF8000] transition-colors">
-                Step-by-Step Tutorial: Writing Your First Addon
+                What is a WoW Addon & How Does It Help?
               </h3>
               <p className="font-body text-bone-white/60 text-sm leading-relaxed mb-6 flex-grow">
-                A technical masterclass. We build an addon from absolute scratch using TOC files and raw Lua.
+                Discover the tactical advantages of custom interfaces in high-level Mythic+ and Arena brackets.
               </p>
               <div className="font-label text-[#FF8000] text-xs tracking-widest uppercase mt-auto flex items-center group-hover:translate-x-2 transition-transform">
                 Read Guide 
