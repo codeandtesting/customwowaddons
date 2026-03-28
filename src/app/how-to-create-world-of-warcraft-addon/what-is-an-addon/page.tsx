@@ -28,8 +28,14 @@ export default function WhatIsAnAddon() {
           </h1>
         </header>
 
-        <div className="font-mono text-xs text-[#FF8000]/80 mb-10 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
+        <div className="font-mono text-xs text-[#FF8000]/80 mb-6 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
           Published: March 28, 2026
+        </div>
+
+        <div className="flex flex-wrap gap-3 mb-10">
+          <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#WorldOfWarcraft</span>
+          <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#Addons</span>
+          <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#Gaming</span>
         </div>
 
         <article className="space-y-6 font-body text-lg text-bone-white/80 leading-relaxed">
@@ -37,7 +43,7 @@ export default function WhatIsAnAddon() {
             A World of Warcraft addon is a custom piece of software that modifies the game's default User Interface (UI). Since its initial launch, Blizzard Entertainment has allowed players to write scripts that interact with the game engine to display information, automate UI tasks, and completely overhaul how the game looks and feels.
           </p>
           <p>
-            <strong>How do they help?</strong> At the highest levels of competitive play—whether it's pushing Mythic+ keystones, progressing in Mythic Raiding, or climbing the Gladiator arena brackets—information processing is the only bottleneck. The default UI is notoriously inefficient at communicating critical cooldowns, boss abilities, and buff timers.
+            <strong>How do they help?</strong> At the highest levels of competitive play (whether it's pushing Mythic+ keystones, progressing in Mythic Raiding, or climbing the Gladiator arena brackets) information processing is the only bottleneck. The default UI is notoriously inefficient at communicating critical cooldowns, boss abilities, and buff timers.
           </p>
           <p>
             Custom addons bridge this gap. A perfectly engineered addon can track exact diminishing returns in PvP, alert a raid about a lethal mechanic 3 seconds before it happens, or automatically filter thousands of auction house undercuts in milliseconds. Simply put: Addons convert raw game data into an unfair, actionable tactical advantage.

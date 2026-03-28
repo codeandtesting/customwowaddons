@@ -28,13 +28,19 @@ export default function CodingTutorial() {
           </h1>
         </header>
 
-        <div className="font-mono text-xs text-[#FF8000]/80 mb-10 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
+        <div className="font-mono text-xs text-[#FF8000]/80 mb-6 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
           Published: March 28, 2026
+        </div>
+
+        <div className="flex flex-wrap gap-3 mb-10">
+          <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#Tutorial</span>
+          <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#LuaScripting</span>
+          <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#GameDev</span>
         </div>
 
         <article className="space-y-12 font-body text-lg text-bone-white/80 leading-relaxed">
           <p className="mb-6">
-            Ready to write your own addon? We are going to build a completely from-scratch addon that logs when the addon successfully loads into the game. No third-party libraries—just pure, raw Lua code.
+            Ready to write your own addon? We are going to build a completely from-scratch addon that logs when the addon successfully loads into the game. No third-party libraries - just pure, raw Lua code.
           </p>
 
           <div className="space-y-12">

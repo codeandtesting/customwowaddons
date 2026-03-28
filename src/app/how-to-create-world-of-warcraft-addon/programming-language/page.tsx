@@ -28,8 +28,14 @@ export default function ProgrammingLanguage() {
           </h1>
         </header>
 
-        <div className="font-mono text-xs text-[#FF8000]/80 mb-10 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
+        <div className="font-mono text-xs text-[#FF8000]/80 mb-6 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
           Published: March 28, 2026
+        </div>
+
+        <div className="flex flex-wrap gap-3 mb-10">
+          <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#Lua</span>
+          <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#Programming</span>
+          <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#WoWAPI</span>
         </div>
 
         <article className="space-y-6 font-body text-lg text-bone-white/80 leading-relaxed">
@@ -45,7 +51,7 @@ export default function ProgrammingLanguage() {
             </li>
           </ul>
           <p>
-            In addition to these languages, developers must utilize the <strong>WoW API</strong> (Application Programming Interface)—a massive, undocumented library of functions provided by Blizzard (like <code>UnitHealth("player")</code>) that allows your Lua code to ask the game engine for live information.
+            In addition to these languages, developers must utilize the <strong>WoW API</strong> (Application Programming Interface), which is a massive, undocumented library of functions provided by Blizzard (like <code>UnitHealth("player")</code>) that allows your Lua code to ask the game engine for live information.
           </p>
         </article>
 
