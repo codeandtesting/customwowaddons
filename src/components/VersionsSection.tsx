@@ -1,5 +1,6 @@
 "use client";
 import { siteContent } from "@/data/mockData";
+import Image from "next/image";
 
 export default function VersionsSection() {
   return (
@@ -7,7 +8,7 @@ export default function VersionsSection() {
       {siteContent.versions.map((ver) => (
         <div key={ver.title} className="relative group cursor-pointer overflow-hidden border-b md:border-b-0 md:border-r border-grid-border flex flex-col justify-end p-12">
           <div className="absolute inset-0 z-0 opacity-40 group-hover:opacity-20 transition-opacity">
-            <img className="w-full h-full object-cover grayscale brightness-50 contrast-125" src={ver.image} alt={ver.title} />
+            <Image className="w-full h-full object-cover grayscale brightness-50 contrast-125" src={ver.image} alt={`${ver.title} - Custom WoW Addon Development`} fill sizes="(max-width: 768px) 100vw, 50vw" />
           </div>
           <div className="relative z-10">
             <h3 className="font-headline text-6xl font-black mb-6 uppercase tracking-tighter">
