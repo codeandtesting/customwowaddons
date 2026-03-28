@@ -89,6 +89,7 @@ export const siteContent = {
     links: [
       { label: "TERMS OF SERVICE", href: "/terms" },
       { label: "PRIVACY POLICY", href: "/privacy" },
+      { label: "HOW TO CREATE WOW ADDONS", href: "/how-to-create-world-of-warcraft-addon"}
     ],
     copyright: "© 2026 THE LAV FORGE. ALL RIGHTS RESERVED.",
   },
