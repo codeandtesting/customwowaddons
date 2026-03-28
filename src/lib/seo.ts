@@ -3,7 +3,7 @@ import { Metadata } from "next";
 const SITE_URL = "https://www.customwowaddon.com";
 const SITE_NAME = "The Lav Forge";
 const SITE_DESCRIPTION =
-  "Custom World of Warcraft Addons & WeakAuras built from scratch. Elite Lua development studio for personal addons, casino systems, UI suites, and pro WeakAura engineering.";
+  "Custom World of Warcraft Addons & WeakAuras built from scratch. Elite Lua studio for private addons, UI suites, and pro WeakAura engineering.";
 
 interface PageSEOProps {
   title: string;
