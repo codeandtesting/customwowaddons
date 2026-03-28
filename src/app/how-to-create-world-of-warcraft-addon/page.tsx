@@ -39,7 +39,26 @@ export default function HowToCreateAddon() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Post 4 Card - NEWEST */}
+          <Link href="/how-to-create-world-of-warcraft-addon/weakauras-vs-custom-addons" className="group block h-full">
+            <div className="border border-[#FF8000]/40 bg-obsidian/60 backdrop-blur-sm p-8 h-full flex flex-col hover:border-[#FF8000] hover:bg-[#FF8000]/5 transition-all duration-300 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_04</div>
+              <h3 className="font-headline text-2xl font-black text-bone-white uppercase mb-4 mt-4 leading-tight group-hover:text-[#FF8000] transition-colors">
+                WeakAuras vs Custom Addons: Which Do You Need?
+              </h3>
+              <p className="font-body text-bone-white/60 text-sm leading-relaxed mb-6 flex-grow">
+                A deep comparison of WeakAuras and custom-built addons. Learn when each solution fits and where the limits are.
+              </p>
+              <div className="font-label text-[#FF8000] text-xs tracking-widest uppercase mt-auto flex items-center group-hover:translate-x-2 transition-transform">
+                Read Guide 
+                <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            </div>
+          </Link>
+
           {/* Post 3 Card */}
           <Link href="/how-to-create-world-of-warcraft-addon/coding-tutorial" className="group block h-full">
             <div className="border border-[#FF8000]/40 bg-obsidian/60 backdrop-blur-sm p-8 h-full flex flex-col hover:border-[#FF8000] hover:bg-[#FF8000]/5 transition-all duration-300 relative overflow-hidden">
