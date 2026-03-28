@@ -25,8 +25,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/how-to-create-world-of-warcraft-addon`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/how-to-create-world-of-warcraft-addon/what-is-an-addon`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/how-to-create-world-of-warcraft-addon/programming-language`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/how-to-create-world-of-warcraft-addon/coding-tutorial`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
   ];
 }
