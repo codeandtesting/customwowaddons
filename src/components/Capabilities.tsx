@@ -24,7 +24,7 @@ const capabilities = [
   {
     tag: "CUSTOM_TOOLS",
     title: "CAN'T FIND IT? WE BUILD IT.",
-    desc: "If it doesn't exist on CurseForge, we write it from scratch. Auction house scanners, guild management tools, PvP stat trackers, loot council systems — anything you need.",
+    desc: "CurseForge is an incredible platform packed with amazing free addons - check out our own projects there! But sometimes you dream of something truly unique that does not exist yet. That is where we come in: we build it from scratch, tailored precisely to your vision.",
     examples: ["Auction Snipers", "Guild Roster Tools", "Loot Distribution"],
   },
   {

@@ -99,10 +99,10 @@ export default function WhatIsAnAddon() {
             3. The Private Addon Advantage
           </h2>
           <p>
-            Most addons on <a href="https://www.curseforge.com/wow/addons" target="_blank" rel="noopener noreferrer" className="text-[#FF8000] font-bold hover:underline">CurseForge</a> are free, open-source, and built for the masses. They are excellent starting points, but because everyone uses them, they do not provide a competitive edge. The real power comes from <strong>private, custom-built addons</strong> engineered specifically for your playstyle, your guild&apos;s raid strategy, or your gold-making operation.
+            <a href="https://www.curseforge.com/wow/addons" target="_blank" rel="noopener noreferrer" className="text-[#FF8000] font-bold hover:underline">CurseForge</a> is an incredible platform and the backbone of the WoW addon ecosystem. Thousands of free, high-quality addons live there, and we are proud to <a href="https://www.curseforge.com/members/thelavforge/projects" target="_blank" rel="noopener noreferrer" className="text-[#FF8000] font-bold hover:underline">publish our own projects on CurseForge</a> as well. For most players, downloading from CurseForge is the perfect starting point.
           </p>
           <p>
-            A private addon can be tuned to display only the exact information you need, in the exact position you want, with zero bloat. Top-100 guilds frequently commission or build internal tools that track fight-specific metrics their competitors cannot see. Arena gladiators use custom-coded DR (diminishing returns) trackers with audio cues that react faster than any publicly available alternative. This is the level where addons stop being a convenience and become a genuine competitive weapon.
+            But sometimes you dream of something truly unique. Maybe you need an addon tuned to your exact playstyle, your guild&apos;s specific raid strategy, or a gold-making operation that nobody else has access to. That is where <strong>private, custom-built addons</strong> come in. A custom addon can be engineered to display only the exact information you need, in the exact position you want, with zero bloat and zero competition.
           </p>
 
           <h2 className="text-2xl font-headline font-black text-white uppercase mt-12 mb-4 border-l-4 border-[#FF8000] pl-4">
