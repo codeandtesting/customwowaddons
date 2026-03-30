@@ -24,8 +24,9 @@ const capabilities = [
   {
     tag: "CUSTOM_TOOLS",
     title: "CAN'T FIND IT? WE BUILD IT.",
-    desc: "CurseForge is an incredible platform packed with amazing free addons - check out our own projects there! But sometimes you dream of something truly unique that does not exist yet. That is where we come in: we build it from scratch, tailored precisely to your vision.",
+    desc: "CurseForge is an incredible platform packed with amazing free addons. But sometimes you dream of something truly unique that does not exist yet. That is where we come in: we build it from scratch, tailored precisely to your vision.",
     examples: ["Auction Snipers", "Guild Roster Tools", "Loot Distribution"],
+    curseForgeLink: "https://www.curseforge.com/members/thelavforge/projects",
   },
   {
     tag: "UI_OVERHAULS",
@@ -104,7 +105,7 @@ export default function Capabilities() {
               </div>
             </div>
 
-            <div className="relative z-10 border-t border-gold-accent/10 pt-6 mt-auto">
+            <div className="relative z-10 border-t border-gold-accent/10 pt-6 mt-auto flex items-center justify-between flex-wrap gap-4">
               <a
                 href="#request"
                 onClick={smoothScroll}
@@ -115,6 +116,16 @@ export default function Capabilities() {
                   east
                 </span>
               </a>
+              {cap.curseForgeLink && (
+                <a
+                  href={cap.curseForgeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-headline text-xs font-black uppercase tracking-widest text-[#FF8000] hover:text-white transition-colors inline-flex items-center gap-2"
+                >
+                  Our CurseForge ↗
+                </a>
+              )}
             </div>
           </div>
         ))}
