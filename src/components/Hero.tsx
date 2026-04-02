@@ -35,9 +35,9 @@ export default function Hero() {
       </div>
 
       <div className="border-t border-grid-border flex flex-wrap justify-between items-center p-6 bg-obsidian/80 backdrop-blur-md relative z-10">
-        <div className="flex gap-12 text-[10px] font-label uppercase tracking-[0.2em] text-gold-accent">
+        <div className="flex flex-wrap gap-4 md:gap-12 text-[10px] font-label uppercase tracking-[0.2em] text-gold-accent">
           {hero.secondaryLinks.map((link) => (
-            <a key={link.label} className="hover:text-primary transition-colors" href={link.href}>
+            <a key={link.label} className="hover:text-primary transition-colors whitespace-nowrap" href={link.href}>
               {link.label}
             </a>
           ))}
