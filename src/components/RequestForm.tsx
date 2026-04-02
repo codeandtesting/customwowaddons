@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 export default function RequestForm() {
   return (
@@ -76,17 +77,10 @@ export default function RequestForm() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-full py-4 border-2 border-[#1dbf73] bg-[#1dbf73]/10 text-[#1dbf73] font-headline text-sm md:text-base font-black uppercase tracking-widest hover:bg-[#1dbf73] hover:text-obsidian hover:shadow-[0_0_20px_rgba(29,191,115,0.4)] transition-all duration-300 cursor-pointer group"
             >
-              {/* Custom Fiverr SVG Icon */}
-              <svg 
-                className="w-5 h-5 mr-3 shrink-0 group-hover:scale-110 transition-transform" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="12" cy="12" r="12" fill="currentColor" className="fill-current" />
-                <path d="M12.5 12V8h-2.5V6.5A1.5 1.5 0 0 1 11.5 5h1V3h-1.5A3.5 3.5 0 0 0 7.5 6.5V8H5v2.5h2.5v7h2.5v-7h2.5z" fill="white" className="group-hover:fill-obsidian transition-colors" />
-                <circle cx="14" cy="5.5" r="1.5" fill="white" className="group-hover:fill-obsidian transition-colors" />
-              </svg>
+              {/* Actual Fiverr Logo Image */}
+              <div className="relative w-6 h-6 mr-3 shrink-0 group-hover:scale-110 transition-transform">
+                <Image src="/fiverlogo.png" alt="Fiverr Logo" fill sizes="24px" className="object-contain" />
+              </div>
               Secure Fiverr Pro
             </a>
             
