@@ -67,18 +67,34 @@ export default function RequestForm() {
             JOIN DISCORD & OPEN TICKET
           </a>
 
-          {/* Secondary Web Form Button */}
-          <a
-            href="https://form.typeform.com/to/fYENAzD1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-full py-4 border border-[#FF8000]/30 text-[#FF8000]/80 font-label text-xs uppercase tracking-widest hover:bg-[#FF8000]/10 hover:border-[#FF8000]/60 hover:text-[#FF8000] hover:shadow-[0_0_15px_rgba(255,128,0,0.3)] transition-all duration-300 cursor-pointer group"
-          >
-            No Discord? Fill out a custom web form
-            <svg className="w-3.5 h-3.5 ml-2 opacity-50 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
+          {/* Secondary Options */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            {/* Fiverr Button */}
+            <a
+              href="https://pro.fiverr.com/s/bdERDgY"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-full py-4 border border-[#00b22d]/30 text-[#00b22d]/80 font-label text-xs uppercase tracking-widest hover:bg-[#00b22d]/10 hover:border-[#00b22d]/60 hover:text-[#00b22d] hover:shadow-[0_0_15px_rgba(0,178,45,0.3)] transition-all duration-300 cursor-pointer group"
+            >
+              Order Securely via Fiverr Pro
+              <svg className="w-3.5 h-3.5 ml-2 opacity-50 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+            
+            {/* Typeform Button */}
+            <a
+              href="https://form.typeform.com/to/fYENAzD1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-full py-4 border border-[#FF8000]/30 text-[#FF8000]/80 font-label text-xs uppercase tracking-widest hover:bg-[#FF8000]/10 hover:border-[#FF8000]/60 hover:text-[#FF8000] hover:shadow-[0_0_15px_rgba(255,128,0,0.3)] transition-all duration-300 cursor-pointer group"
+            >
+              No Discord? Use Web Form
+              <svg className="w-3.5 h-3.5 ml-2 opacity-50 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
         </div>
 
         {/* Subtext */}
