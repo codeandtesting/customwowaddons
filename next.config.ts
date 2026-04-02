@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // SEO URL consistency (prevents trailing slash duplicate content)
+  trailingSlash: false,
+
   // Image optimization
   images: {
     formats: ["image/avif", "image/webp"],
