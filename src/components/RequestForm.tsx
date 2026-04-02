@@ -81,7 +81,7 @@ export default function RequestForm() {
               <div className="relative w-6 h-6 mr-3 shrink-0 group-hover:scale-110 transition-transform">
                 <Image src="/fiverlogo.png" alt="Fiverr Logo" fill sizes="24px" className="object-contain" />
               </div>
-              Secure Fiverr Pro
+              Order On Fiverr
             </a>
             
             {/* Typeform Button */}
