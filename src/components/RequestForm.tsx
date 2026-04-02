@@ -74,12 +74,20 @@ export default function RequestForm() {
               href="https://pro.fiverr.com/s/bdERDgY"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-full py-4 border border-[#00b22d]/30 text-[#00b22d]/80 font-label text-xs uppercase tracking-widest hover:bg-[#00b22d]/10 hover:border-[#00b22d]/60 hover:text-[#00b22d] hover:shadow-[0_0_15px_rgba(0,178,45,0.3)] transition-all duration-300 cursor-pointer group"
+              className="inline-flex items-center justify-center w-full py-4 border-2 border-[#1dbf73] bg-[#1dbf73]/10 text-[#1dbf73] font-headline text-sm md:text-base font-black uppercase tracking-widest hover:bg-[#1dbf73] hover:text-obsidian hover:shadow-[0_0_20px_rgba(29,191,115,0.4)] transition-all duration-300 cursor-pointer group"
             >
-              Order Securely via Fiverr Pro
-              <svg className="w-3.5 h-3.5 ml-2 opacity-50 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              {/* Custom Fiverr SVG Icon */}
+              <svg 
+                className="w-5 h-5 mr-3 shrink-0 group-hover:scale-110 transition-transform" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="12" cy="12" r="12" fill="currentColor" className="fill-current" />
+                <path d="M12.5 12V8h-2.5V6.5A1.5 1.5 0 0 1 11.5 5h1V3h-1.5A3.5 3.5 0 0 0 7.5 6.5V8H5v2.5h2.5v7h2.5v-7h2.5z" fill="white" className="group-hover:fill-obsidian transition-colors" />
+                <circle cx="14" cy="5.5" r="1.5" fill="white" className="group-hover:fill-obsidian transition-colors" />
               </svg>
+              Secure Fiverr Pro
             </a>
             
             {/* Typeform Button */}
@@ -87,12 +95,17 @@ export default function RequestForm() {
               href="https://form.typeform.com/to/fYENAzD1"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-full py-4 border border-[#FF8000]/30 text-[#FF8000]/80 font-label text-xs uppercase tracking-widest hover:bg-[#FF8000]/10 hover:border-[#FF8000]/60 hover:text-[#FF8000] hover:shadow-[0_0_15px_rgba(255,128,0,0.3)] transition-all duration-300 cursor-pointer group"
+              className="inline-flex items-center justify-center w-full py-4 border-2 border-[#FF8000] bg-[#FF8000]/10 text-[#FF8000] font-headline text-sm md:text-base font-black uppercase tracking-widest hover:bg-[#FF8000] hover:text-obsidian hover:shadow-[0_0_20px_rgba(255,128,0,0.4)] transition-all duration-300 cursor-pointer group"
             >
-              No Discord? Use Web Form
-              <svg className="w-3.5 h-3.5 ml-2 opacity-50 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg 
+                className="w-5 h-5 mr-3 shrink-0 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all group-hover:text-obsidian" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
+              Use Web Form
             </a>
           </div>
         </div>
