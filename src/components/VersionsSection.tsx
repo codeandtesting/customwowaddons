@@ -29,10 +29,13 @@ export default function VersionsSection({ dict }: VersionsSectionProps) {
             <Image className="w-full h-full object-cover grayscale brightness-50 contrast-125" src={ver.image} alt={`${ver.title} - Custom WoW Addon Development`} fill sizes="(max-width: 768px) 100vw, 33vw" />
           </div>
           <div className="relative z-10">
+            <h3 className="text-3xl md:text-4xl font-headline mb-6 tracking-tighter text-bone-white group-hover:text-gold-accent transition-colors duration-500">
+              {ver.title}
+            </h3>
             <p className="max-w-md text-lg font-body leading-relaxed text-bone-white/70 uppercase">
               {ver.description}
             </p>
-            <div className="mt-8 font-label text-sm font-mono group-hover:font-bold">
+            <div className="mt-8 font-label text-sm font-mono group-hover:text-gold-accent transition-colors duration-500">
               [ {ver.protocol} ]
             </div>
           </div>
@@ -41,4 +44,3 @@ export default function VersionsSection({ dict }: VersionsSectionProps) {
     </section>
   );
 }
-
