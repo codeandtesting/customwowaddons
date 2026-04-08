@@ -15,7 +15,7 @@ export default function WhyUs({ dict }: WhyUsProps) {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-grid-border">
         {whyUs.reasons.map((reason: any) => (
-          <div key={reason.id} className="p-12">
+          <div key={reason.id} className="p-12 text-center lg:text-left">
             <div className="text-gold-accent font-label text-4xl mb-6 font-mono">{reason.id}</div>
             <h4 className="font-headline text-2xl mb-4 text-bone-white uppercase">
               {reason.title}
