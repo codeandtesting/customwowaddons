@@ -3,18 +3,26 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { generatePageSEO } from "@/lib/seo";
 import Link from "next/link";
+import { Locale } from "@/lib/i18n-config";
+import { getDictionary } from "@/lib/get-dictionary";
 
-export const metadata: Metadata = generatePageSEO({
-  title: "How to Create a World of Warcraft Addon: The Ultimate Guide",
-  description:
-    "Learn how to create a World of Warcraft addon from scratch. Discover what programming languages are used (Lua & XML) and write your first WoW addon step-by-step.",
-  canonical: "https://www.customwowaddon.com/how-to-create-world-of-warcraft-addon",
-});
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return generatePageSEO({
+    title: locale === "en" ? "How to Create a World of Warcraft Addon: The Ultimate Guide" : "How to Create a World of Warcraft Addon",
+    description:
+      "Learn how to create a World of Warcraft addon from scratch. Discover what programming languages are used (Lua & XML) and write your first WoW addon step-by-step.",
+    canonical: `https://www.customwowaddon.com/${locale}/how-to-create-wow-addons`,
+  });
+}
 
-export default function HowToCreateAddon() {
+export default async function HowToCreateAddon({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  const dict = await getDictionary(locale);
+
   return (
     <main className="relative z-[2] min-h-screen text-bone-white selection:bg-gold-accent selection:text-obsidian flex flex-col pt-24 bg-[#09090B]">
-      <Navbar />
+      <Navbar dict={dict} currentLocale={locale} />
       
       <div className="flex-grow container mx-auto px-6 max-w-4xl py-12">
         {/* Header */}
@@ -41,7 +49,7 @@ export default function HowToCreateAddon() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Post 5 Card - NEWEST */}
-          <Link href="/how-to-create-world-of-warcraft-addon/branding-guide" className="group block h-full">
+          <Link href={`/${locale}/how-to-create-wow-addons/branding-guide`} className="group block h-full">
             <div className="border border-[#FF8000]/40 bg-obsidian/60 backdrop-blur-sm p-8 h-full flex flex-col hover:border-[#FF8000] hover:bg-[#FF8000]/5 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_05</div>
               <h3 className="font-headline text-2xl font-black text-bone-white uppercase mb-4 mt-4 leading-tight group-hover:text-[#FF8000] transition-colors">
@@ -60,7 +68,7 @@ export default function HowToCreateAddon() {
           </Link>
 
           {/* Post 4 Card */}
-          <Link href="/how-to-create-world-of-warcraft-addon/weakauras-vs-custom-addons" className="group block h-full">
+          <Link href={`/${locale}/how-to-create-wow-addons/weakauras-vs-custom-addons`} className="group block h-full">
             <div className="border border-[#FF8000]/40 bg-obsidian/60 backdrop-blur-sm p-8 h-full flex flex-col hover:border-[#FF8000] hover:bg-[#FF8000]/5 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_04</div>
               <h3 className="font-headline text-2xl font-black text-bone-white uppercase mb-4 mt-4 leading-tight group-hover:text-[#FF8000] transition-colors">
@@ -79,7 +87,7 @@ export default function HowToCreateAddon() {
           </Link>
 
           {/* Post 3 Card */}
-          <Link href="/how-to-create-world-of-warcraft-addon/coding-tutorial" className="group block h-full">
+          <Link href={`/${locale}/how-to-create-wow-addons/coding-tutorial`} className="group block h-full">
             <div className="border border-[#FF8000]/40 bg-obsidian/60 backdrop-blur-sm p-8 h-full flex flex-col hover:border-[#FF8000] hover:bg-[#FF8000]/5 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_03</div>
               <h3 className="font-headline text-2xl font-black text-bone-white uppercase mb-4 mt-4 leading-tight group-hover:text-[#FF8000] transition-colors">
@@ -98,7 +106,7 @@ export default function HowToCreateAddon() {
           </Link>
 
           {/* Post 2 Card */}
-          <Link href="/how-to-create-world-of-warcraft-addon/programming-language" className="group block h-full">
+          <Link href={`/${locale}/how-to-create-wow-addons/programming-language`} className="group block h-full">
             <div className="border border-[#FF8000]/40 bg-obsidian/60 backdrop-blur-sm p-8 h-full flex flex-col hover:border-[#FF8000] hover:bg-[#FF8000]/5 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_02</div>
               <h3 className="font-headline text-2xl font-black text-bone-white uppercase mb-4 mt-4 leading-tight group-hover:text-[#FF8000] transition-colors">
@@ -117,7 +125,7 @@ export default function HowToCreateAddon() {
           </Link>
 
           {/* Post 1 Card */}
-          <Link href="/how-to-create-world-of-warcraft-addon/what-is-an-addon" className="group block h-full">
+          <Link href={`/${locale}/how-to-create-wow-addons/what-is-an-addon`} className="group block h-full">
             <div className="border border-[#FF8000]/40 bg-obsidian/60 backdrop-blur-sm p-8 h-full flex flex-col hover:border-[#FF8000] hover:bg-[#FF8000]/5 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 font-mono text-xs text-[#FF8000]/60">PART_01</div>
               <h3 className="font-headline text-2xl font-black text-bone-white uppercase mb-4 mt-4 leading-tight group-hover:text-[#FF8000] transition-colors">
@@ -137,7 +145,7 @@ export default function HowToCreateAddon() {
         </div>
       </div>
 
-      <Footer />
+      <Footer dict={dict} currentLocale={locale} />
     </main>
   );
 }

@@ -1,0 +1,223 @@
+{
+  "brand": "THE LAV FORGE",
+  "nav": {
+    "services": "服务项目",
+    "expansions": "扩展版本",
+    "capabilities": "核心能力",
+    "whyUs": "为何选择我们",
+    "contact": "联系我们"
+  },
+  "hero": {
+    "badge": "THE LAV FORGE // 顶级魔兽插件工作室",
+    "title": {
+      "part1": "定制",
+      "accent1": "插件.",
+      "part2": "专业",
+      "accent2": "WEAKAURAS.",
+      "part3": "为您",
+      "accent3": "打造."
+    },
+    "description": "我们从零开始构建定制化的《魔兽世界》插件和 WeakAura 套件。告别臃肿且充满漏洞的公开版 CurseForge 文件。获取一个完全按照您的需求打造、无错且高效的自定义 UI。",
+    "links": {
+      "whatWeDo": "[ 我们的服务 ]",
+      "versions": "[ 适配版本 ]",
+      "request": "[ 提交需求 ]"
+    }
+  },
+  "services": {
+    "addons": {
+      "title": "定制插件开发",
+      "description": "全方位 Lua 脚本开发。从独立的拍卖行扫描器到复杂的公会管理系统。轻量、优化、严格按照您的要求构建。拒绝臃肿的库文件，只追求纯粹的性能。"
+    },
+    "weakauras": {
+      "title": "专业 WEAKAURAS",
+      "description": "复杂的 WeakAura 套件。我们编写自定义触发器逻辑，构建您在其他任何地方都找不到的特定团队副本警报。预测性资源监控和动态技能冷却管理。"
+    },
+    "ui": {
+      "title": "界面整合设定",
+      "description": "全面的界面翻新。我们配置 ElvUI、Plater 和 Details，为您打造适配职业的整洁、极简风设置。像素级对齐，提供专业的视觉可读性。"
+    }
+  },
+  "versions": {
+    "midnight": {
+      "title": "地心之战/后续版本",
+      "description": "我们为全新的球员住宅系统编写自定义布局保存程序，自动化库存逻辑，并为现代正式服终局内容设计高性能 HUD。",
+      "protocol": "正在初始化虚空协议 (VOID_PROTOCOL)"
+    },
+    "tbc": {
+      "title": "怀旧服系列",
+      "description": "我们构建零延迟团队框架、精确的攻击计时器，以及真正适配怀旧服客户端的现代优化功能。复古之魂，现代引擎。",
+      "protocol": "正在调取邪能编年史 (FEL_CHRONICLE)"
+    },
+    "private": {
+      "title": "私人服务器",
+      "description": "为 Warmane 3.3.5a、旧版客户端及其他私服架构提供定制插件。针对特定版本的技术限制进行优化开发。",
+      "protocol": "正在支持遗产碎片 (LEGACY_SHARDS)"
+    }
+  },
+  "whyUs": {
+    "title": "为什么不直接用 CURSEFORGE？",
+    "reasons": [
+      {
+        "id": "01_",
+        "title": "零臃肿",
+        "description": "大多数公开插件包含数千行无用代码。我们剔除非核心部分，为您在高强度的史诗团本中赢回宝贵的 FPS 帧数。"
+      },
+      {
+        "id": "02_",
+        "title": "补丁同步更新",
+        "description": "无需等待那些已停更的 GitHub 仓库。我们的开发合同包含对主版本及小补丁的直接支持，确保您的 UI 不会在版本更新后失灵。"
+      },
+      {
+        "id": "03_",
+        "title": "精准契合需求",
+        "description": "需要一个仅监控公会特定 DKP 系统的插件？或者一个针对战斗记录中特定事件触发的 WA？只要您有想法，我们就能将其变为现实。"
+      },
+      {
+        "id": "04_",
+        "title": "1 个月免费售后",
+        "description": "项目交付后您不会感到孤立无援。发现漏洞？在交付后的一个月内，我们将免费为您修复。"
+      }
+    ]
+  },
+  "request": {
+    "tag": "定制开发需求",
+    "headline": "想要您的",
+    "accent": "专属插件?",
+    "description": "在我们的 Discord 中开启工单。告诉我们您遇到的难题，我们将为您构建专属的解决方案。",
+    "steps": {
+      "01": { "label": "加入", "desc": "进入熔炉" },
+      "02": { "label": "开启工单", "desc": "描述您的愿景" },
+      "03": { "label": "我们构建", "desc": "获取您的插件" }
+    },
+    "cta": {
+      "discord": "加入 DISCORD 并开启工单",
+      "fiverr": "在 Fiverr 上下单",
+      "form": "使用在线表单"
+    },
+    "subtext": "隐私 · 安全 · 平均响应时间: < 2 小时"
+  },
+  "capabilities": {
+    "badge": "[ 业务范围 ]",
+    "title": "在寻找某些",
+    "titleAccent": "找不到的内容？",
+    "description": "我们专注于开发尚未面世的插件和系统。只要您能描述出来，我们就能将其实现。",
+    "cta": "开始项目",
+    "items": [
+      {
+        "tag": "WEAKAURA_ENGINE",
+        "title": "个人专属 WEAKAURAS",
+        "desc": "根据您的职业、专精和操作习惯量身定制。包含预测性冷却追踪、智能资源条和独家团本警报。",
+        "examples": ["治疗优先级显示", "大秘境打断轮换", "首领技能追踪"]
+      },
+      {
+        "tag": "CASINO_SYSTEMS",
+        "title": "WOW 赌场系统插件",
+        "desc": "全自动化的游戏内赌场系统。通过整洁、防作弊的插件界面管理游戏、下注和赔付。",
+        "examples": ["21点 13", "21点 100", "磨损的巨魔骰子"]
+      },
+      {
+        "tag": "CUSTOM_TOOLS",
+        "title": "找不到？我们来造。",
+        "desc": "CurseForge 很棒，但有时您需要真正独特的功能。我们从零开始，完全按照您的愿景构建。",
+        "examples": ["拍卖行狙击手", "公会名册工具", "掉落分配系统"],
+        "curseForgeLabel": "访问我们的 CurseForge ↗"
+      },
+      {
+        "tag": "UI_OVERHAULS",
+        "title": "全套 UI 整合",
+        "desc": "从底层重新构建界面。我们将 ElvUI、Plater、Details 和自定义框架整合为适配您分辨率的统一样式。",
+        "examples": ["坦克 HUD 包", "治疗团队框架布局", "DPS 极简设置"]
+      }
+    ],
+    "requestLabel": "提交需求"
+  },
+  "faq": [
+    {
+      "question": "定制一个魔兽插件需要多少钱？",
+      "answer": "价格取决于项目的复杂程度。简单的 UI 修改或 WeakAura 套件价格较低，而带有自定义数据库、本地化和多模块架构的全尺寸插件开发则需要单独报价。请通过 Discord 或我们的需求表单联系我们以获取免费评估。"
+    },
+    {
+      "question": "开发一个定制插件需要多长时间？",
+      "answer": "大多数简单的插件和 WeakAura 套件可以在 1-3 天内交付。包含多个模块、SavedVariables 数据库或重度 API 集成的复杂项目通常需要 1-2 周。我们会在整个开发过程中提供进度更新。"
+    },
+    {
+      "question": "魔兽插件是用什么编程语言编写的？",
+      "answer": "《魔兽世界》插件使用 Lua（逻辑）和 XML（UI 结构）编写。游戏运行一个沙盒版本的 Lua 5.1。现代开发者通常跳过 XML，直接使用 WoW API 在 Lua 中创建框架。"
+    },
+    {
+      "question": "定制的魔兽插件安全且合法吗？",
+      "answer": "是的。定制插件是 100% 合法的，并得到暴雪娱乐的官方支持。插件在沙盒中运行，无法访问您的操作系统、读取文件或自动化游戏输入。它们只能从游戏引擎读取数据并显示给玩家。"
+    },
+    {
+      "question": "你们能构建只有我一个人能用的私人插件吗？",
+      "answer": "当然可以。我们专注于为您个人的游戏风格、公会的开荒策略或赚金操作开发私人定制插件。除非您选择分享，否则您的插件不会公开发布。"
+    }
+  ],
+  "privacy": {
+    "title": "隐私政策",
+    "sections": [
+      {
+        "title": "1. 我们收集的信息",
+        "content": "The Lav Forge（以下简称“工作室”）遵循数据最小化原则。我们仅收集项目所需的必要信息。"
+      },
+      {
+        "title": "2. 数据使用",
+        "content": "您的联系方式仅用于项目更新和技术支持。"
+      },
+      {
+        "title": "3. 保密",
+        "content": "工作室将所有游戏策略视为商业机密。我们绝不出售您的数据。"
+      }
+    ]
+  },
+  "terms": {
+    "title": "服务条款",
+    "sections": [
+      {
+        "title": "1. 服务范围",
+        "content": "The Lav Forge 是一家专注于《魔兽世界》Lua 编程的软件开发工作室。"
+      },
+      {
+        "title": "2. 技术限制",
+        "content": "所有开发均受限于暴雪官方 API 的限制。"
+      }
+    ]
+  },
+  "guides": {
+    "title": "如何创建魔兽世界插件",
+    "description": "这是一个全面且循序渐进的大师级课程，教你如何使用 Lua 为《魔兽世界》构建自定义 UI 修改和脚本。",
+    "backLink": "← 返回指南",
+    "branding": {
+      "title": "插件品牌建设：自定义 Logo 与图标",
+      "desc": "使用 TGA 文件和 Lua 脚本添加自定义小地图按钮、插件列表图标和游戏内纹理。"
+    },
+    "tutorial": {
+      "title": "步步教学：编写你的第一个插件",
+      "desc": "技术大师课。我们使用 TOC 文件和原生 Lua 从零开始构建插件。"
+    },
+    "languages": {
+      "title": "你需要哪种编程语言？",
+      "desc": "了解 Lua 逻辑与 XML 结构框架之间的区别，以及 WoW API 如何连接它们。"
+    },
+    "waVsAddon": {
+      "title": "WeakAuras vs 自定义插件：你需要哪一个？",
+      "desc": "WeakAuras 与自定义插件的深度对比。了解两者的适用场景与限制。"
+    },
+    "whatIsAddon": {
+      "title": "什么是 WoW 插件？它有何帮助？",
+      "desc": "探索自定义界面在高端大秘境和竞技场中的战术优势。"
+    }
+  },
+
+  "footer": {
+
+
+    "links": {
+      "terms": "服务条款",
+      "privacy": "隐私政策",
+      "howTo": "如何开发插件"
+    },
+    "copyright": "© 2026 THE LAV FORGE. 保留所有权利。"
+  }
+}

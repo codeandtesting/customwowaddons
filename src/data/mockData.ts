@@ -59,6 +59,13 @@ export const siteContent = {
       hoverColor: "hover:bg-[#3FFF00]",
       protocol: "RECALLING FEL_CHRONICLE",
     },
+    {
+      title: "PRIVATE SERVERS",
+      description: "Custom WoW Addons for Warmane 3.3.5a, old clients, and other private server infrastructures. Built for specific expansion limitations.",
+      image: "/private_server_bg.png",
+      hoverColor: "hover:bg-[#390f70]",
+      protocol: "SUPPORTING_LEGACY_SHARDS",
+    },
   ],
   whyUs: {
     title: "WHY NOT JUST USE CURSEFORGE?",

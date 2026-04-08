@@ -4,18 +4,26 @@ import Footer from "@/components/Footer";
 import { generatePageSEO, generateArticleSchema, generateBreadcrumbSchema, SITE_URL } from "@/lib/seo";
 import Link from "next/link";
 import Script from "next/script";
+import { Locale } from "@/lib/i18n-config";
+import { getDictionary } from "@/lib/get-dictionary";
 
-export const metadata: Metadata = generatePageSEO({
-  title: "WeakAuras vs Custom Addons: Which Do You Need?",
-  description: "Compare WeakAuras and custom-built WoW addons side by side. Learn when to use each, their limitations, and which solution fits your gameplay needs.",
-  canonical: "https://www.customwowaddon.com/how-to-create-world-of-warcraft-addon/weakauras-vs-custom-addons",
-  datePublished: "2026-03-28T18:00:00Z",
-});
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return generatePageSEO({
+    title: "WeakAuras vs Custom Addons: Which Do You Need?",
+    description: "Compare WeakAuras and custom-built WoW addons side by side. Learn when to use each, their limitations, and which solution fits your gameplay needs.",
+    canonical: `https://www.customwowaddon.com/${locale}/how-to-create-wow-addons/weakauras-vs-custom-addons`,
+    datePublished: "2026-03-28T18:00:00Z",
+  });
+}
 
-export default function WeakAurasVsCustomAddons() {
+export default async function WeakAurasVsCustomAddons({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  const dict = await getDictionary(locale);
+
   return (
     <main className="relative z-[2] min-h-screen text-bone-white selection:bg-[#FF8000] selection:text-obsidian flex flex-col pt-24 bg-[#09090B]">
-      <Navbar />
+      <Navbar dict={dict} currentLocale={locale} />
 
       <Script
         id="article-schema"
@@ -24,7 +32,7 @@ export default function WeakAurasVsCustomAddons() {
           __html: JSON.stringify(generateArticleSchema({
             title: "WeakAuras vs Custom Addons: Which Do You Need?",
             description: "Compare WeakAuras and custom-built WoW addons side by side. Learn when to use each, their limitations, and which solution fits your gameplay needs.",
-            url: `${SITE_URL}/how-to-create-world-of-warcraft-addon/weakauras-vs-custom-addons`,
+            url: `${SITE_URL}/${locale}/how-to-create-wow-addons/weakauras-vs-custom-addons`,
             datePublished: "2026-03-28T18:00:00Z",
           })),
         }}
@@ -34,15 +42,15 @@ export default function WeakAurasVsCustomAddons() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(generateBreadcrumbSchema([
-            { name: "Home", url: SITE_URL },
-            { name: "How to Create a WoW Addon", url: `${SITE_URL}/how-to-create-world-of-warcraft-addon` },
-            { name: "WeakAuras vs Custom Addons", url: `${SITE_URL}/how-to-create-world-of-warcraft-addon/weakauras-vs-custom-addons` },
+            { name: "Home", url: `${SITE_URL}/${locale}` },
+            { name: "How to Create a WoW Addon", url: `${SITE_URL}/${locale}/how-to-create-wow-addons` },
+            { name: "WeakAuras vs Custom Addons", url: `${SITE_URL}/${locale}/how-to-create-wow-addons/weakauras-vs-custom-addons` },
           ])),
         }}
       />
       
       <div className="flex-grow container mx-auto px-6 max-w-3xl py-12">
-        <Link href="/how-to-create-world-of-warcraft-addon" className="font-label text-[#FF8000] text-xs uppercase tracking-widest hover:text-white transition-colors mb-8 inline-flex items-center">
+        <Link href={`/${locale}/how-to-create-wow-addons`} className="font-label text-[#FF8000] text-xs uppercase tracking-widest hover:text-white transition-colors mb-8 inline-flex items-center">
           ← Back to Guides
         </Link>
         
@@ -181,7 +189,7 @@ export default function WeakAurasVsCustomAddons() {
           <p className="text-white/60 mb-6 font-body text-sm max-w-xl mx-auto">
             When you hit the limits of WeakAuras, that is where we start. We build fully custom addons with persistent databases, addon communication, and complex UI systems that no aura string can replicate.
           </p>
-          <Link href="/#request" className="inline-block bg-[#FF8000] text-obsidian px-8 py-4 font-label tracking-widest uppercase font-bold text-sm hover:bg-white transition-colors duration-300 transform hover:scale-105">
+          <Link href={`/${locale}/#request`} className="inline-block bg-[#FF8000] text-obsidian px-8 py-4 font-label tracking-widest uppercase font-bold text-sm hover:bg-white transition-colors duration-300 transform hover:scale-105">
             Request a Custom Build
           </Link>
         </section>
@@ -190,11 +198,11 @@ export default function WeakAurasVsCustomAddons() {
         <nav className="mt-12 border-t border-[#FF8000]/20 pt-8">
           <h3 className="font-label text-xs text-[#FF8000]/60 uppercase tracking-widest mb-6">Continue Reading</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link href="/how-to-create-world-of-warcraft-addon/what-is-an-addon" className="group block border border-[#FF8000]/20 p-4 hover:border-[#FF8000] transition-colors">
+            <Link href={`/${locale}/how-to-create-wow-addons/what-is-an-addon`} className="group block border border-[#FF8000]/20 p-4 hover:border-[#FF8000] transition-colors">
               <div className="font-mono text-[#FF8000]/60 text-xs mb-1">PART_01</div>
               <div className="font-headline text-sm font-bold text-bone-white uppercase group-hover:text-[#FF8000] transition-colors">What is a WoW Addon & How Does It Help?</div>
             </Link>
-            <Link href="/how-to-create-world-of-warcraft-addon/coding-tutorial" className="group block border border-[#FF8000]/20 p-4 hover:border-[#FF8000] transition-colors">
+            <Link href={`/${locale}/how-to-create-wow-addons/coding-tutorial`} className="group block border border-[#FF8000]/20 p-4 hover:border-[#FF8000] transition-colors">
               <div className="font-mono text-[#FF8000]/60 text-xs mb-1">PART_03</div>
               <div className="font-headline text-sm font-bold text-bone-white uppercase group-hover:text-[#FF8000] transition-colors">Step-by-Step Tutorial: Writing Your First Addon</div>
             </Link>
@@ -202,7 +210,7 @@ export default function WeakAurasVsCustomAddons() {
         </nav>
       </div>
 
-      <Footer />
+      <Footer dict={dict} currentLocale={locale} />
     </main>
   );
 }

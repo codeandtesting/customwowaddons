@@ -1,0 +1,224 @@
+{
+  "brand": "THE LAV FORGE",
+  "nav": {
+    "services": "SERVICES",
+    "expansions": "EXPANSIONEN",
+    "capabilities": "FUNKTIONEN",
+    "whyUs": "WARUM WIR",
+    "contact": "KONTAKT"
+  },
+  "hero": {
+    "badge": "THE LAV FORGE // ELITE WOW STUDIO",
+    "title": {
+      "part1": "MASSGESCHNEIDERTE",
+      "accent1": "ADDONS.",
+      "part2": "PROFI",
+      "accent2": "WEAKAURAS.",
+      "part3": "FÜR DICH",
+      "accent3": "ENTWICKELT."
+    },
+    "description": "Wir entwickeln individuelle World of Warcraft Addons und WeakAura-Suites von Grund auf. Geben Sie sich nicht mit fehlerhaften öffentlichen CurseForge-Dateien zufrieden. Holen Sie sich ein maßgeschneidertes, fehlerfreies UI, das genau nach Ihren Wünschen gebaut wurde.",
+    "links": {
+      "whatWeDo": "[ UNSERE LEISTUNGEN ]",
+      "versions": "[ VERSIONEN ]",
+      "request": "[ PROJEKT ANFRAGEN ]"
+    }
+  },
+  "services": {
+    "addons": {
+      "title": "INDIVIDUELLE ADDONS",
+      "description": "Vollständige Lua-Entwicklung. Von eigenständigen Auktionshaus-Scannern bis hin zu komplexen Gilden-Trackern. Leichtgewichtig, optimiert und genau nach Ihren Vorgaben gebaut. Keine überladenen Bibliotheken, nur pure Performance."
+    },
+    "weakauras": {
+      "title": "PRO WEAKAURAS",
+      "description": "Komplexe WA-Suites. Wir schreiben eigene Trigger-Logik und erstellen schlachtzugsspezifische Warnungen, die Sie nirgendwo sonst finden. Prädiktives Ressourcen-Tracking und dynamisches CD-Management."
+    },
+    "ui": {
+      "title": "UI SETUPS",
+      "description": "Komplette Interface-Überholungen. Wir konfigurieren ElvUI, Plater und Details, um ein sauberes, minimalistisches Setup zu erstellen, das perfekt auf Ihre Klasse zugeschnitten ist. Pixelgenaue Ausrichtung und professionelle Lesbarkeit."
+    }
+  },
+  "versions": {
+    "midnight": {
+      "title": "MIDNIGHT EXPANSION",
+      "description": "Wir programmieren individuelle Layout-Speicher für das neue Housing-System, automatisieren Inventar-Logik und entwerfen Hochleistungs-HUDs für das moderne Retail-Endgame.",
+      "protocol": "VOID_PROTOKOLL WIRD INITIALISIERT"
+    },
+    "tbc": {
+      "title": "TBC ANNIVERSARY",
+      "description": "Wir bauen verzögerungsfreie Raid-Frames, präzise Swing-Timer und moderne Quality-of-Life-Funktionen, die auf dem Classic-Client tatsächlich funktionieren. Vintage-Seele, modernster Motor.",
+      "protocol": "FEL_CHRONIK WIRD GELADEN"
+    },
+    "private": {
+      "title": "PRIVATE SERVER",
+      "description": "Individuelle WoW Addons für Warmane 3.3.5a, alte Clients und andere Private-Server-Infrastrukturen. Entwickelt für spezifische Erweiterungsbeschränkungen.",
+      "protocol": "LEGACY_SHARDS UNTERSTÜTZUNG"
+    }
+  },
+  "whyUs": {
+    "title": "WARUM NICHT EINFACH CURSEFORGE?",
+    "reasons": [
+      {
+        "id": "01_",
+        "title": "NULL BALAST",
+        "description": "Die meisten öffentlichen Addons enthalten tausende Zeilen ungenutzten Code. Wir reduzieren alles auf das Wesentliche und gewinnen wertvolle FPS für hochintensive Mythisch-Raids zurück."
+      },
+      {
+        "id": "02_",
+        "title": "PATCH-UPDATES",
+        "description": "Warten Sie nicht darauf, dass ein verlassenes GitHub-Repo aktualisiert wird. Unsere Entwicklungsverträge beinhalten direkten Support für X.0- und X.X-Patches, damit Ihr UI nie nach einem Reset bricht."
+      },
+      {
+        "id": "03_",
+        "title": "GENAU WAS DU WILLST",
+        "description": "Benötigen Sie ein Addon, das nur das spezifische DKP-System Ihrer Gilde trackt? Oder eine WA, die auf ein bestimmtes Kampflog-Ereignis reagiert? Wenn du es träumen kannst, können wir es programmieren."
+      },
+      {
+        "id": "04_",
+        "title": "1 MONAT KOSTENLOSER SUPPORT",
+        "description": "Wir lassen dich nach der Auslieferung nicht allein. Einen Fehler gefunden? Wir beheben ihn kostenlos während der einmonatigen Nachbereitungsphase."
+      }
+    ]
+  },
+  "request": {
+    "tag": "INDIVIDUELLE_ANFRAGE",
+    "headline": "MÖCHTEST DU DEIN",
+    "accent": "EIGENES ADDON?",
+    "description": "Eröffne ein Ticket auf unserem Discord. Erzähl uns, womit du kämpfst, und wir bauen eine Lösung, die perfekt auf dein Gameplay zugeschnitten ist.",
+    "steps": {
+      "01": { "label": "BEITRETEN", "desc": "Betritt die Schmiede" },
+      "02": { "label": "TICKET ÖFFNEN", "desc": "Beschreibe deine Vision" },
+      "03": { "label": "WIR BAUEN", "desc": "Erhalte dein Addon" }
+    },
+    "cta": {
+      "discord": "DISCORD BEITRETEN & TICKET ÖFFNEN",
+      "fiverr": "Auf Fiverr bestellen",
+      "form": "Webformular nutzen"
+    },
+    "subtext": "PRIVAT · SICHER · DURCHSCHNITTLICHE ANTWORTZEIT: < 2 STUNDEN"
+  },
+  "capabilities": {
+    "badge": "[ WAS WIR BAUEN ]",
+    "title": "SUCHST DU ETWAS,",
+    "titleAccent": "DAS ES NOCH NICHT GIBT?",
+    "description": "Wir spezialisieren uns auf Addons und Systeme, die es noch nicht gibt. Wenn du es beschreiben kannst, können wir es bauen.",
+    "cta": "Projekt starten",
+    "items": [
+      {
+        "tag": "WEAKAURA_ENGINE",
+        "title": "PERSÖNLICHE WEAKAURAS",
+        "desc": "Maßgeschneiderte WeakAuras, die speziell für deine Klasse, Spezialisierung und Spielweise entwickelt wurden. Vorausschauendes Cooldown-Tracking und intelligente Ressourcenleisten.",
+        "examples": ["Heiler-Triage-Anzeigen", "M+ Unterbrechungs-Rotationen", "Boss-Mechanik-Tracker"]
+      },
+      {
+        "tag": "CASINO_SYSTEMS",
+        "title": "WOW CASINO ADDONS",
+        "desc": "Vollständig automatisierte In-Game-Casino-Systeme. Verwalte Spiele, Einsätze und Auszahlungen über ein sauberes, betrugssicheres Addon-Interface.",
+        "examples": ["Blackjack 13", "Blackjack 100", "Worn Troll Dice"]
+      },
+      {
+        "tag": "CUSTOM_TOOLS",
+        "title": "NICHT GEFUNDEN? WIR BAUEN ES.",
+        "desc": "CurseForge ist großartig, aber manchmal braucht man etwas wirklich Einzigartiges. Wir bauen es von Grund auf neu, exakt nach deiner Vision.",
+        "examples": ["Auktions-Sniper", "Gilden-Roster-Tools", "Loot-Verteilung"],
+        "curseForgeLabel": "Unser CurseForge ↗"
+      },
+      {
+        "tag": "UI_OVERHAULS",
+        "title": "KOMPLETTE UI-SUITES",
+        "desc": "Vollständiger Interface-Umbau. Wir konfigurieren ElvUI, Plater, Details und eigene Frames zu einem einheitlichen Setup für deine Auflösung.",
+        "examples": ["Tank-HUD-Pakete", "Heiler-Grid-Layouts", "DPS-Minimalist-Setups"]
+      }
+    ],
+    "requestLabel": "Projekt anfragen"
+  },
+  "faq": [
+    {
+      "question": "Wie viel kostet ein individuelles WoW-Addon?",
+      "answer": "Die Preise hängen von der Komplexität des Projekts ab. Einfache UI-Modifikationen oder WeakAura-Suites beginnen in einer niedrigeren Preisklasse, während die Entwicklung umfangreicher Addons individuell kalkuliert wird. Kontaktiere uns über Discord für ein kostenloses Angebot."
+    },
+    {
+      "question": "Wie lange dauert die Entwicklung eines Addons?",
+      "answer": "Die meisten einfachen Addons und WeakAura-Suites können innerhalb von 1-3 Tagen geliefert werden. Komplexe Projekte dauern in der Regel 1-2 Wochen. Wir informieren dich während der Entwicklung regelmäßig über den Fortschritt."
+    },
+    {
+      "question": "In welcher Programmiersprache werden WoW-Addons geschrieben?",
+      "answer": "Addons für World of Warcraft werden in Lua (für die Logik) und XML (für die UI-Struktur) geschrieben. Das Spiel verwendet eine Sandbox-Version von Lua 5.1. Wir entwickeln moderne Lösungen direkt über die WoW-API."
+    },
+    {
+      "question": "Sind individuelle WoW-Addons sicher und legal?",
+      "answer": "Ja. Individuelle Addons sind zu 100 % legal und werden offiziell von Blizzard Entertainment unterstützt. Addons laufen in einer Sandbox und können nicht auf dein Betriebssystem oder deine Dateien zugreifen."
+    },
+    {
+      "question": "Könnt ihr private Addons bauen, die nur ich nutzen kann?",
+      "answer": "Absolut. Wir spezialisieren uns auf private, maßgeschneiderte Addons, die speziell für deine Spielweise oder die Strategie deiner Gilde entwickelt wurden. Dein Addon wird nicht öffentlich publiziert."
+    }
+  ],
+  "privacy": {
+    "title": "Datenschutzerklärung",
+    "sections": [
+      {
+        "title": "1. Erhobene Informationen",
+        "content": "The Lav Forge (\"das Studio\") arbeitet nach dem Prinzip der Datenminimierung. Wir sammeln nur die Informationen, die für das Projekt notwendig sind."
+      },
+      {
+        "title": "2. Datennutzung",
+        "content": "Deine Kontaktinformationen werden ausschließlich für Projekt-Updates und Support verwendet."
+      },
+      {
+        "title": "3. Vertraulichkeit",
+        "content": "Alle Strategien und Logiken werden als Geschäftsgeheimnis behandelt. Wir verkaufen niemals Daten."
+      }
+    ]
+  },
+  "terms": {
+    "title": "Nutzungsbedingungen",
+    "sections": [
+      {
+        "title": "1. Leistungsumfang",
+        "content": "The Lav Forge ist eine Software-Agentur, die sich auf Lua-Programmierung für World of Warcraft spezialisiert hat."
+      },
+      {
+        "title": "2. Technische Einschränkungen",
+        "content": "Die Entwicklung ist an die offiziellen WoW-API-Beschränkungen gebunden."
+      }
+    ]
+  },
+  "guides": {
+    "title": "Wie man ein World of Warcraft Addon erstellt",
+    "description": "Ein umfassender Schritt-für-Schritt-Masterclass zur Erstellung individueller UI-Modifikationen und Skripte für World of Warcraft mit Lua.",
+    "backLink": "← Zurück zu den Guides",
+    "branding": {
+      "title": "Branding Ihres WoW-Addons: Eigene Logos & Icons",
+      "desc": "Fügen Sie eigene Minimap-Buttons, Addon-Listen-Icons und In-Game-Texturen mit TGA-Dateien und Lua-Scripting hinzu."
+    },
+    "tutorial": {
+      "title": "Schritt-für-Schritt-Tutorial: Ihr erstes Addon schreiben",
+      "desc": "Ein technischer Masterclass. Wir bauen ein Addon von Grund auf mit TOC-Dateien und reinem Lua."
+    },
+    "languages": {
+      "title": "Welche Programmiersprache benötigen Sie?",
+      "desc": "Lernen Sie die Unterschiede zwischen Lua-Logik und XML-Struktur-Frames kennen und wie die WoW-API diese verbindet."
+    },
+    "waVsAddon": {
+      "title": "WeakAuras vs. Eigene Addons: Was brauchen Sie?",
+      "desc": "Ein tiefer Vergleich zwischen WeakAuras und individuell gebauten Addons. Lernen Sie, wann welche Lösung passt."
+    },
+    "whatIsAddon": {
+      "title": "Was ist ein WoW-Addon & wie hilft es?",
+      "desc": "Entdecken Sie die taktischen Vorteile individueller Interfaces in High-Level Mythic+ und Arena."
+    }
+  },
+
+  "footer": {
+
+
+
+    "links": {
+      "terms": "NUTZUNGSBEDINGUNGEN",
+      "privacy": "DATENSCHUTZERKLÄRUNG",
+      "howTo": "WIE MAN WOW ADDONS ERSTELLT"
+    },
+    "copyright": "© 2026 THE LAV FORGE. ALLE RECHTE VORBEHALTEN."
+  }
+}
