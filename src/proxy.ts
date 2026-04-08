@@ -22,18 +22,8 @@ function getLocale(request: NextRequest): string | undefined {
   return locale;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-
-  // // `/_next/` and `/api/` are ignored by the watcher, but we should double check
-  // if (
-  //   pathname.startsWith('/_next') ||
-  //   pathname.startsWith('/api') ||
-  //   pathname.startsWith('/static') ||
-  //   pathname.includes('.') // ignore files with extensions like .png, .ico, etc.
-  // ) {
-  //   return;
-  // }
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(

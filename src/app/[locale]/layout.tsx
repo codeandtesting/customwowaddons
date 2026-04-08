@@ -51,8 +51,8 @@ export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = (await params) as { locale: Locale };
   const dict = await getDictionary(locale);
 
   return {
@@ -150,9 +150,9 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const { locale } = (await params) as { locale: Locale };
   
   // Conditionally select the headline font based on locale
   const headlineVar = locale === "ru" ? "var(--font-playfair)" : "var(--font-cinzel)";
