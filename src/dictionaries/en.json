@@ -40,19 +40,19 @@
   },
   "versions": {
     "midnight": {
-      "title": "MIDNIGHT EXPANSION",
+      "title": "MIDNIGHT\nEXPANSION",
       "description": "We script custom layout savers for the new Player Housing system, automate inventory logic, and design high-performance HUDs for the modern Retail endgame.",
       "protocol": "INITIALIZING VOID_PROTOCOL"
     },
     "tbc": {
-      "title": "TBC ANNIVERSARY",
+      "title": "TBC\nANNIVERSARY",
       "description": "We build zero-lag raid frames, precise swing timers, and modern Quality-of-Life features that actually work on the Classic client. Vintage soul, modern engine.",
       "protocol": "RECALLING FEL_CHRONICLE"
     },
     "private": {
-      "title": "PRIVATE SERVERS",
+      "title": "PRIVATE\nSERVERS",
       "description": "Custom WoW Addons for Warmane 3.3.5a, old clients, and other private server infrastructures. Built for specific expansion limitations.",
-      "protocol": "SUPPORTING_LEGACY_SHARDS"
+      "protocol": "STABILIZING ICE_PROTOCOL"
     }
   },
   "whyUs": {

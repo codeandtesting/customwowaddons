@@ -24,6 +24,7 @@ const config: Config = {
         "grid-border": "#3A332A",
         fel: "#CCFF00",
         void: "#B026FF",
+        ice: "#00D1FF",
       },
       fontFamily: {
         headline: ["var(--font-headline)", "serif"],
