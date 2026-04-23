@@ -16,7 +16,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   const dict = await getDictionary(locale);
 
   return (
-    <main className="relative z-[2] min-h-screen text-bone-white selection:bg-gold-accent selection:text-obsidian">
+    <main key={locale} className="relative z-[2] min-h-screen text-bone-white selection:bg-gold-accent selection:text-obsidian">
       {/* FAQ Schema for Google Rich Results */}
       <Script
         id="faq-schema"

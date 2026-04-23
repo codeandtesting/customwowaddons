@@ -14,6 +14,7 @@ import React from "react";
 
 // Components & Global Styles
 import OceanBackground from "@/components/OceanBackground";
+import ScrollProgress from "@/components/ScrollProgress";
 import LangUpdater from "@/app/LangUpdater";
 import "@/app/globals.css";
 
@@ -167,9 +168,13 @@ export default async function RootLayout({
         <LangUpdater />
       </head>
       <body
-        className={`${playfair.variable} ${cinzel.variable} ${inter.variable} ${spaceGrotesk.variable} ${firaCode.variable} font-body bg-obsidian text-bone-white`}
+        className={`${playfair.variable} ${cinzel.variable} ${inter.variable} ${spaceGrotesk.variable} ${firaCode.variable} font-body text-bone-white`}
         style={{ "--font-headline": headlineVar } as React.CSSProperties}
       >
+        <a href="#main-content" className="skip-to-content">
+          Skip to main content
+        </a>
+        <ScrollProgress />
         <OceanBackground />
         {/* JSON-LD Structured Data */}
         <Script
@@ -193,7 +198,9 @@ export default async function RootLayout({
             __html: JSON.stringify(generateServiceSchema()),
           }}
         />
-        {children}
+        <div id="main-content" style={{ position: "relative", zIndex: 1 }}>
+          {children}
+        </div>
       </body>
     </html>
   );

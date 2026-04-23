@@ -55,17 +55,17 @@ export default function RequestForm({ dict }: RequestFormProps) {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col gap-4 w-full">
-          {/* Primary Discord Button */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+          {/* Discord Button */}
           <a
             href="https://discord.gg/yESkPhPBZn"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-4 w-full py-7 bg-[#5865F2] text-white font-headline text-3xl md:text-4xl font-black uppercase tracking-tighter hover:bg-[#4752C4] transition-colors duration-200 cursor-pointer border-none group"
+            className="inline-flex items-center justify-center gap-3 w-full py-4 border-2 border-[#5865F2] bg-[#5865F2]/10 text-[#5865F2] font-headline text-sm md:text-base font-black uppercase tracking-widest hover:bg-[#5865F2] hover:text-white hover:shadow-[0_0_20px_rgba(88,101,242,0.4)] transition-all duration-300 cursor-pointer group"
           >
             {/* Discord Icon */}
             <svg
-              className="w-9 h-9 fill-current shrink-0 group-hover:scale-110 transition-transform"
+              className="w-6 h-6 fill-current shrink-0 group-hover:scale-110 transition-transform"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -74,39 +74,18 @@ export default function RequestForm({ dict }: RequestFormProps) {
             {request.cta.discord}
           </a>
 
-          {/* Secondary Options */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-            {/* Fiverr Button */}
-            <a
-              href="https://pro.fiverr.com/s/bdERDgY"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-full py-4 border-2 border-[#1dbf73] bg-[#1dbf73]/10 text-[#1dbf73] font-headline text-sm md:text-base font-black uppercase tracking-widest hover:bg-[#1dbf73] hover:text-obsidian hover:shadow-[0_0_20px_rgba(29,191,115,0.4)] transition-all duration-300 cursor-pointer group"
-            >
-              <div className="relative w-6 h-6 mr-3 shrink-0 group-hover:scale-110 transition-transform">
-                <Image src="/fiverlogo2.png" alt="Fiverr Logo" fill sizes="24px" className="object-contain" />
-              </div>
-              {request.cta.fiverr}
-            </a>
-            
-            {/* Form Button */}
-            <a
-              href="https://form.typeform.com/to/fYENAzD1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-full py-4 border-2 border-[#FF8000] bg-[#FF8000]/10 text-[#FF8000] font-headline text-sm md:text-base font-black uppercase tracking-widest hover:bg-[#FF8000] hover:text-obsidian hover:shadow-[0_0_20px_rgba(255,128,0,0.4)] transition-all duration-300 cursor-pointer group"
-            >
-              <svg 
-                className="w-5 h-5 mr-3 shrink-0 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all group-hover:text-obsidian" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-              {request.cta.form}
-            </a>
-          </div>
+          {/* Fiverr Button */}
+          <a
+            href="https://pro.fiverr.com/s/bdERDgY"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center w-full py-4 border-2 border-[#1dbf73] bg-[#1dbf73]/10 text-[#1dbf73] font-headline text-sm md:text-base font-black uppercase tracking-widest hover:bg-[#1dbf73] hover:text-obsidian hover:shadow-[0_0_20px_rgba(29,191,115,0.4)] transition-all duration-300 cursor-pointer group"
+          >
+            <div className="relative w-6 h-6 mr-3 shrink-0 group-hover:scale-110 transition-transform">
+              <Image src="/fiverlogo2.png" alt="Fiverr Logo" fill sizes="24px" className="object-contain" />
+            </div>
+            {request.cta.fiverr}
+          </a>
         </div>
 
         {/* Subtext */}

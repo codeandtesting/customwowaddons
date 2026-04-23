@@ -19,9 +19,8 @@
     },
     "description": "We build custom World of Warcraft Addons and WeakAura suites from scratch. Stop settling for broken public CurseForge files. Get a custom, bug-free UI built exactly how you want it.",
     "links": {
-      "whatWeDo": "[ WHAT WE DO ]",
-      "versions": "[ VERSIONS ]",
-      "request": "[ REQUEST A BUILD ]"
+      "discord": "Discord",
+      "fiverr": "Fiverr"
     }
   },
   "services": {
@@ -91,8 +90,8 @@
       "03": { "label": "WE BUILD", "desc": "Get your addon" }
     },
     "cta": {
-      "discord": "JOIN DISCORD & OPEN TICKET",
-      "fiverr": "Order On Fiverr",
+      "discord": "Join Discord",
+      "fiverr": "Order on Fiverr",
       "form": "Use Web Form"
     },
     "subtext": "PRIVATE · SECURE · AVERAGE RESPONSE: < 2 HOURS"
@@ -159,15 +158,43 @@
     "sections": [
       {
         "title": "1. Information We Collect",
-        "content": "The Lav Forge (\u0022the Studio\u0022) operates on a principle of data minimalism. We collect only the precise information required to negotiate, engineer, and deliver bespoke software solutions."
+        "content": "The Lav Forge (\u0022the Studio\u0022) operates on a principle of data minimalism. We collect only the precise information required to negotiate, engineer, and deliver bespoke software solutions. This includes: (a) Contact information provided via our Discord, website forms, or direct communication channels (email, Discord username); (b) Project specifications and requirements necessary to fulfill development requests; (c) Payment information processed through third-party platforms (Fiverr, PayPal, etc.) which we do not store directly; (d) Technical logs generated during addon testing and debugging, which are deleted upon project completion unless retained for ongoing support."
       },
       {
         "title": "2. How We Use Your Data",
-        "content": "The data we collect is utilized strictly for operational fidelity. Your contact information is used exclusively to provide project updates, deliver compiled code, and coordinate post-deployment support."
+        "content": "The data we collect is utilized strictly for operational fidelity. Your contact information is used exclusively to provide project updates, deliver compiled code, and coordinate post-deployment support. Project specifications are analyzed solely to generate accurate development estimates and to engineer solutions that meet your requirements. We do not use your data for marketing purposes, analytics, or any secondary applications unrelated to direct service delivery. Payment information is handled exclusively by third-party payment processors; we never store credit card numbers or banking details."
       },
       {
         "title": "3. Data Sharing",
-        "content": "The Studio treats all client gameplay strategies and custom Lua logic as highly classified trade secrets. We will never sell, rent, or lease your data."
+        "content": "The Studio treats all client gameplay strategies and custom Lua logic as highly classified trade secrets. We will never sell, rent, or lease your data to third parties. Your custom addon code remains your intellectual property unless explicitly agreed otherwise in writing. We do not share client information with other developers, guilds, or external entities. In the event of a legal subpoena or court order, we will notify you promptly unless prohibited by law, and will disclose only the minimum information legally required."
+      },
+      {
+        "title": "4. Data Security",
+        "content": "We implement reasonable security measures to protect your information during transmission and storage. Communication via Discord and email is encrypted in transit. Project files and code repositories are stored securely and access is restricted to authorized personnel only. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security. You are responsible for maintaining the confidentiality of your account credentials and communications."
+      },
+      {
+        "title": "5. Data Retention",
+        "content": "We retain project-related data for the duration of the development contract plus the support period (typically 1 month post-delivery). After this period, unless an ongoing support agreement exists, we delete or anonymize project files, chat logs, and specifications. Payment records may be retained longer for accounting and legal compliance purposes. You may request deletion of your data at any time by contacting us directly, subject to reasonable technical and legal constraints."
+      },
+      {
+        "title": "6. Your Rights",
+        "content": "You have the right to access, correct, or delete your personal data held by us. You may request a copy of all data we have collected about you. You may withdraw consent for data processing at any time, though this may affect our ability to complete ongoing projects. To exercise these rights, contact us via Discord or email with a clear subject line referencing your request."
+      },
+      {
+        "title": "7. Children's Privacy",
+        "content": "Our services are not directed to individuals under the age of 13. We do not knowingly collect personal information from children. If we become aware that we have collected data from a minor, we will take immediate steps to delete such information."
+      },
+      {
+        "title": "8. International Data Transfers",
+        "content": "The Lav Forge operates internationally. Your information may be transferred to and processed in countries other than your country of residence. By using our services, you consent to such transfers. We take appropriate safeguards to ensure your data remains protected in accordance with this Privacy Policy."
+      },
+      {
+        "title": "9. Changes to This Policy",
+        "content": "We may update this Privacy Policy from time to time. We will notify clients of material changes via Discord or email at least 30 days before the new policy takes effect. Continued use of our services after such notice constitutes acceptance of the updated policy."
+      },
+      {
+        "title": "10. Contact Information",
+        "content": "For questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us through our Discord server or via email. We will respond to your inquiry within 7 business days."
       }
     ]
   },
@@ -176,11 +203,63 @@
     "sections": [
       {
         "title": "1. Scope of Services",
-        "content": "The Lav Forge operates as a boutique software development agency specializing in custom Lua programming for the World of Warcraft client."
+        "content": "The Lav Forge operates as a boutique software development agency specializing in custom Lua programming for the World of Warcraft client. Services include but are not limited to: custom addon development, WeakAura suite creation, UI configuration and optimization, private server addon adaptation, and post-delivery support. All services are provided on a per-project basis unless an ongoing retainer agreement is established in writing."
       },
       {
         "title": "2. Technical Limitations",
-        "content": "All development is strictly constrained by the limitations of the official World of Warcraft public API and user interface engine."
+        "content": "All development is strictly constrained by the limitations of the official World of Warcraft public API and user interface engine. We cannot and will not develop addons that: (a) Automate gameplay inputs (botting, auto-casting, rotation automation); (b) Access or modify game memory directly; (c) Circumvent anti-cheat systems; (d) Provide unfair competitive advantages in PvP contexts that violate Blizzard's Terms of Service. Any request for such functionality will be refused and reported if deemed malicious."
+      },
+      {
+        "title": "3. Client Responsibilities",
+        "content": "You agree to provide accurate and complete project specifications. You are responsible for testing delivered code in a timely manner and providing feedback. You must ensure that your account and payment information are current and valid. You agree not to use delivered addons for purposes that violate Blizzard Entertainment's Terms of Service or local laws. You acknowledge that custom addons may conflict with other third-party addons and assume responsibility for compatibility testing."
+      },
+      {
+        "title": "4. Payment Terms",
+        "content": "Payment terms are established on a per-project basis. For projects under $500 USD, full payment is typically required upfront. For larger projects, a 50% deposit is required to begin work, with the remaining 50% due upon delivery. Payment is processed through third-party platforms (Fiverr, PayPal, etc.) and subject to their terms and refund policies. Failure to pay the final balance may result in delayed or withheld delivery of source code."
+      },
+      {
+        "title": "5. Intellectual Property",
+        "content": "Upon full payment, you own the custom code developed for your project, including all Lua scripts, XML layouts, and associated assets. The Lav Forge retains the right to use generic code libraries, utility functions, and architectural patterns in future projects for other clients. We do not claim ownership of your gameplay strategies, guild-specific logic, or unique business logic incorporated into your addon. Third-party libraries (e.g., Ace3, LibStub) remain under their respective licenses."
+      },
+      {
+        "title": "6. Delivery and Acceptance",
+        "content": "Delivery is considered complete when: (a) All agreed-upon features are implemented according to specifications; (b) The code is provided in a usable format (Lua files, packaged addon folder, or WeakAura strings); (c) Basic installation instructions are provided. You have 7 days from delivery to test the addon and request bug fixes at no additional cost. After 7 days, or if you approve the delivery, the project is considered accepted. Minor adjustments may be negotiated but are not guaranteed without additional compensation."
+      },
+      {
+        "title": "7. Support and Maintenance",
+        "content": "All projects include 1 month of free post-delivery support for bug fixes and compatibility issues caused by game patches. This support does not cover: (a) New feature requests; (b) Conflicts caused by installing other third-party addons; (c) Issues resulting from manual modification of the code by the client. After the support period, ongoing maintenance can be purchased as a separate service or via retainer agreement. Blizzard game patches may break addons; we will fix patch-related issues during the support period at no cost."
+      },
+      {
+        "title": "8. Refund Policy",
+        "content": "Refunds are handled on a case-by-case basis. If we cannot deliver the agreed-upon features due to technical limitations, a full or partial refund will be issued. If you cancel a project after work has begun, you will be refunded the balance minus compensation for work already completed. No refunds will be issued for completed and delivered projects. Disputes over code quality or feature implementation will be resolved through good-faith negotiation and, if necessary, third-party arbitration."
+      },
+      {
+        "title": "9. Limitation of Liability",
+        "content": "The Lav Forge is not liable for: (a) Game account suspensions or bans resulting from addon usage (though we ensure all code complies with Blizzard's ToS); (b) Lost in-game gold, items, or progress due to addon malfunction; (c) Data loss or corruption; (d) Indirect, incidental, or consequential damages. Our total liability is limited to the amount paid for the specific service in question. Use of custom addons is at your own risk."
+      },
+      {
+        "title": "10. Confidentiality",
+        "content": "We maintain strict confidentiality regarding your project details, gameplay strategies, and any sensitive information shared during development. We will not disclose your custom addon code to other clients or publish it publicly without your explicit written consent. This confidentiality obligation survives the termination of our business relationship."
+      },
+      {
+        "title": "11. Termination",
+        "content": "Either party may terminate the agreement with written notice. If you terminate, you will be charged for work completed up to the termination date. If we terminate due to your breach of these terms (e.g., non-payment, harassment, illegal requests), we reserve the right to withhold delivery and pursue payment for completed work. We reserve the right to refuse service to anyone at our discretion."
+      },
+      {
+        "title": "12. Governing Law",
+        "content": "These Terms of Service are governed by and construed in accordance with applicable laws. Any disputes arising from these terms or our services will be resolved through binding arbitration in accordance with the rules of the relevant arbitration association. The prevailing party in any dispute is entitled to reasonable legal fees and costs."
+      },
+      {
+        "title": "13. Modifications to Terms",
+        "content": "We may modify these Terms of Service at any time. Material changes will be communicated via Discord or email at least 30 days before taking effect. Continued use of our services after such notice constitutes acceptance of the modified terms. It is your responsibility to review these terms periodically."
+      },
+      {
+        "title": "14. Severability",
+        "content": "If any provision of these Terms of Service is found to be unenforceable or invalid, the remaining provisions will continue in full force and effect. The unenforceable provision will be modified to the minimum extent necessary to make it enforceable while preserving its original intent."
+      },
+      {
+        "title": "15. Entire Agreement",
+        "content": "These Terms of Service, along with any project-specific agreements or quotes, constitute the entire agreement between you and The Lav Forge. These terms supersede all prior discussions, agreements, or understandings, whether written or oral. Waiver of any provision in one instance does not constitute waiver of that provision in future instances."
       }
     ]
   },

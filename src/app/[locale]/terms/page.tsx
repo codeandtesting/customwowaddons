@@ -33,17 +33,11 @@ export default async function TermsOfService({ params }: { params: Promise<{ loc
           {terms.sections.map((section: any, index: number) => (
             <section key={index}>
               <h2 className="text-2xl font-bold text-bone-white mb-4 uppercase tracking-[0.1em]">{section.title}</h2>
-              <p className="mb-4 text-bone-white/70">
+              <p className="mb-4 text-bone-white/70 whitespace-pre-line">
                 {section.content}
               </p>
             </section>
           ))}
-
-          <section className="p-6 border border-gold-accent/20 bg-gold-accent/5 mt-12">
-            <p className="text-sm font-label text-gold-accent/60 uppercase tracking-widest italic text-center">
-              [ Full Legal Text available in English by default. Translated summaries provided for transparency. ]
-            </p>
-          </section>
         </div>
       </div>
 

@@ -1,11 +1,72 @@
 "use client";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface VersionsSectionProps {
   dict: any;
 }
 
 export default function VersionsSection({ dict }: VersionsSectionProps) {
+  const { scrollYProgress } = useScroll();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 100,
+      scale: 0.9
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const textVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30,
+      filter: "blur(10px)"
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.6,
+        delay: 0.3
+      }
+    }
+  };
+
+  const protocolVariants = {
+    hidden: { 
+      opacity: 0,
+      x: -20
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        delay: 0.5
+      }
+    }
+  };
+
   const versions = [
     { 
       ...dict.versions.midnight, 
@@ -28,9 +89,21 @@ export default function VersionsSection({ dict }: VersionsSectionProps) {
   ];
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-3 border-b border-grid-border min-h-[600px]" id="versions">
-      {versions.map((ver) => (
-        <div key={ver.title} className={`relative group cursor-pointer overflow-hidden border-b lg:border-b-0 lg:border-r border-grid-border flex flex-col justify-end p-12 last:border-0 transition-all duration-500 ${ver.border}`}>
+    <motion.section 
+      className="grid grid-cols-1 lg:grid-cols-3 border-b border-grid-border min-h-[600px]" 
+      id="versions"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+    >
+      {versions.map((ver, i) => (
+        <motion.div 
+          key={ver.title} 
+          custom={i}
+          variants={cardVariants}
+          className={`relative group cursor-pointer overflow-hidden border-b lg:border-b-0 lg:border-r border-grid-border flex flex-col justify-end p-12 last:border-0 transition-all duration-500 ${ver.border}`}
+        >
           {/* Background Image - Colorful restoration */}
           <div className="absolute inset-0 z-0 opacity-60 group-hover:opacity-40 transition-opacity duration-700">
             <Image 
@@ -46,22 +119,38 @@ export default function VersionsSection({ dict }: VersionsSectionProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-[1]"></div>
 
           {/* Locked Content Block - Fixed height ensures perfect horizontal baseline alignment */}
-          <div className="relative z-10 w-full h-[320px] flex flex-col justify-start">
-            <h3 className={`text-4xl font-headline font-black mb-6 uppercase text-bone-white transition-all duration-500 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] whitespace-pre-line leading-[1.0] tracking-tighter ${ver.accent}`}>
+          <motion.div 
+            className="relative z-10 w-full h-[320px] flex flex-col justify-start"
+            variants={textVariants}
+          >
+            <motion.h3 
+              className={`text-4xl font-headline font-black mb-6 uppercase text-bone-white transition-all duration-500 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] whitespace-pre-line leading-[1.0] tracking-tighter ${ver.accent}`}
+              whileHover={{ scale: 1.05, x: 5 }}
+              transition={{ duration: 0.3 }}
+            >
               {ver.title}
-            </h3>
+            </motion.h3>
             
-            <p className="max-w-md text-lg font-body leading-relaxed text-bone-white/80 uppercase mb-4">
+            <motion.p 
+              className="max-w-md text-lg font-body leading-relaxed text-bone-white/80 uppercase mb-4"
+              whileHover={{ x: 3 }}
+              transition={{ duration: 0.3 }}
+            >
               {ver.description}
-            </p>
+            </motion.p>
             
             {/* mt-auto pushes the protocol to the bottom of the 320px block, keeping it in line across cards */}
-            <div className={`mt-auto font-label text-sm font-mono transition-all duration-500 ${ver.accent}`}>
+            <motion.div 
+              className={`mt-auto font-label text-sm font-mono transition-all duration-500 ${ver.accent}`}
+              variants={protocolVariants}
+              whileHover={{ scale: 1.1, letterSpacing: "0.15em" }}
+              transition={{ duration: 0.3 }}
+            >
               [ {ver.protocol} ]
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       ))}
-    </section>
+    </motion.section>
   );
 }

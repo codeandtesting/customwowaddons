@@ -281,121 +281,168 @@ export default function OceanBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const gl = canvas.getContext("webgl", {
-      alpha: false,
-      antialias: false,
-      depth: false,
-      stencil: false,
-      preserveDrawingBuffer: false,
-      powerPreference: "high-performance",
-    });
+    let gl: WebGLRenderingContext | null = null;
+    let disposed = false;
 
-    if (!gl) {
-      canvas.style.background = "#0B0A0D";
-      return;
-    }
+    function init() {
+      if (disposed || !canvas) return;
 
-    // Compile shaders
-    const mkShader = (type: number, src: string) => {
-      const s = gl.createShader(type);
-      if (!s) return null;
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(s));
-        gl.deleteShader(s);
-        return null;
+      gl = canvas.getContext("webgl", {
+        alpha: false,
+        antialias: false,
+        depth: false,
+        stencil: false,
+        preserveDrawingBuffer: false,
+        powerPreference: "high-performance",
+      });
+
+      if (!gl) {
+        canvas.style.background = "#0B0A0D";
+        return;
       }
-      return s;
-    };
 
-    const vert = mkShader(gl.VERTEX_SHADER, vertexShader);
-    const frag = mkShader(gl.FRAGMENT_SHADER, fragmentShader);
-    if (!vert || !frag) return;
+      // Compile shaders
+      const mkShader = (type: number, src: string) => {
+        const s = gl!.createShader(type);
+        if (!s) return null;
+        gl!.shaderSource(s, src);
+        gl!.compileShader(s);
+        if (!gl!.getShaderParameter(s, gl!.COMPILE_STATUS)) {
+          gl!.deleteShader(s);
+          return null;
+        }
+        return s;
+      };
 
-    const prog = gl.createProgram()!;
-    gl.attachShader(prog, vert);
-    gl.attachShader(prog, frag);
-    gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-      console.error(gl.getProgramInfoLog(prog));
-      return;
-    }
+      const vert = mkShader(gl.VERTEX_SHADER, vertexShader);
+      const frag = mkShader(gl.FRAGMENT_SHADER, fragmentShader);
+      if (!vert || !frag) return;
 
-    gl.useProgram(prog);
-    gl.disable(gl.DEPTH_TEST);
-    gl.disable(gl.CULL_FACE);
-    gl.disable(gl.BLEND);
-
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
-      gl.STATIC_DRAW
-    );
-
-    const ap = gl.getAttribLocation(prog, "a");
-    gl.enableVertexAttribArray(ap);
-    gl.vertexAttribPointer(ap, 2, gl.FLOAT, false, 0, 0);
-
-    const uR = gl.getUniformLocation(prog, "uR");
-    const uTi = gl.getUniformLocation(prog, "uT");
-    const uScroll = gl.getUniformLocation(prog, "uS");
-    const uScene = gl.getUniformLocation(prog, "uSc");
-    const uBlend = gl.getUniformLocation(prog, "uBl");
-
-    const N = 5;
-    let smooth = 0;
-
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      const w = Math.round(window.innerWidth * dpr);
-      const h = Math.round(window.innerHeight * dpr);
-      if (canvas.width !== w || canvas.height !== h) {
-        canvas.width = w;
-        canvas.height = h;
-        gl.viewport(0, 0, w, h);
-        gl.uniform2f(uR, w, h);
+      const prog = gl.createProgram()!;
+      gl.attachShader(prog, vert);
+      gl.attachShader(prog, frag);
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.error(gl.getProgramInfoLog(prog));
+        return;
       }
-    };
 
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
+      gl.useProgram(prog);
+      gl.disable(gl.DEPTH_TEST);
+      gl.disable(gl.CULL_FACE);
+      gl.disable(gl.BLEND);
 
-    const t0 = performance.now();
-    let lastNow = t0;
-
-    const frame = (now: number) => {
-      rafRef.current = requestAnimationFrame(frame);
-      const dt = Math.min((now - lastNow) / 1000, 0.05);
-      lastNow = now;
-
-      const maxScroll = Math.max(
-        1,
-        document.documentElement.scrollHeight - window.innerHeight
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
+        gl.STATIC_DRAW
       );
-      const tgt = window.scrollY / maxScroll;
-      smooth += (tgt - smooth) * (1 - Math.exp(-dt * 8));
 
-      const raw = smooth * (N - 1);
-      const flr = Math.floor(raw);
-      const si = Math.min(flr, N - 2);
-      const bl = flr >= N - 1 ? 1.0 : raw - flr;
+      const ap = gl.getAttribLocation(prog, "a");
+      gl.enableVertexAttribArray(ap);
+      gl.vertexAttribPointer(ap, 2, gl.FLOAT, false, 0, 0);
 
-      gl.uniform1f(uTi, (now - t0) / 1000);
-      gl.uniform1f(uScroll, smooth);
-      gl.uniform1f(uScene, si);
-      gl.uniform1f(uBlend, bl);
+      const uR = gl.getUniformLocation(prog, "uR");
+      const uTi = gl.getUniformLocation(prog, "uT");
+      const uScroll = gl.getUniformLocation(prog, "uS");
+      const uScene = gl.getUniformLocation(prog, "uSc");
+      const uBlend = gl.getUniformLocation(prog, "uBl");
 
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      const N = 5;
+      let smooth = 0;
+
+      const resize = () => {
+        if (!gl || gl.isContextLost()) return;
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        const w = Math.round(window.innerWidth * dpr);
+        const h = Math.round(window.innerHeight * dpr);
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+          gl.viewport(0, 0, w, h);
+          gl.uniform2f(uR, w, h);
+        }
+      };
+
+      resize();
+      window.addEventListener("resize", resize, { passive: true });
+
+      const t0 = performance.now();
+      let lastNow = t0;
+
+      const frame = (now: number) => {
+        if (disposed || !gl || gl.isContextLost()) return;
+        rafRef.current = requestAnimationFrame(frame);
+        const dt = Math.min((now - lastNow) / 1000, 0.05);
+        lastNow = now;
+
+        const maxScroll = Math.max(
+          1,
+          document.documentElement.scrollHeight - window.innerHeight
+        );
+        const tgt = window.scrollY / maxScroll;
+        smooth += (tgt - smooth) * (1 - Math.exp(-dt * 8));
+
+        const raw = smooth * (N - 1);
+        const flr = Math.floor(raw);
+        const si = Math.min(flr, N - 2);
+        const bl = flr >= N - 1 ? 1.0 : raw - flr;
+
+        gl.uniform1f(uTi, (now - t0) / 1000);
+        gl.uniform1f(uScroll, smooth);
+        gl.uniform1f(uScene, si);
+        gl.uniform1f(uBlend, bl);
+
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      };
+
+      rafRef.current = requestAnimationFrame(frame);
+
+      // Store cleanup for this init cycle
+      const currentResize = resize;
+      return () => {
+        cancelAnimationFrame(rafRef.current);
+        window.removeEventListener("resize", currentResize);
+        if (gl && !gl.isContextLost()) {
+          gl.deleteBuffer(buf);
+          gl.deleteProgram(prog);
+          gl.deleteShader(vert);
+          gl.deleteShader(frag);
+        }
+      };
+    }
+
+    // Handle WebGL context loss (browser can drop it during navigation)
+    let cleanupInit: (() => void) | undefined;
+
+    const handleContextLost = (e: Event) => {
+      e.preventDefault(); // Allow context to be restored
+      cancelAnimationFrame(rafRef.current);
     };
 
-    rafRef.current = requestAnimationFrame(frame);
+    const handleContextRestored = () => {
+      // Reinitialize everything from scratch
+      cleanupInit?.();
+      cleanupInit = init() || undefined;
+    };
+
+    canvas.addEventListener("webglcontextlost", handleContextLost);
+    canvas.addEventListener("webglcontextrestored", handleContextRestored);
+
+    // Initial setup
+    cleanupInit = init() || undefined;
 
     return () => {
-      cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize", resize);
+      disposed = true;
+      cleanupInit?.();
+      canvas.removeEventListener("webglcontextlost", handleContextLost);
+      canvas.removeEventListener("webglcontextrestored", handleContextRestored);
+      if (gl && !gl.isContextLost()) {
+        const ext = gl.getExtension("WEBGL_lose_context");
+        if (ext) ext.loseContext();
+      }
     };
   }, []);
 
@@ -410,6 +457,7 @@ export default function OceanBackground() {
         height: "100vh",
         zIndex: 0,
         pointerEvents: "none",
+        background: "#0B0A0D",
       }}
     />
   );
