@@ -218,14 +218,30 @@ export default function Hero({ dict }: HeroProps) {
         <div className="flex flex-col sm:flex-row gap-4 md:gap-8 text-[10px] font-label uppercase tracking-[0.2em] text-gold-accent justify-end w-full">
           <motion.a 
             className="hover:text-primary transition-colors whitespace-nowrap inline-block relative group min-w-[120px] text-center"
-            href="https://discord.gg/yESkPhPBZn"
+            href="https://discord.com/users/666937072484876298"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ x: 8, y: -3, scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.25 }}
           >
-            {hero.links.discord}
+            DISCORD DIRECT
+            <motion.span 
+              className="absolute -bottom-1 left-0 w-0 h-px bg-gold-accent group-hover:w-full transition-all duration-300"
+              initial={{ width: 0 }}
+              whileHover={{ width: "100%" }}
+            />
+          </motion.a>
+          <motion.a 
+            className="hover:text-primary transition-colors whitespace-nowrap inline-block relative group min-w-[120px] text-center"
+            href="https://t.me/F0A0A"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ x: 8, y: -3, scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.25 }}
+          >
+            TELEGRAM
             <motion.span 
               className="absolute -bottom-1 left-0 w-0 h-px bg-gold-accent group-hover:w-full transition-all duration-300"
               initial={{ width: 0 }}
@@ -241,7 +257,7 @@ export default function Hero({ dict }: HeroProps) {
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.25 }}
           >
-            {hero.links.fiverr}
+            FIVERR PRO
             <motion.span 
               className="absolute -bottom-1 left-0 w-0 h-px bg-gold-accent group-hover:w-full transition-all duration-300"
               initial={{ width: 0 }}

@@ -80,21 +80,21 @@
     ]
   },
   "request": {
-    "tag": "CUSTOM_BUILD_REQUEST",
-    "headline": "WANT YOUR OWN",
-    "accent": "PERSONAL ADDON?",
-    "description": "Open a ticket on our Discord. Tell us what you're struggling with and we'll build a solution tailored to your gameplay.",
+    "tag": "DIRECT_COMMISSION_PROTOCOL",
+    "headline": "READY TO START?",
+    "accent": "GET A QUOTE TODAY",
+    "description": "Share your ideas, describe what you are looking for, and let's bring your vision to life. Get an instant quote and start working immediately.",
     "steps": {
-      "01": { "label": "JOIN", "desc": "Enter the forge" },
-      "02": { "label": "OPEN TICKET", "desc": "Describe your vision" },
-      "03": { "label": "WE BUILD", "desc": "Get your addon" }
+      "01": { "label": "CONTACT", "desc": "Connect directly" },
+      "02": { "label": "QUOTE", "desc": "Share your vision" },
+      "03": { "label": "EXECUTE", "desc": "We build it fast" }
     },
     "cta": {
-      "discord": "Join Discord",
-      "fiverr": "Order on Fiverr",
-      "form": "Use Web Form"
+      "discord": "Discord Direct",
+      "telegram": "Telegram",
+      "fiverr": "Fiverr Pro"
     },
-    "subtext": "PRIVATE · SECURE · AVERAGE RESPONSE: < 2 HOURS"
+    "subtext": "DIRECT CONTACT · SECURE · AVERAGE RESPONSE: < 1 HOUR"
   },
   "capabilities": {
     "badge": "[ WHAT WE BUILD ]",

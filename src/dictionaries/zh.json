@@ -81,21 +81,21 @@
     ]
   },
   "request": {
-    "tag": "定制开发需求",
-    "headline": "想要您的",
-    "accent": "专属插件?",
-    "description": "在我们的 Discord 中开启工单。告诉我们您遇到的难题，我们将为您构建专属的解决方案。",
+    "tag": "直接委托协议",
+    "headline": "准备好开始了吗？",
+    "accent": "立即获取报价",
+    "description": "分享您的想法，描述您的需求，让我们将您的愿景变为现实。获取即时报价并立即开始工作。",
     "steps": {
-      "01": { "label": "加入", "desc": "进入熔炉" },
-      "02": { "label": "开启工单", "desc": "描述您的愿景" },
-      "03": { "label": "我们构建", "desc": "获取您的插件" }
+      "01": { "label": "联系", "desc": "直接沟通" },
+      "02": { "label": "报价", "desc": "描述愿景" },
+      "03": { "label": "执行", "desc": "快速构建" }
     },
     "cta": {
-      "discord": "加入 DISCORD 并开启工单",
-      "fiverr": "在 Fiverr 上下单",
-      "form": "使用在线表单"
+      "discord": "Discord Direct",
+      "telegram": "Telegram",
+      "fiverr": "Fiverr Pro"
     },
-    "subtext": "隐私 · 安全 · 平均响应时间: < 2 小时"
+    "subtext": "直接联系 · 安全 · 平均响应时间: < 1 小时"
   },
   "capabilities": {
     "badge": "[ 业务范围 ]",

@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "auction-house-sniper",
+    "title": "Custom Auction House Sniper Addon",
+    "category": "Economy",
+    "short_desc": "Real-time scanning, alerts, and historical price tracking.",
+    "features": ["Instant buyout detection", "Deal overlays", "Vendor shuffle calculator"],
+    "example_project": "Built a sniper for a Classic Era server with TSM integration.",
+    "testimonial": { "text": "The custom scanner saved me hours of manual flipping every day. Amazing work!", "author": "GoldMasterX" }
+  },
+  {
+    "slug": "raid-frame-overhaul",
+    "title": "Custom Raid Frame Addon",
+    "category": "PvE & Raiding",
+    "short_desc": "Pixel-perfect, highly optimized raid frames for cutting-edge progression.",
+    "features": ["Custom debuff tracking", "Healer click-casting integration", "Dynamic resizing based on group size"],
+    "example_project": "Developed a lightweight alternative to Grid2 for a top 50 World First guild.",
+    "testimonial": { "text": "Our healers noticed a 15% FPS increase during huge AoE phases thanks to this code.", "author": "Guild Master, Mythic Raiding Guild" }
+  },
+  {
+    "slug": "arena-target-tracker",
+    "title": "Arena Target Tracker Addon",
+    "category": "PvP",
+    "short_desc": "Track enemy cooldowns, diminishing returns, and interrupt history in real-time.",
+    "features": ["Diminishing Returns (DR) trackers", "Gladius-style arena frames", "Custom voice alerts for major CDs"],
+    "example_project": "Created a custom PvP tracker for a multi-Rank 1 Gladiator team.",
+    "testimonial": { "text": "Having exactly the info we need without the screen clutter gave us a massive edge.", "author": "Multi-R1 Gladiator" }
+  },
+  {
+    "slug": "guild-bank-tracker",
+    "title": "Guild Bank & Roster Tracker",
+    "category": "Guild Management",
+    "short_desc": "Automate your guild's economy, attendance, and loot distribution.",
+    "features": ["Automated DKP/Council integration", "Guild bank value calculator", "Roster attendance export to Discord"],
+    "example_project": "Built a full Discord-to-WoW sync tool for a massive casual guild.",
+    "testimonial": { "text": "Managing our guild bank used to take hours. Now it takes 5 minutes.", "author": "Officer, Mega Guild" }
+  },
+  {
+    "slug": "bag-management",
+    "title": "Bag Management Addon Development",
+    "category": "Utility",
+    "short_desc": "Smart sorting, auto-vendoring, and cross-character inventory tracking.",
+    "features": ["Custom sorting rules", "Auto-vendor grey items", "Alt inventory database sync"],
+    "example_project": "Developed an incredibly lightweight bag replacement focusing on speed.",
+    "testimonial": { "text": "Finally, a bag addon that doesn't freeze the game when I open it.", "author": "Altoholic Player" }
+  }
+]

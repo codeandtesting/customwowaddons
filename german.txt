@@ -1,0 +1,113 @@
+### ABSCHNITT 1: KERNVORLAGEN-SÄTZE (Die Sätze)
+Professionell
+für
+Erhalten Sie ein pixelgenaues, hochoptimiertes
+speziell zugeschnitten auf
+Erstellt von erfahrenen Lua-Entwicklern.
+Suchen Sie ein vollständig individuelles und hochoptimiertes
+Lav Forge ist spezialisiert auf die Erstellung maßgeschneiderter Tools, Interfaces und Skripte, die perfekt auf Ihre Spielanforderungen abgestimmt sind.
+Ob Sie hochstufige PvE-Inhalte meistern, in PvP-Rängen dominieren oder einfach ein saubereres Interface wünschen – unsere erfahrenen Lua-Entwickler erstellen die perfekte Lösung.
+Warum uns wählen für
+Enthaltene Funktionen
+Vollständig zugeschnitten auf
+API und Spielmechaniken
+Zero-Taint-Code-Architektur zur Vermeidung von UI-Fehlern
+Optimiert für maximale FPS und minimale Speichernutzung
+Individuelle Texturen, Animationen und Sound-Trigger
+Lebenslange Fehlerbehebung für große Patches
+Häufig gestellte Fragen
+Funktioniert dies
+mit dem neuesten
+Patch?
+Ja, jedes
+von uns entwickelte Addon wird gründlich getestet und funktioniert garantiert mit dem neuesten
+Patch einwandfrei. Wir halten uns strikt an Blizzards API-Richtlinien.
+Wie lange dauert die Entwicklung?
+Je nach Komplexität sind erste Prototypen in der Regel innerhalb von 3–5 Tagen fertig. Komplexere Projekte mit benutzerdefinierten Texturen oder tiefgreifenden API-Integrationen können 1–2 Wochen dauern.
+Was passiert, wenn Blizzard das Spiel aktualisiert und das Addon nicht mehr funktioniert?
+Wir bieten Wartungs- und Update-Pakete an, um sicherzustellen, dass Ihre Tools bei großen Content-Updates und API-Änderungen voll funktionsfähig bleiben.
+Spezialisiert
+
+### ABSCHNITT 2: ADDON-DIENSTE (Die Schlüsselwörter)
+Individuelle Addon-Entwicklung
+WeakAura-Suite
+Komplette UI-Überarbeitung
+Individuelles Plater-Profil
+ElvUI-Anpassungsprofil
+Details! Damage Meter-Anpassung
+Individuelle HUD-Entwicklung
+Individuelle Einheitenfenster
+Individuelle Aktionsleisten
+Individuelles Schlachtzug-Addon
+Individuelle WeakAuras für Mythisch+
+Individuelle WeakAuras für Schlachtzüge
+Individueller Kampflog-Analysator
+Individuelles Schadensmesser-Addon
+Individuelle Heiler-Schlachtzugsfenster
+Individuelles Bedrohungsmesser-Addon
+Individuelles Bossmod-Addon
+Individueller Dungeon-Tracker
+Mythisch+ Timer-Addon
+Individuelles PvP-Addon
+Arena-Zielverfolgungs-Addon
+Schlachtfeldkarten-Addon
+Tracker für abnehmende Effekte (Diminishing Returns)
+Gegner-Cooldown-Tracker
+Gladiator-UI-Suite
+Individuelles Gildenverwaltungs-Addon
+Individuelles Auktionshaus-Addon
+Individuelles Beuteverteilungs-Addon
+Addon für Gold-Farming-Routen
+Individuelles DKP-System-Addon
+Individuelles EPGP-Beute-Addon
+Individueller Berufs-Tracker
+Addon zur Handwerkskostenberechnung
+Individuelles Inventarverwaltungs-Addon
+Individuelles Casino-Addon
+Individuelles Minispiel-Addon
+Individuelles RP-Addon
+Transmogrifikationshelfer-Addon
+Individueller Quest-Tracker
+Individuelles Tooltip-Addon
+Individuelles Haustierkampf-Addon
+Individueller Erfolgs-Tracker
+Reittiersammler-Addon
+Individuelles Chatfilter-Addon
+Twitch-Streamer-UI-Addon
+Individuelles Addon für Krieger
+Individuelles Addon für Paladin
+Individuelles Addon für Jäger
+Individuelles Addon für Schurke
+Individuelles Addon für Priester
+Individuelles Addon für Todesritter
+Individuelles Addon für Schamanen
+Individuelles Addon für Magier
+Individuelles Addon für Hexenmeister
+Individuelles Addon für Mönch
+Individuelles Addon für Druide
+Individuelles Addon für Dämonenjäger
+Individuelles Addon für Rufer
+Individuelle Tank-WeakAuras
+Individuelle Heiler-WeakAuras
+Individuelle Nahkampf-DPS-WeakAuras
+Individuelle Fernkampf-DPS-WeakAuras
+WoW API & Lua Beratung
+Addon-Debugging & Reparaturservice
+Lua-Code-Review-Service
+WoW Addon-Aktualisierungsservice
+
+### ABSCHNITT 3: ERWEITERUNGEN & VERSIONEN
+World of Warcraft Retail
+The War Within
+WoW Midnight Erweiterung
+WoW The Last Titan Erweiterung
+Mists of Pandaria Remix
+WoW Classic
+WoW Classic Era
+WoW Hardcore
+Season of Discovery
+Cataclysm Classic
+Wrath of the Lich King Classic
+The Burning Crusade Classic
+Mists of Pandaria Classic
+Private Server 3.3.5a

@@ -23,6 +23,9 @@ export default function Footer({ dict, currentLocale }: FooterProps) {
         <a className="hover:text-gold-accent transition-none" href={`/${currentLocale}/how-to-create-wow-addons`}>
           {footer.links.howTo}
         </a>
+        <a className="hover:text-gold-accent transition-none" href={`/${currentLocale}/gif-to-tga-converter`}>
+          TGA CONVERTER
+        </a>
       </div>
 
       <div className="font-label text-[10px] uppercase tracking-widest text-[#F3EFE0]/40">
