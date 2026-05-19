@@ -2,6 +2,172 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { parseGIF, decompressFrames } from 'gifuct-js';
+
+// ── Browser-native TGA encoder (uses Uint8Array instead of Node Buffer) ──
+function canvasToTGA(canvas: HTMLCanvasElement): Blob {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Could not get 2D context');
+
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+  const width = canvas.width;
+  const height = canvas.height;
+
+  // 18-byte TGA Header (RLE Truecolor, 32-bit RGBA)
+  const header = new Uint8Array(18);
+  header[2] = 10; // Image type: RLE Truecolor
+  header[12] = width & 0xff;
+  header[13] = (width >> 8) & 0xff;
+  header[14] = height & 0xff;
+  header[15] = (height >> 8) & 0xff;
+  header[16] = 32; // 32-bit pixel depth
+  header[17] = 0;  // bottom-left origin
+
+  const chunks: Uint8Array[] = [header];
+
+  const getPixel = (srcY: number, cx: number) => {
+    const idx = (srcY * width + cx) * 4;
+    return { r: data[idx], g: data[idx + 1], b: data[idx + 2], a: data[idx + 3] };
+  };
+
+  const isMatch = (p1: ReturnType<typeof getPixel>, p2: ReturnType<typeof getPixel>) =>
+    p1.r === p2.r && p1.g === p2.g && p1.b === p2.b && p1.a === p2.a;
+
+  for (let y = 0; y < height; y++) {
+    const srcY = height - 1 - y; // Flip Y for bottom-left origin
+    let x = 0;
+
+    while (x < width) {
+      let runLength = 1;
+      const p = getPixel(srcY, x);
+
+      while (x + runLength < width && runLength < 128) {
+        if (isMatch(p, getPixel(srcY, x + runLength))) {
+          runLength++;
+        } else {
+          break;
+        }
+      }
+
+      if (runLength > 1) {
+        // RLE packet
+        const packet = new Uint8Array(5);
+        packet[0] = 128 | (runLength - 1);
+        packet[1] = p.b;
+        packet[2] = p.g;
+        packet[3] = p.r;
+        packet[4] = p.a;
+        chunks.push(packet);
+        x += runLength;
+      } else {
+        // Raw packet
+        let rawCount = 1;
+        while (x + rawCount < width && rawCount < 128) {
+          if (!isMatch(getPixel(srcY, x + rawCount - 1), getPixel(srcY, x + rawCount))) {
+            rawCount++;
+          } else {
+            rawCount--;
+            break;
+          }
+        }
+
+        const packet = new Uint8Array(1 + rawCount * 4);
+        packet[0] = rawCount - 1;
+        for (let i = 0; i < rawCount; i++) {
+          const px = getPixel(srcY, x + i);
+          packet[1 + i * 4] = px.b;
+          packet[1 + i * 4 + 1] = px.g;
+          packet[1 + i * 4 + 2] = px.r;
+          packet[1 + i * 4 + 3] = px.a;
+        }
+        chunks.push(packet);
+        x += rawCount;
+      }
+    }
+  }
+
+  return new Blob(chunks, { type: 'image/x-tga' });
+}
+
+// ── Client-side GIF → TGA sprite sheet conversion ──
+async function convertGifClientSide(
+  file: File,
+  gridSize: number
+): Promise<{ previewUrl: string; tgaBlob: Blob; filename: string }> {
+  const arrayBuffer = await file.arrayBuffer();
+  const gifData = parseGIF(arrayBuffer);
+  const frames = decompressFrames(gifData, true);
+
+  if (frames.length === 0) {
+    throw new Error('No frames found in GIF');
+  }
+
+  const frameWidth = gifData.lsd.width;
+  const frameHeight = gifData.lsd.height;
+  const spriteSheetWidth = frameWidth * gridSize;
+  const spriteSheetHeight = frameHeight * gridSize;
+
+  // Create the main sprite sheet canvas
+  const canvas = document.createElement('canvas');
+  canvas.width = spriteSheetWidth;
+  canvas.height = spriteSheetHeight;
+  const ctx = canvas.getContext('2d')!;
+
+  // We need a compositing canvas to properly handle GIF disposal methods
+  const compCanvas = document.createElement('canvas');
+  compCanvas.width = frameWidth;
+  compCanvas.height = frameHeight;
+  const compCtx = compCanvas.getContext('2d')!;
+
+  const maxFrames = Math.min(frames.length, gridSize * gridSize);
+
+  for (let i = 0; i < maxFrames; i++) {
+    const frame = frames[i];
+    const dims = frame.dims;
+    const patch = frame.patch;
+
+    // Create a temporary canvas for this frame's patch
+    const patchCanvas = document.createElement('canvas');
+    patchCanvas.width = dims.width;
+    patchCanvas.height = dims.height;
+    const patchCtx = patchCanvas.getContext('2d')!;
+
+    const imageData = patchCtx.createImageData(dims.width, dims.height);
+    imageData.data.set(patch);
+    patchCtx.putImageData(imageData, 0, 0);
+
+    // Handle disposal: for first frame or restoreToBackgroundColor, clear first
+    if (i === 0 || frame.disposalType === 2) {
+      compCtx.clearRect(0, 0, frameWidth, frameHeight);
+    }
+
+    // Draw the patch onto the compositing canvas at the correct offset
+    compCtx.drawImage(patchCanvas, dims.left, dims.top);
+
+    // Draw the composed frame onto the sprite sheet grid
+    const row = Math.floor(i / gridSize);
+    const col = i % gridSize;
+    ctx.drawImage(compCanvas, col * frameWidth, row * frameHeight);
+
+    // Handle disposal after drawing
+    if (frame.disposalType === 2) {
+      // Restore to background: clear the patch area
+      compCtx.clearRect(dims.left, dims.top, dims.width, dims.height);
+    }
+    // disposalType 3 (restore to previous) is rare; we ignore it for simplicity
+  }
+
+  // Generate preview as data URL
+  const previewUrl = canvas.toDataURL('image/png');
+
+  // Generate TGA blob
+  const tgaBlob = canvasToTGA(canvas);
+
+  const filename = file.name.replace(/\.(gif|webp)$/i, '.tga');
+
+  return { previewUrl, tgaBlob, filename };
+}
 
 export default function ConverterClient() {
   const [file, setFile] = useState<File | null>(null);
@@ -30,46 +196,54 @@ export default function ConverterClient() {
     setDownloadUrl(null);
     setSpriteSheetPreview(null);
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('gridSize', gridSize.toString());
-
     try {
-      const response = await fetch('/api/convert', {
-        method: 'POST',
-        body: formData,
-      });
+      if (file.type === 'image/gif') {
+        // ── GIF: Convert entirely in the browser (no server upload) ──
+        const result = await convertGifClientSide(file, gridSize);
 
-      if (!response.ok) {
-        throw new Error('Conversion failed');
-      }
+        setSpriteSheetPreview(result.previewUrl);
+        setDownloadFilename(result.filename);
 
-      const data = await response.json();
-      
-      // Show the generated sprite sheet preview
-      if (data.previewUrl) {
-        setSpriteSheetPreview(data.previewUrl);
-      }
-      
-      if (data.filename) {
-        setDownloadFilename(data.filename);
-      }
-      
-      // Decode base64 TGA to Blob
-      if (data.tgaBase64) {
-        const byteCharacters = atob(data.tgaBase64);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], { type: 'image/x-tga' });
-        const url = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(result.tgaBlob);
         setDownloadUrl(url);
+      } else {
+        // ── WebP: Fall back to server API route ──
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('gridSize', gridSize.toString());
+
+        const response = await fetch('/api/convert', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Conversion failed');
+        }
+
+        const data = await response.json();
+
+        if (data.previewUrl) {
+          setSpriteSheetPreview(data.previewUrl);
+        }
+        if (data.filename) {
+          setDownloadFilename(data.filename);
+        }
+        if (data.tgaBase64) {
+          const byteCharacters = atob(data.tgaBase64);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'image/x-tga' });
+          const url = URL.createObjectURL(blob);
+          setDownloadUrl(url);
+        }
       }
     } catch (error) {
-      console.error('Error converting GIF:', error);
-      alert('Failed to convert GIF to TGA');
+      console.error('Error converting file:', error);
+      alert('Failed to convert file to TGA: ' + (error as Error).message);
     } finally {
       setConverting(false);
     }
