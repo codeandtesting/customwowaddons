@@ -87,7 +87,7 @@ function canvasToTGA(canvas: HTMLCanvasElement): Blob {
     }
   }
 
-  return new Blob(chunks, { type: 'image/x-tga' });
+  return new Blob(chunks as any, { type: 'image/x-tga' });
 }
 
 // ── Client-side GIF → TGA sprite sheet conversion ──
