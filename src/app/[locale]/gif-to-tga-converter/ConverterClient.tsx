@@ -13,88 +13,152 @@ function canvasToTGA(canvas: HTMLCanvasElement): Blob {
   const data = imageData.data;
   const width = canvas.width;
   const height = canvas.height;
+  const numPixels = width * height;
+
+  // Reorder RGBA to BGRA (standard TGA channel order)
+  const bgraData = new Uint8Array(numPixels * 4);
+  for (let i = 0; i < data.length; i += 4) {
+    bgraData[i] = data[i + 2];     // B
+    bgraData[i + 1] = data[i + 1]; // G
+    bgraData[i + 2] = data[i];     // R
+    bgraData[i + 3] = data[i + 3]; // A
+  }
+
+  // Pre-allocate worst-case buffer: 18 (header) + input size + packet headers
+  const maxCompressedSize = 18 + bgraData.length + Math.ceil(numPixels / 128);
+  const outBuffer = new Uint8Array(maxCompressedSize);
 
   // 18-byte TGA Header (RLE Truecolor, 32-bit RGBA)
-  const header = new Uint8Array(18);
-  header[2] = 10; // Image type: RLE Truecolor
-  header[12] = width & 0xff;
-  header[13] = (width >> 8) & 0xff;
-  header[14] = height & 0xff;
-  header[15] = (height >> 8) & 0xff;
-  header[16] = 32; // 32-bit pixel depth
-  header[17] = 0;  // bottom-left origin
+  outBuffer[2] = 10; // Image type: 10 = RLE Truecolor
+  outBuffer[12] = width & 0xff;
+  outBuffer[13] = (width >> 8) & 0xff;
+  outBuffer[14] = height & 0xff;
+  outBuffer[15] = (height >> 8) & 0xff;
+  outBuffer[16] = 32; // 32-bit pixel depth
+  outBuffer[17] = 0x28;  // top-left origin, 8 attribute bits
 
-  const chunks: Uint8Array[] = [header];
+  let outIdx = 18;
+  let pixelIdx = 0;
 
-  const getPixel = (srcY: number, cx: number) => {
-    const idx = (srcY * width + cx) * 4;
-    return { r: data[idx], g: data[idx + 1], b: data[idx + 2], a: data[idx + 3] };
-  };
+  while (pixelIdx < numPixels) {
+    let runLen = 1;
+    const startIdx = pixelIdx * 4;
+    const b = bgraData[startIdx];
+    const g = bgraData[startIdx + 1];
+    const r = bgraData[startIdx + 2];
+    const a = bgraData[startIdx + 3];
 
-  const isMatch = (p1: ReturnType<typeof getPixel>, p2: ReturnType<typeof getPixel>) =>
-    p1.r === p2.r && p1.g === p2.g && p1.b === p2.b && p1.a === p2.a;
-
-  for (let y = 0; y < height; y++) {
-    const srcY = height - 1 - y; // Flip Y for bottom-left origin
-    let x = 0;
-
-    while (x < width) {
-      let runLength = 1;
-      const p = getPixel(srcY, x);
-
-      while (x + runLength < width && runLength < 128) {
-        if (isMatch(p, getPixel(srcY, x + runLength))) {
-          runLength++;
-        } else {
-          break;
-        }
-      }
-
-      if (runLength > 1) {
-        // RLE packet
-        const packet = new Uint8Array(5);
-        packet[0] = 128 | (runLength - 1);
-        packet[1] = p.b;
-        packet[2] = p.g;
-        packet[3] = p.r;
-        packet[4] = p.a;
-        chunks.push(packet);
-        x += runLength;
+    // Count consecutive identical pixels (up to 128)
+    while (pixelIdx + runLen < numPixels && runLen < 128) {
+      const nextIdx = (pixelIdx + runLen) * 4;
+      if (
+        bgraData[nextIdx] === b &&
+        bgraData[nextIdx + 1] === g &&
+        bgraData[nextIdx + 2] === r &&
+        bgraData[nextIdx + 3] === a
+      ) {
+        runLen++;
       } else {
-        // Raw packet
-        let rawCount = 1;
-        while (x + rawCount < width && rawCount < 128) {
-          if (!isMatch(getPixel(srcY, x + rawCount - 1), getPixel(srcY, x + rawCount))) {
-            rawCount++;
-          } else {
-            rawCount--;
+        break;
+      }
+    }
+
+    if (runLen >= 2) {
+      // Write Run-Length Packet: MSB is 1, count-1 in bits 0-6
+      outBuffer[outIdx++] = 0x80 | (runLen - 1);
+      outBuffer[outIdx++] = b;
+      outBuffer[outIdx++] = g;
+      outBuffer[outIdx++] = r;
+      outBuffer[outIdx++] = a;
+      pixelIdx += runLen;
+    } else {
+      // Find length of run of different pixels (up to 128)
+      let rawLen = 1;
+      while (pixelIdx + rawLen < numPixels && rawLen < 128) {
+        const currentIdx = (pixelIdx + rawLen) * 4;
+        // If we encounter consecutive identical pixels, stop the raw packet to allow RLE run
+        if (pixelIdx + rawLen + 1 < numPixels) {
+          const nextIdx = (pixelIdx + rawLen + 1) * 4;
+          if (
+            bgraData[currentIdx] === bgraData[nextIdx] &&
+            bgraData[currentIdx + 1] === bgraData[nextIdx + 1] &&
+            bgraData[currentIdx + 2] === bgraData[nextIdx + 2] &&
+            bgraData[currentIdx + 3] === bgraData[nextIdx + 3]
+          ) {
             break;
           }
         }
-
-        const packet = new Uint8Array(1 + rawCount * 4);
-        packet[0] = rawCount - 1;
-        for (let i = 0; i < rawCount; i++) {
-          const px = getPixel(srcY, x + i);
-          packet[1 + i * 4] = px.b;
-          packet[1 + i * 4 + 1] = px.g;
-          packet[1 + i * 4 + 2] = px.r;
-          packet[1 + i * 4 + 3] = px.a;
-        }
-        chunks.push(packet);
-        x += rawCount;
+        rawLen++;
       }
+
+      // Write Raw Packet: MSB is 0, count-1 in bits 0-6
+      outBuffer[outIdx++] = rawLen - 1;
+      for (let i = 0; i < rawLen; i++) {
+        const idx = (pixelIdx + i) * 4;
+        outBuffer[outIdx++] = bgraData[idx];
+        outBuffer[outIdx++] = bgraData[idx + 1];
+        outBuffer[outIdx++] = bgraData[idx + 2];
+        outBuffer[outIdx++] = bgraData[idx + 3];
+      }
+      pixelIdx += rawLen;
     }
   }
 
-  return new Blob(chunks as any, { type: 'image/x-tga' });
+  // Slice to actual size
+  const finalBuffer = outBuffer.subarray(0, outIdx);
+  return new Blob([finalBuffer], { type: 'image/x-tga' });
 }
 
-// ── Client-side GIF → TGA sprite sheet conversion ──
+// ── Helper functions for frame count detection ──
+function getOptimalGridDimensions(frameCount: number): { cols: number; rows: number } {
+  if (frameCount <= 0) return { cols: 5, rows: 5 };
+  const cols = Math.ceil(Math.sqrt(frameCount));
+  const rows = Math.ceil(frameCount / cols);
+  return { cols, rows };
+}
+
+async function detectFrameCount(file: File): Promise<number> {
+  const arrayBuffer = await file.arrayBuffer();
+  if (file.type === 'image/gif') {
+    try {
+      const gifData = parseGIF(arrayBuffer);
+      const frames = decompressFrames(gifData, true);
+      return frames.length;
+    } catch (e) {
+      console.error('Failed to parse GIF frames client-side:', e);
+      return 0;
+    }
+  } else if (file.type === 'image/webp') {
+    try {
+      const view = new Uint8Array(arrayBuffer);
+      let count = 0;
+      for (let i = 0; i < view.length - 4; i++) {
+        if (
+          view[i] === 0x41 &&
+          view[i + 1] === 0x4E &&
+          view[i + 2] === 0x4D &&
+          view[i + 3] === 0x46
+        ) {
+          count++;
+        }
+      }
+      return count === 0 ? 1 : count;
+    } catch (e) {
+      console.error('Failed to parse WebP frames client-side:', e);
+      return 0;
+    }
+  }
+  return 0;
+}
+
+// ── Client-side GIF → TGA/PNG sprite sheet conversion ──
 async function convertGifClientSide(
   file: File,
-  gridSize: number
-): Promise<{ previewUrl: string; tgaBlob: Blob; filename: string }> {
+  cols: number,
+  rows: number,
+  format: 'tga' | 'png',
+  maxFrameSize: number
+): Promise<{ previewUrl: string; blob: Blob; filename: string }> {
   const arrayBuffer = await file.arrayBuffer();
   const gifData = parseGIF(arrayBuffer);
   const frames = decompressFrames(gifData, true);
@@ -103,10 +167,19 @@ async function convertGifClientSide(
     throw new Error('No frames found in GIF');
   }
 
-  const frameWidth = gifData.lsd.width;
-  const frameHeight = gifData.lsd.height;
-  const spriteSheetWidth = frameWidth * gridSize;
-  const spriteSheetHeight = frameHeight * gridSize;
+  const origFrameWidth = gifData.lsd.width;
+  const origFrameHeight = gifData.lsd.height;
+  let frameWidth = origFrameWidth;
+  let frameHeight = origFrameHeight;
+
+  if (maxFrameSize > 0 && (frameWidth > maxFrameSize || frameHeight > maxFrameSize)) {
+    const ratio = Math.min(maxFrameSize / frameWidth, maxFrameSize / frameHeight);
+    frameWidth = Math.round(frameWidth * ratio);
+    frameHeight = Math.round(frameHeight * ratio);
+  }
+
+  const spriteSheetWidth = frameWidth * cols;
+  const spriteSheetHeight = frameHeight * rows;
 
   // Create the main sprite sheet canvas
   const canvas = document.createElement('canvas');
@@ -114,13 +187,13 @@ async function convertGifClientSide(
   canvas.height = spriteSheetHeight;
   const ctx = canvas.getContext('2d')!;
 
-  // We need a compositing canvas to properly handle GIF disposal methods
+  // We need a compositing canvas to properly handle GIF disposal methods in their original size
   const compCanvas = document.createElement('canvas');
-  compCanvas.width = frameWidth;
-  compCanvas.height = frameHeight;
+  compCanvas.width = origFrameWidth;
+  compCanvas.height = origFrameHeight;
   const compCtx = compCanvas.getContext('2d')!;
 
-  const maxFrames = Math.min(frames.length, gridSize * gridSize);
+  const maxFrames = Math.min(frames.length, cols * rows);
 
   for (let i = 0; i < maxFrames; i++) {
     const frame = frames[i];
@@ -139,16 +212,26 @@ async function convertGifClientSide(
 
     // Handle disposal: for first frame or restoreToBackgroundColor, clear first
     if (i === 0 || frame.disposalType === 2) {
-      compCtx.clearRect(0, 0, frameWidth, frameHeight);
+      compCtx.clearRect(0, 0, origFrameWidth, origFrameHeight);
     }
 
     // Draw the patch onto the compositing canvas at the correct offset
     compCtx.drawImage(patchCanvas, dims.left, dims.top);
 
-    // Draw the composed frame onto the sprite sheet grid
-    const row = Math.floor(i / gridSize);
-    const col = i % gridSize;
-    ctx.drawImage(compCanvas, col * frameWidth, row * frameHeight);
+    // Draw the composed frame onto the sprite sheet grid, scaled if necessary
+    const row = Math.floor(i / cols);
+    const col = i % cols;
+    ctx.drawImage(
+      compCanvas,
+      0,
+      0,
+      origFrameWidth,
+      origFrameHeight,
+      col * frameWidth,
+      row * frameHeight,
+      frameWidth,
+      frameHeight
+    );
 
     // Handle disposal after drawing
     if (frame.disposalType === 2) {
@@ -161,32 +244,187 @@ async function convertGifClientSide(
   // Generate preview as data URL
   const previewUrl = canvas.toDataURL('image/png');
 
-  // Generate TGA blob
-  const tgaBlob = canvasToTGA(canvas);
+  let blob: Blob;
+  let filename: string;
+  const baseName = file.name.replace(/\.(gif|webp)$/i, '');
 
-  const filename = file.name.replace(/\.(gif|webp)$/i, '.tga');
+  if (format === 'tga') {
+    blob = canvasToTGA(canvas);
+    filename = `${baseName}_col-${cols}_row-${rows}.tga`;
+  } else {
+    // Generate PNG blob
+    const pngBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
+    if (!pngBlob) throw new Error('Failed to generate PNG blob');
+    blob = pngBlob;
+    filename = `${baseName}_col-${cols}_row-${rows}.png`;
+  }
 
-  return { previewUrl, tgaBlob, filename };
+  return { previewUrl, blob, filename };
+}
+
+async function convertWebPClientSide(
+  file: File,
+  cols: number,
+  rows: number,
+  format: 'tga' | 'png',
+  maxFrameSize: number
+): Promise<{ previewUrl: string; blob: Blob; filename: string }> {
+  const ImageDecoderClass = (window as any).ImageDecoder;
+  if (typeof ImageDecoderClass === 'undefined') {
+    throw new Error('Your browser does not support client-side WebP decoding (requires WebCodecs API). Please update your browser.');
+  }
+
+  const decoder = new ImageDecoderClass({
+    data: (file as any).stream ? (file as any).stream() : file,
+    type: 'image/webp',
+  });
+
+  await decoder.tracks.ready;
+  const track = decoder.tracks.selectedTrack;
+  const frameCount = track.frameCount;
+
+  if (frameCount === 0) {
+    throw new Error('No frames found in WebP');
+  }
+
+  // Get dimensions of first frame
+  const firstFrameResult = await decoder.decode({ frameIndex: 0 });
+  const origFrameWidth = firstFrameResult.image.displayWidth;
+  const origFrameHeight = firstFrameResult.image.displayHeight;
+  firstFrameResult.image.close();
+
+  let frameWidth = origFrameWidth;
+  let frameHeight = origFrameHeight;
+
+  if (maxFrameSize > 0 && (frameWidth > maxFrameSize || frameHeight > maxFrameSize)) {
+    const ratio = Math.min(maxFrameSize / frameWidth, maxFrameSize / frameHeight);
+    frameWidth = Math.round(frameWidth * ratio);
+    frameHeight = Math.round(frameHeight * ratio);
+  }
+
+  const spriteSheetWidth = frameWidth * cols;
+  const spriteSheetHeight = frameHeight * rows;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = spriteSheetWidth;
+  canvas.height = spriteSheetHeight;
+  const ctx = canvas.getContext('2d')!;
+
+  const maxFrames = Math.min(frameCount, cols * rows);
+
+  for (let i = 0; i < maxFrames; i++) {
+    const result = await decoder.decode({ frameIndex: i });
+    const videoFrame = result.image;
+    
+    const row = Math.floor(i / cols);
+    const col = i % cols;
+    
+    ctx.drawImage(
+      videoFrame,
+      0,
+      0,
+      videoFrame.displayWidth,
+      videoFrame.displayHeight,
+      col * frameWidth,
+      row * frameHeight,
+      frameWidth,
+      frameHeight
+    );
+    videoFrame.close();
+  }
+
+  // Generate preview as data URL
+  const previewUrl = canvas.toDataURL('image/png');
+
+  let blob: Blob;
+  let filename: string;
+  const baseName = file.name.replace(/\.(gif|webp)$/i, '');
+
+  if (format === 'tga') {
+    blob = canvasToTGA(canvas);
+    filename = `${baseName}_col-${cols}_row-${rows}.tga`;
+  } else {
+    const pngBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
+    if (!pngBlob) throw new Error('Failed to generate PNG blob');
+    blob = pngBlob;
+    filename = `${baseName}_col-${cols}_row-${rows}.png`;
+  }
+
+  return { previewUrl, blob, filename };
 }
 
 export default function ConverterClient() {
   const [file, setFile] = useState<File | null>(null);
-  const [gridSize, setGridSize] = useState<number>(5);
+  const [cols, setCols] = useState<number>(5);
+  const [rows, setRows] = useState<number>(5);
+  const [format, setFormat] = useState<'tga' | 'png'>('tga');
   const [converting, setConverting] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [downloadFilename, setDownloadFilename] = useState<string>('output.tga');
   const [preview, setPreview] = useState<string | null>(null);
   const [spriteSheetPreview, setSpriteSheetPreview] = useState<string | null>(null);
+  const [dragActive, setDragActive] = useState(false);
+  const [detectedFrames, setDetectedFrames] = useState<number | null>(null);
+  const [maxFrameSize, setMaxFrameSize] = useState<number>(128);
+
+  const loadFile = async (selectedFile: File) => {
+    setFile(selectedFile);
+    const url = URL.createObjectURL(selectedFile);
+    setPreview(url);
+    setDownloadUrl(null);
+    setSpriteSheetPreview(null);
+    setDetectedFrames(null);
+
+    // Auto-detect frame count and set optimal grid dimensions
+    try {
+      const frameCount = await detectFrameCount(selectedFile);
+      if (frameCount > 0) {
+        setDetectedFrames(frameCount);
+        const { cols: optCols, rows: optRows } = getOptimalGridDimensions(frameCount);
+        setCols(optCols);
+        setRows(optRows);
+      }
+    } catch (err) {
+      console.error('Error auto-detecting frame count:', err);
+    }
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile && (selectedFile.type === 'image/gif' || selectedFile.type === 'image/webp')) {
-      setFile(selectedFile);
-      const url = URL.createObjectURL(selectedFile);
-      setPreview(url);
-      setDownloadUrl(null);
-      setSpriteSheetPreview(null);
+      loadFile(selectedFile);
     }
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const droppedFile = e.dataTransfer.files[0];
+      if (droppedFile.type === 'image/gif' || droppedFile.type === 'image/webp') {
+        loadFile(droppedFile);
+      } else {
+        alert('Please upload a GIF or WebP image.');
+      }
+    }
+  };
+
+  const handleFormatChange = (newFormat: 'tga' | 'png') => {
+    setFormat(newFormat);
+    setDownloadUrl(null);
+    setSpriteSheetPreview(null);
   };
 
   const handleConvert = async () => {
@@ -199,18 +437,30 @@ export default function ConverterClient() {
     try {
       if (file.type === 'image/gif') {
         // ── GIF: Convert entirely in the browser (no server upload) ──
-        const result = await convertGifClientSide(file, gridSize);
+        const result = await convertGifClientSide(file, cols, rows, format, maxFrameSize);
 
         setSpriteSheetPreview(result.previewUrl);
         setDownloadFilename(result.filename);
 
-        const url = URL.createObjectURL(result.tgaBlob);
+        const url = URL.createObjectURL(result.blob);
+        setDownloadUrl(url);
+      } else if (file.type === 'image/webp' && typeof window !== 'undefined' && 'ImageDecoder' in window) {
+        // ── WebP: Convert entirely in the browser using WebCodecs (no server upload) ──
+        const result = await convertWebPClientSide(file, cols, rows, format, maxFrameSize);
+
+        setSpriteSheetPreview(result.previewUrl);
+        setDownloadFilename(result.filename);
+
+        const url = URL.createObjectURL(result.blob);
         setDownloadUrl(url);
       } else {
-        // ── WebP: Fall back to server API route ──
+        // ── WebP: Fall back to server API route (for older browsers) ──
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('gridSize', gridSize.toString());
+        formData.append('cols', cols.toString());
+        formData.append('rows', rows.toString());
+        formData.append('format', format);
+        formData.append('maxFrameSize', maxFrameSize.toString());
 
         const response = await fetch('/api/convert', {
           method: 'POST',
@@ -229,21 +479,22 @@ export default function ConverterClient() {
         if (data.filename) {
           setDownloadFilename(data.filename);
         }
-        if (data.tgaBase64) {
-          const byteCharacters = atob(data.tgaBase64);
+        if (data.base64) {
+          const byteCharacters = atob(data.base64);
           const byteNumbers = new Array(byteCharacters.length);
           for (let i = 0; i < byteCharacters.length; i++) {
             byteNumbers[i] = byteCharacters.charCodeAt(i);
           }
           const byteArray = new Uint8Array(byteNumbers);
-          const blob = new Blob([byteArray], { type: 'image/x-tga' });
+          const mimeType = format === 'png' ? 'image/png' : 'image/x-tga';
+          const blob = new Blob([byteArray], { type: mimeType });
           const url = URL.createObjectURL(blob);
           setDownloadUrl(url);
         }
       }
     } catch (error) {
       console.error('Error converting file:', error);
-      alert('Failed to convert file to TGA: ' + (error as Error).message);
+      alert(`Failed to convert file to ${format.toUpperCase()}: ` + (error as Error).message);
     } finally {
       setConverting(false);
     }
@@ -277,7 +528,17 @@ export default function ConverterClient() {
         <div className="space-y-8">
           {/* File Upload Area */}
           <div className="relative group">
-            <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-white/20 rounded-xl cursor-pointer bg-vulcan-light/50 hover:bg-vulcan-light transition-all duration-300 group-hover:border-forge-orange/50">
+            <label
+              onDragEnter={handleDrag}
+              onDragOver={handleDrag}
+              onDragLeave={handleDrag}
+              onDrop={handleDrop}
+              className={`flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-300 ${
+                dragActive
+                  ? 'border-forge-orange bg-vulcan shadow-[0_0_25px_rgba(255,107,0,0.25)] scale-[1.01]'
+                  : 'border-white/20 bg-vulcan-light/50 hover:bg-vulcan-light group-hover:border-forge-orange/50'
+              }`}
+            >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <span className="material-symbols-outlined text-4xl text-forge-orange mb-3">cloud_upload</span>
                 <p className="mb-2 text-sm text-bone-white/80"><span className="font-semibold text-forge-orange">Click to upload</span> or drag and drop</p>
@@ -290,26 +551,116 @@ export default function ConverterClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Options */}
             <div className="space-y-6">
+              {/* Output Format Selector */}
               <div>
                 <label className="block text-sm font-label font-medium text-bone-white/90 mb-2">
-                  Sprite Sheet Grid Size
+                  Output Format
                 </label>
-                <div className="relative">
-                  <select
-                    value={gridSize}
-                    onChange={(e) => setGridSize(parseInt(e.target.value))}
-                    className="block w-full px-4 py-3 bg-vulcan border border-white/10 rounded-lg text-bone-white focus:outline-none focus:ring-2 focus:ring-forge-orange focus:border-transparent appearance-none transition-shadow"
+                <div className="grid grid-cols-2 gap-2 bg-vulcan border border-white/10 p-1 rounded-lg">
+                  <button
+                    type="button"
+                    onClick={() => handleFormatChange('tga')}
+                    className={`py-2.5 px-4 rounded-md text-sm font-label font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                      format === 'tga'
+                        ? 'bg-gradient-to-r from-forge-orange to-gold text-white shadow-lg shadow-forge-orange/20'
+                        : 'text-bone-white/60 hover:text-bone-white hover:bg-white/5'
+                    }`}
                   >
-                    <option value={2}>2x2 (4 frames)</option>
-                    <option value={3}>3x3 (9 frames)</option>
-                    <option value={4}>4x4 (16 frames)</option>
-                    <option value={5}>5x5 (25 frames)</option>
-                    <option value={6}>6x6 (36 frames)</option>
-                    <option value={8}>8x8 (64 frames)</option>
-                  </select>
-                  <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-bone-white/50 pointer-events-none">expand_more</span>
+                    <span className="material-symbols-outlined text-sm">filter_hdr</span>
+                    TGA (.tga)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleFormatChange('png')}
+                    className={`py-2.5 px-4 rounded-md text-sm font-label font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                      format === 'png'
+                        ? 'bg-gradient-to-r from-forge-orange to-gold text-white shadow-lg shadow-forge-orange/20'
+                        : 'text-bone-white/60 hover:text-bone-white hover:bg-white/5'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-sm">image</span>
+                    PNG (.png)
+                  </button>
                 </div>
-                <p className="mt-2 text-xs text-bone-white/60 font-mono">Select a grid that accommodates all animation frames.</p>
+                <p className="mt-2 text-xs text-bone-white/60 font-mono">
+                  {format === 'tga'
+                    ? 'TGA is WoW’s native texture format, supporting 32-bit alpha and RLE compression.'
+                    : 'PNG is standard, lossless, and compatible with modern layouts & WeakAuras.'}
+                </p>
+              </div>
+              <div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-label font-medium text-bone-white/90 mb-2">
+                      Columns
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={32}
+                      value={cols}
+                      onChange={(e) => {
+                        setCols(Math.max(1, parseInt(e.target.value) || 1));
+                        setDownloadUrl(null);
+                        setSpriteSheetPreview(null);
+                      }}
+                      className="block w-full px-4 py-3 bg-white border border-white/20 rounded-lg text-black font-semibold focus:outline-none focus:ring-2 focus:ring-forge-orange focus:border-transparent appearance-none transition-shadow"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-label font-medium text-bone-white/90 mb-2">
+                      Rows
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={32}
+                      value={rows}
+                      onChange={(e) => {
+                        setRows(Math.max(1, parseInt(e.target.value) || 1));
+                        setDownloadUrl(null);
+                        setSpriteSheetPreview(null);
+                      }}
+                      className="block w-full px-4 py-3 bg-white border border-white/20 rounded-lg text-black font-semibold focus:outline-none focus:ring-2 focus:ring-forge-orange focus:border-transparent appearance-none transition-shadow"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-label font-medium text-bone-white/90 mb-2">
+                      Max Frame Size
+                    </label>
+                    <select
+                      value={maxFrameSize}
+                      onChange={(e) => {
+                        setMaxFrameSize(parseInt(e.target.value));
+                        setDownloadUrl(null);
+                        setSpriteSheetPreview(null);
+                      }}
+                      className="block w-full px-4 py-3 bg-white border border-white/20 rounded-lg text-black font-semibold focus:outline-none focus:ring-2 focus:ring-forge-orange focus:border-transparent transition-shadow"
+                    >
+                      <option value={64}>64 px</option>
+                      <option value={128}>128 px</option>
+                      <option value={256}>256 px</option>
+                      <option value={512}>512 px</option>
+                      <option value={0}>Original</option>
+                    </select>
+                  </div>
+                </div>
+
+                {detectedFrames !== null && (
+                  <div className="mt-3 space-y-1.5">
+                    <p className="text-xs text-forge-orange font-label font-bold flex items-center gap-1">
+                      <span className="material-symbols-outlined text-xs">info</span>
+                      Detected {detectedFrames} frame{detectedFrames === 1 ? '' : 's'}. Automatically set layout to {cols}x{rows} ({cols * rows} capacity).
+                    </p>
+                    {cols * rows < detectedFrames && (
+                      <p className="text-xs text-red-400 font-label font-bold flex items-center gap-1">
+                        <span className="material-symbols-outlined text-xs text-red-400">warning</span>
+                        Warning: Grid capacity ({cols * rows} frames) is less than detected frames ({detectedFrames}). Truncation will occur.
+                      </p>
+                    )}
+                  </div>
+                )}
+                <p className="mt-2 text-xs text-bone-white/60 font-mono">Customize the number of grid columns and rows to arrange the spritesheet.</p>
               </div>
 
               <button
@@ -326,7 +677,7 @@ export default function ConverterClient() {
                   ) : (
                     <>
                       <span className="material-symbols-outlined">manufacturing</span>
-                      Generate TGA Sprite Sheet
+                      Generate {format.toUpperCase()} Sprite Sheet
                     </>
                   )}
                 </span>
@@ -343,7 +694,7 @@ export default function ConverterClient() {
                   className="w-full flex items-center justify-center gap-2 bg-green-600/90 hover:bg-green-500 text-white font-label font-bold py-4 px-6 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.5)]"
                 >
                   <span className="material-symbols-outlined">download</span>
-                  Download TGA File
+                  Download {format.toUpperCase()} File
                 </motion.button>
               )}
             </div>

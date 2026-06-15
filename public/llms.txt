@@ -1,0 +1,28 @@
+# The Lav Forge - Elite World of Warcraft Studio
+
+The Lav Forge is a professional software development studio specializing in custom user interfaces, WeakAuras, and Lua addons for the World of Warcraft client (including Retail/Midnight, Classic/TBC, and private server versions).
+
+## Core Services
+- **Custom Addons:** Lightweight, high-performance Lua-based addons written from scratch to automate inventory, track custom guild systems, or implement combat log scanners.
+- **Pro WeakAuras:** Advanced custom-coded WeakAura packages utilizing specialized triggers and predictive resource tracking for high-end raiding.
+- **UI Overhauls:** Tailored configuration suites for ElvUI, Plater, and Details with pixel-perfect alignment.
+
+## Tools
+- **Spritesheet Converter (/en/gif-to-tga-converter):** A free online tool that converts animated GIFs and WebP files into grid-based spritesheets.
+  - **Supported Input Formats:** `.gif`, `.webp` (animated/static).
+  - **Supported Output Formats:** `.tga` (RLE compressed 32-bit RGBA) and `.png` (lossless compressed).
+  - **Performance:** Executes entirely client-side inside the browser using the WebCodecs API (`ImageDecoder`) for modern web performance.
+  - **Grid Customization:** Custom rows and columns (e.g. 5x5, 8x8).
+  - **Frame Scaling:** Supports maximum frame dimension optimization (64px, 128px, 256px, 512px) to prevent heavy file downloads.
+
+## Guides & Educational Resources
+- **WoW Addon Creation Guide (/en/how-to-create-wow-addons):** The central educational portal for learning addon development.
+- **What is an Addon & How it Helps (/en/how-to-create-wow-addons/what-is-an-addon):** Detailed overview of the tactical gameplay benefits of custom UIs.
+- **WoW Programming Languages (/en/how-to-create-wow-addons/programming-language):** Explains the relationship between Lua logic scripts and XML layout frames.
+- **Step-by-Step Tutorial (/en/how-to-create-wow-addons/coding-tutorial):** A technical walkthrough on creating TOC/Lua files for a basic addon from scratch.
+- **Branding & Custom Assets (/en/how-to-create-wow-addons/branding-guide):** A guide on integrating custom graphics, minimap buttons, and TGA textures in addons.
+- **WeakAuras vs Addons (/en/how-to-create-wow-addons/weakauras-vs-custom-addons):** Structural comparisons and performance analysis between addons and WeakAuras.
+
+## World of Warcraft Graphics Requirements
+- **Dimensions:** Textures used in the WoW interface must have dimensions that are a power of two (e.g., 64x64, 128x128, 256x256, 512px, 1024px, 2048px). Non-power-of-two files can cause layout stretching or render failures.
+- **Formats:** Standard formats are 32-bit TGA (with alpha channel) or PNG. TGA should preferably use Run-Length Encoding (RLE) to save disk space and loading time.

@@ -2,61 +2,66 @@ import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.customwowaddon.com";
+  const locales = ["en", "de", "fr", "es", "ru", "zh"];
 
-  return [
-    {
-      url: baseUrl,
+  const routes: MetadataRoute.Sitemap = [];
+
+  // Homepages
+  locales.forEach((locale) => {
+    routes.push({
+      url: `${baseUrl}/${locale}`,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/terms`,
+      priority: 1.0,
+    });
+  });
+
+  // Terms and Privacy
+  locales.forEach((locale) => {
+    routes.push({
+      url: `${baseUrl}/${locale}/terms`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/privacy`,
+    });
+    routes.push({
+      url: `${baseUrl}/${locale}/privacy`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/how-to-create-world-of-warcraft-addon`,
+    });
+  });
+
+  // Spritesheet Converter
+  locales.forEach((locale) => {
+    routes.push({
+      url: `${baseUrl}/${locale}/gif-to-tga-converter`,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/how-to-create-world-of-warcraft-addon/what-is-an-addon`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/how-to-create-world-of-warcraft-addon/programming-language`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/how-to-create-world-of-warcraft-addon/coding-tutorial`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/how-to-create-world-of-warcraft-addon/weakauras-vs-custom-addons`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/how-to-create-world-of-warcraft-addon/branding-guide`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
+      priority: 0.9,
+    });
+  });
+
+  // Guides
+  const guides = [
+    "",
+    "/what-is-an-addon",
+    "/programming-language",
+    "/coding-tutorial",
+    "/weakauras-vs-custom-addons",
+    "/branding-guide"
   ];
+
+  locales.forEach((locale) => {
+    guides.forEach((guide) => {
+      routes.push({
+        url: `${baseUrl}/${locale}/how-to-create-wow-addons${guide}`,
+        lastModified: new Date(),
+        changeFrequency: guide === "" ? "weekly" : "monthly",
+        priority: guide === "" ? 0.8 : 0.7,
+      });
+    });
+  });
+
+  return routes;
 }

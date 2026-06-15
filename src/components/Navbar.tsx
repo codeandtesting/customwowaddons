@@ -22,7 +22,7 @@ export default function Navbar({ dict, currentLocale }: NavbarProps) {
     { label: dict.nav.expansions, href: `#versions` },
     { label: dict.nav.capabilities, href: `#capabilities` },
     { label: dict.nav.whyUs, href: `#why-us` },
-    { label: "TGA Converter", href: `gif-to-tga-converter` },
+    { label: "Spritesheet Converter", href: `gif-to-tga-converter` },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, callback?: () => void) => {

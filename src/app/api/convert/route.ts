@@ -7,7 +7,9 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;
-    const gridSize = parseInt(formData.get('gridSize') as string) || 5;
+    const cols = parseInt(formData.get('cols') as string) || parseInt(formData.get('gridSize') as string) || 5;
+    const rows = parseInt(formData.get('rows') as string) || parseInt(formData.get('gridSize') as string) || 5;
+    const maxFrameSize = parseInt(formData.get('maxFrameSize') as string) || 0;
 
     if (!file) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
@@ -16,6 +18,8 @@ export async function POST(request: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const fileType = file.type;
+
+    const format = (formData.get('format') as string) || 'tga';
 
     let canvas: ReturnType<typeof createCanvas>;
 
@@ -28,30 +32,37 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'No frames found in GIF' }, { status: 400 });
       }
 
-      // Use the overall GIF canvas dimensions (not frame patch dimensions)
-      const frameWidth = gifData.lsd.width;
-      const frameHeight = gifData.lsd.height;
+      const origFrameWidth = gifData.lsd.width;
+      const origFrameHeight = gifData.lsd.height;
+      let frameWidth = origFrameWidth;
+      let frameHeight = origFrameHeight;
+
+      if (maxFrameSize > 0 && (frameWidth > maxFrameSize || frameHeight > maxFrameSize)) {
+        const ratio = Math.min(maxFrameSize / frameWidth, maxFrameSize / frameHeight);
+        frameWidth = Math.round(frameWidth * ratio);
+        frameHeight = Math.round(frameHeight * ratio);
+      }
 
       // Calculate sprite sheet dimensions
-      const spriteSheetWidth = frameWidth * gridSize;
-      const spriteSheetHeight = frameHeight * gridSize;
+      const spriteSheetWidth = frameWidth * cols;
+      const spriteSheetHeight = frameHeight * rows;
 
       // Create canvas for sprite sheet
       canvas = createCanvas(spriteSheetWidth, spriteSheetHeight);
       const ctx = canvas.getContext('2d');
 
       // Arrange frames in grid
-      for (let i = 0; i < Math.min(frames.length, gridSize * gridSize); i++) {
+      for (let i = 0; i < Math.min(frames.length, cols * rows); i++) {
         const frame = frames[i];
-        const row = Math.floor(i / gridSize);
-        const col = i % gridSize;
+        const row = Math.floor(i / cols);
+        const col = i % cols;
 
-        // Create a temporary canvas for each frame
-        const frameCanvas = createCanvas(frameWidth, frameHeight);
+        // Create a temporary canvas for each frame at original size
+        const frameCanvas = createCanvas(origFrameWidth, origFrameHeight);
         const frameCtx = frameCanvas.getContext('2d');
         
         // Create ImageData from frame patch
-        const imageData = frameCtx.createImageData(frameWidth, frameHeight);
+        const imageData = frameCtx.createImageData(origFrameWidth, origFrameHeight);
         
         // gifuct-js returns RGBA data, need to convert to canvas format
         const patch = frame.patch;
@@ -61,7 +72,7 @@ export async function POST(request: NextRequest) {
         for (let y = 0; y < dims.height; y++) {
           for (let x = 0; x < dims.width; x++) {
             const srcIndex = (y * dims.width + x) * 4;
-            const dstIndex = ((y + dims.top) * frameWidth + (x + dims.left)) * 4;
+            const dstIndex = ((y + dims.top) * origFrameWidth + (x + dims.left)) * 4;
             
             // Handle transparency (if alpha is 0, skip)
             if (patch[srcIndex + 3] > 0) {
@@ -75,8 +86,18 @@ export async function POST(request: NextRequest) {
         
         frameCtx.putImageData(imageData, 0, 0);
         
-        // Draw frame to sprite sheet
-        ctx.drawImage(frameCanvas, col * frameWidth, row * frameHeight);
+        // Draw frame to sprite sheet (scaling if needed)
+        ctx.drawImage(
+          frameCanvas,
+          0,
+          0,
+          origFrameWidth,
+          origFrameHeight,
+          col * frameWidth,
+          row * frameHeight,
+          frameWidth,
+          frameHeight
+        );
       }
     } else if (fileType === 'image/webp') {
       // Handle WebP - check if animated and extract frames
@@ -86,7 +107,7 @@ export async function POST(request: NextRequest) {
         // Animated WebP - extract frames
         const frames: Buffer[] = [];
         
-        for (let i = 0; i < Math.min(metadata.pages, gridSize * gridSize); i++) {
+        for (let i = 0; i < Math.min(metadata.pages, cols * rows); i++) {
           // Extract frame and convert to PNG (canvas doesn't support WebP directly)
           const frameBuffer = await sharp(buffer, { page: i }).png().toBuffer();
           frames.push(frameBuffer);
@@ -98,12 +119,21 @@ export async function POST(request: NextRequest) {
         
         // Get frame dimensions from first frame
         const firstFrameMetadata = await sharp(frames[0]).metadata();
-        const frameWidth = firstFrameMetadata.width || 256;
-        const frameHeight = firstFrameMetadata.height || 256;
+        const origFrameWidth = firstFrameMetadata.width || 256;
+        const origFrameHeight = firstFrameMetadata.height || 256;
         
+        let frameWidth = origFrameWidth;
+        let frameHeight = origFrameHeight;
+
+        if (maxFrameSize > 0 && (frameWidth > maxFrameSize || frameHeight > maxFrameSize)) {
+          const ratio = Math.min(maxFrameSize / frameWidth, maxFrameSize / frameHeight);
+          frameWidth = Math.round(frameWidth * ratio);
+          frameHeight = Math.round(frameHeight * ratio);
+        }
+
         // Calculate sprite sheet dimensions
-        const spriteSheetWidth = frameWidth * gridSize;
-        const spriteSheetHeight = frameHeight * gridSize;
+        const spriteSheetWidth = frameWidth * cols;
+        const spriteSheetHeight = frameHeight * rows;
         
         // Create canvas for sprite sheet
         canvas = createCanvas(spriteSheetWidth, spriteSheetHeight);
@@ -111,34 +141,64 @@ export async function POST(request: NextRequest) {
         
         // Arrange frames in grid
         for (let i = 0; i < frames.length; i++) {
-          const row = Math.floor(i / gridSize);
-          const col = i % gridSize;
+          const row = Math.floor(i / cols);
+          const col = i % cols;
           
           const frameImage = await loadImage(frames[i]);
-          ctx.drawImage(frameImage, col * frameWidth, row * frameHeight);
+          ctx.drawImage(
+            frameImage,
+            0,
+            0,
+            origFrameWidth,
+            origFrameHeight,
+            col * frameWidth,
+            row * frameHeight,
+            frameWidth,
+            frameHeight
+          );
         }
       } else {
         // Static WebP - convert single image to TGA
         const image = await loadImage(buffer);
-        canvas = createCanvas(image.width, image.height);
+        let frameWidth = image.width;
+        let frameHeight = image.height;
+
+        if (maxFrameSize > 0 && (frameWidth > maxFrameSize || frameHeight > maxFrameSize)) {
+          const ratio = Math.min(maxFrameSize / frameWidth, maxFrameSize / frameHeight);
+          frameWidth = Math.round(frameWidth * ratio);
+          frameHeight = Math.round(frameHeight * ratio);
+        }
+
+        canvas = createCanvas(frameWidth, frameHeight);
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(image, 0, 0);
+        ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, frameWidth, frameHeight);
       }
     } else {
       return NextResponse.json({ error: 'Unsupported file type. Use GIF or WebP.' }, { status: 400 });
     }
 
-    // Convert to TGA format
-    const tgaBuffer = canvasToTGA(canvas);
-    
     // Generate PNG preview
     const previewUrl = canvas.toDataURL('image/png');
-    const tgaBase64 = tgaBuffer.toString('base64');
+    
+    let base64 = '';
+    let filename = '';
+
+    const baseName = file.name.replace(/\.(gif|webp)$/i, '');
+    if (format === 'png') {
+      const pngBuffer = canvas.toBuffer('image/png');
+      base64 = pngBuffer.toString('base64');
+      filename = `${baseName}_col-${cols}_row-${rows}.png`;
+    } else {
+      const tgaBuffer = canvasToTGA(canvas);
+      base64 = tgaBuffer.toString('base64');
+      filename = `${baseName}_col-${cols}_row-${rows}.tga`;
+    }
 
     return NextResponse.json({
       previewUrl,
-      tgaBase64,
-      filename: file.name.replace(/\.(gif|webp)$/i, '.tga'),
+      base64,
+      tgaBase64: format === 'tga' ? base64 : undefined,
+      filename,
     });
   } catch (error) {
     console.error('Error converting file:', error);
@@ -146,7 +206,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Convert canvas to TGA format with RLE Compression
+// Convert canvas to TGA format (RLE Compressed Truecolor)
 function canvasToTGA(canvas: ReturnType<typeof createCanvas>): Buffer {
   const ctx = canvas.getContext('2d');
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -154,85 +214,94 @@ function canvasToTGA(canvas: ReturnType<typeof createCanvas>): Buffer {
 
   const width = canvas.width;
   const height = canvas.height;
-  
-  // TGA header (RLE Truecolor, 32-bit RGBA)
-  const header = Buffer.alloc(18);
-  header.writeUInt8(0, 0); // ID length
-  header.writeUInt8(0, 1); // Color map type
-  header.writeUInt8(10, 2); // Image type (10 = RLE Truecolor)
-  header.writeUInt16LE(0, 3); // Color map origin
-  header.writeUInt16LE(0, 5); // Color map length
-  header.writeUInt8(0, 7); // Color map entry size
-  header.writeUInt16LE(0, 8); // X origin
-  header.writeUInt16LE(0, 10); // Y origin
-  header.writeUInt16LE(width, 12); // Width
-  header.writeUInt16LE(height, 14); // Height
-  header.writeUInt8(32, 16); // Pixel depth (32 bits)
-  header.writeUInt8(0, 17); // Image descriptor (0 = bottom-left origin)
+  const numPixels = width * height;
 
-  const chunks: Buffer[] = [header];
+  const bgraData = Buffer.alloc(numPixels * 4);
+  for (let i = 0; i < data.length; i += 4) {
+    bgraData[i] = data[i + 2];     // B
+    bgraData[i + 1] = data[i + 1]; // G
+    bgraData[i + 2] = data[i];     // R
+    bgraData[i + 3] = data[i + 3]; // A
+  }
 
-  // Process line by line
-  for (let y = 0; y < height; y++) {
-    const srcY = height - 1 - y; // Flip Y for bottom-left origin
-    let x = 0;
-    
-    while (x < width) {
-      let runLength = 1;
-      
-      const getPixel = (cx: number) => {
-        const idx = (srcY * width + cx) * 4;
-        return { r: data[idx], g: data[idx+1], b: data[idx+2], a: data[idx+3] };
-      };
-      
-      const p = getPixel(x);
-      const isMatch = (p1: any, p2: any) => p1.r === p2.r && p1.g === p2.g && p1.b === p2.b && p1.a === p2.a;
+  const maxCompressedSize = 18 + bgraData.length + Math.ceil(numPixels / 128);
+  const outBuffer = Buffer.alloc(maxCompressedSize);
 
-      // Count matching pixels for RLE packet
-      while (x + runLength < width && runLength < 128) {
-        if (isMatch(p, getPixel(x + runLength))) {
-          runLength++;
-        } else {
-          break;
-        }
-      }
+  // Write TGA header for RLE Truecolor (10)
+  outBuffer.writeUInt8(0, 0); // ID length
+  outBuffer.writeUInt8(0, 1); // Color map type
+  outBuffer.writeUInt8(10, 2); // Image type (10 = RLE Truecolor)
+  outBuffer.writeUInt16LE(0, 3); // Color map origin
+  outBuffer.writeUInt16LE(0, 5); // Color map length
+  outBuffer.writeUInt8(0, 7); // Color map entry size
+  outBuffer.writeUInt16LE(0, 8); // X origin
+  outBuffer.writeUInt16LE(0, 10); // Y origin
+  outBuffer.writeUInt16LE(width, 12); // Width
+  outBuffer.writeUInt16LE(height, 14); // Height
+  outBuffer.writeUInt8(32, 16); // Pixel depth (32 bits)
+  outBuffer.writeUInt8(0x28, 17); // Image descriptor (top-left, 8 attribute bits)
 
-      if (runLength > 1) {
-        // Run-length packet
-        const packet = Buffer.alloc(5);
-        packet.writeUInt8(128 | (runLength - 1), 0); // 1st bit = 1 for RLE
-        packet.writeUInt8(p.b, 1);
-        packet.writeUInt8(p.g, 2);
-        packet.writeUInt8(p.r, 3);
-        packet.writeUInt8(p.a, 4);
-        chunks.push(packet);
-        x += runLength;
+  let outIdx = 18;
+  let pixelIdx = 0;
+
+  while (pixelIdx < numPixels) {
+    let runLen = 1;
+    const startIdx = pixelIdx * 4;
+    const b = bgraData[startIdx];
+    const g = bgraData[startIdx + 1];
+    const r = bgraData[startIdx + 2];
+    const a = bgraData[startIdx + 3];
+
+    while (pixelIdx + runLen < numPixels && runLen < 128) {
+      const nextIdx = (pixelIdx + runLen) * 4;
+      if (
+        bgraData[nextIdx] === b &&
+        bgraData[nextIdx + 1] === g &&
+        bgraData[nextIdx + 2] === r &&
+        bgraData[nextIdx + 3] === a
+      ) {
+        runLen++;
       } else {
-        // Raw packet
-        let rawCount = 1;
-        while (x + rawCount < width && rawCount < 128) {
-          if (!isMatch(getPixel(x + rawCount - 1), getPixel(x + rawCount))) {
-            rawCount++;
-          } else {
-            rawCount--; // Last pixel starts a new run
+        break;
+      }
+    }
+
+    if (runLen >= 2) {
+      outBuffer.writeUInt8(0x80 | (runLen - 1), outIdx++);
+      outBuffer.writeUInt8(b, outIdx++);
+      outBuffer.writeUInt8(g, outIdx++);
+      outBuffer.writeUInt8(r, outIdx++);
+      outBuffer.writeUInt8(a, outIdx++);
+      pixelIdx += runLen;
+    } else {
+      let rawLen = 1;
+      while (pixelIdx + rawLen < numPixels && rawLen < 128) {
+        const currentIdx = (pixelIdx + rawLen) * 4;
+        if (pixelIdx + rawLen + 1 < numPixels) {
+          const nextIdx = (pixelIdx + rawLen + 1) * 4;
+          if (
+            bgraData[currentIdx] === bgraData[nextIdx] &&
+            bgraData[currentIdx + 1] === bgraData[nextIdx + 1] &&
+            bgraData[currentIdx + 2] === bgraData[nextIdx + 2] &&
+            bgraData[currentIdx + 3] === bgraData[nextIdx + 3]
+          ) {
             break;
           }
         }
-        
-        const packet = Buffer.alloc(1 + rawCount * 4);
-        packet.writeUInt8(rawCount - 1, 0); // 1st bit = 0 for Raw
-        for (let i = 0; i < rawCount; i++) {
-          const px = getPixel(x + i);
-          packet.writeUInt8(px.b, 1 + i * 4);
-          packet.writeUInt8(px.g, 1 + i * 4 + 1);
-          packet.writeUInt8(px.r, 1 + i * 4 + 2);
-          packet.writeUInt8(px.a, 1 + i * 4 + 3);
-        }
-        chunks.push(packet);
-        x += rawCount;
+        rawLen++;
       }
+
+      outBuffer.writeUInt8(rawLen - 1, outIdx++);
+      for (let i = 0; i < rawLen; i++) {
+        const idx = (pixelIdx + i) * 4;
+        outBuffer.writeUInt8(bgraData[idx], outIdx++);
+        outBuffer.writeUInt8(bgraData[idx + 1], outIdx++);
+        outBuffer.writeUInt8(bgraData[idx + 2], outIdx++);
+        outBuffer.writeUInt8(bgraData[idx + 3], outIdx++);
+      }
+      pixelIdx += rawLen;
     }
   }
 
-  return Buffer.concat(chunks);
+  return outBuffer.subarray(0, outIdx);
 }

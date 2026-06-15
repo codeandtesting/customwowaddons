@@ -24,7 +24,7 @@ export default function Footer({ dict, currentLocale }: FooterProps) {
           {footer.links.howTo}
         </a>
         <a className="hover:text-gold-accent transition-none" href={`/${currentLocale}/gif-to-tga-converter`}>
-          TGA CONVERTER
+          SPRITESHEET CONVERTER
         </a>
       </div>
 
