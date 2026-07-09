@@ -15,6 +15,7 @@ import React from "react";
 // Components & Global Styles
 import OceanBackground from "@/components/OceanBackground";
 import ScrollProgress from "@/components/ScrollProgress";
+import CookieBanner from "@/components/CookieBanner";
 import LangUpdater from "@/app/LangUpdater";
 import "@/app/globals.css";
 
@@ -116,6 +117,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     alternates: {
       canonical: `${SITE_URL}/${locale}`,
       languages: {
+        "x-default": `${SITE_URL}/en`,
         en: `${SITE_URL}/en`,
         de: `${SITE_URL}/de`,
         fr: `${SITE_URL}/fr`,
@@ -165,6 +167,7 @@ export default async function RootLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         />
+        <link rel="alternate" type="text/plain" href="/llms.txt" />
         <LangUpdater />
       </head>
       <body
@@ -201,6 +204,7 @@ export default async function RootLayout({
         <div id="main-content" style={{ position: "relative", zIndex: 1 }}>
           {children}
         </div>
+        <CookieBanner />
       </body>
     </html>
   );

@@ -193,12 +193,36 @@ export default function Hero({ dict }: HeroProps) {
           variants={descriptionVariants}
         >
           <motion.p 
-            className="text-xl md:text-2xl text-bone-white/80 font-body leading-relaxed"
+            className="text-xl md:text-2xl text-bone-white/80 font-body leading-relaxed mb-8"
             whileHover={{ x: 4 }}
             transition={{ duration: 0.3 }}
           >
             {hero.description}
           </motion.p>
+          
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4"
+          >
+            <motion.a
+              href="https://pro.fiverr.com/s/bdERDgY"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gold-accent text-obsidian font-headline font-black uppercase tracking-widest py-4 px-8 rounded-sm hover:bg-bone-white hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all duration-300 text-center flex items-center justify-center gap-2 group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Order Custom Addon
+              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </motion.a>
+            <motion.a
+              href="#request"
+              className="border-2 border-white/20 text-bone-white font-headline font-black uppercase tracking-widest py-4 px-8 rounded-sm hover:bg-white/5 hover:border-white/40 transition-all duration-300 text-center flex items-center justify-center"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Get a Quote
+            </motion.a>
+          </motion.div>
         </motion.div>
       </motion.div>
 

@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 interface RequestFormProps {
   dict: any;
@@ -17,10 +18,7 @@ export default function RequestForm({ dict }: RequestFormProps) {
   return (
     <section className="p-6 md:p-24 flex justify-center border-b border-grid-border" id="request">
       <div className="w-full max-w-4xl bg-obsidian/40 backdrop-blur-sm border-2 border-gold-accent p-12 md:p-16 relative text-center">
-        {/* Terminal Tag */}
-        <div className="absolute -top-4 -left-4 bg-gold-accent text-obsidian font-label px-4 py-1 text-xs uppercase tracking-widest font-bold">
-          {request.tag}
-        </div>
+        {/* Terminal Tag removed as requested */}
 
         {/* Headline */}
         <h2 className="font-headline text-4xl md:text-5xl lg:text-6xl text-bone-white font-black uppercase tracking-tighter leading-tight">
@@ -110,8 +108,50 @@ export default function RequestForm({ dict }: RequestFormProps) {
         <p className="font-label text-bone-white/30 text-[10px] uppercase tracking-[0.3em] mt-6">
           {request.subtext}
         </p>
+        
+        <LocalTimeStatus />
       </div>
     </section>
   );
 }
 
+function LocalTimeStatus() {
+  const [time, setTime] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setTime(new Date());
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 60000); // update every minute
+    return () => clearInterval(timer);
+  }, []);
+
+  if (!time) return <div className="h-6 mt-4"></div>; // Placeholder to prevent layout shift
+
+  // Calculate local time (GMT+3 / EEST)
+  const utcMs = time.getTime() + (time.getTimezoneOffset() * 60000);
+  const localDate = new Date(utcMs + (3 * 3600000));
+  
+  const hours = localDate.getHours();
+  const minutes = localDate.getMinutes();
+  
+  // Online from 07:00 to 23:59
+  const isOnline = hours >= 7;
+  
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const displayHours = hours % 12 || 12;
+  const displayMinutes = minutes.toString().padStart(2, '0');
+  
+  const timeString = `${displayHours}:${displayMinutes} ${ampm} local time`;
+
+  return (
+    <div className="flex items-center justify-center gap-3 mt-4 font-label text-xs uppercase tracking-widest font-bold">
+      <div className="flex items-center gap-2">
+        <span className={`w-2 h-2 rounded-full ${isOnline ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse' : 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'}`}></span>
+        <span className={isOnline ? 'text-green-400' : 'text-red-400'}>{isOnline ? 'Online' : 'Offline'}</span>
+      </div>
+      <span className="text-bone-white/30">•</span>
+      <span className="text-bone-white/70">{timeString}</span>
+    </div>
+  );
+}

@@ -216,7 +216,7 @@ export default function Navbar({ dict, currentLocale }: NavbarProps) {
                 ))}
 
                 <motion.div 
-                  className="flex flex-wrap gap-4 mt-4"
+                  className="hidden flex-wrap gap-4 mt-4"
                   variants={linkVariants}
                 >
                   {i18n.locales.map((locale) => (

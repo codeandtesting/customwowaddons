@@ -365,7 +365,7 @@ export default function ConverterClient() {
   const [spriteSheetPreview, setSpriteSheetPreview] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [detectedFrames, setDetectedFrames] = useState<number | null>(null);
-  const [maxFrameSize, setMaxFrameSize] = useState<number>(128);
+  const [maxFrameSize, setMaxFrameSize] = useState<number>(0);
 
   const loadFile = async (selectedFile: File) => {
     setFile(selectedFile);

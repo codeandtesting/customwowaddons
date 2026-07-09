@@ -5,6 +5,7 @@ import VersionsSection from "@/components/VersionsSection";
 import WhyUs from "@/components/WhyUs";
 import Capabilities from "@/components/Capabilities";
 import RequestForm from "@/components/RequestForm";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import Script from "next/script";
 import { generateFAQSchema } from "@/lib/seo";
@@ -46,6 +47,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <VersionsSection dict={dict} />
       <WhyUs dict={dict} />
       <Capabilities dict={dict} />
+      <FAQ dict={dict} />
       <RequestForm dict={dict} />
       <Footer dict={dict} currentLocale={locale} />
     </main>

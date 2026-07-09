@@ -148,12 +148,14 @@ export function generateArticleSchema({
   url,
   datePublished,
   dateModified,
+  citations = [],
 }: {
   title: string;
   description: string;
   url: string;
   datePublished: string;
   dateModified?: string;
+  citations?: string[];
 }) {
   return {
     "@context": "https://schema.org",
@@ -163,10 +165,12 @@ export function generateArticleSchema({
     url,
     datePublished,
     dateModified: dateModified || datePublished,
+    citation: citations.length > 0 ? citations : undefined,
     author: {
       "@type": "Organization",
       name: SITE_NAME,
       url: SITE_URL,
+      sameAs: ["https://discord.gg/yESkPhPBZn"],
     },
     publisher: {
       "@type": "Organization",
@@ -211,6 +215,22 @@ export function generateFAQSchema(
       acceptedAnswer: {
         "@type": "Answer",
         text: faq.answer,
+      },
+    })),
+  };
+}
+
+export function generateEntitySchema(entities: { name: string; sameAs: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: entities.map((entity, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Thing",
+        name: entity.name,
+        sameAs: entity.sameAs,
       },
     })),
   };

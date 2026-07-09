@@ -34,6 +34,12 @@ export default async function WhatIsAnAddon({ params }: { params: Promise<{ loca
             description: "Learn how custom World of Warcraft addons provide a massive tactical advantage in competitive gameplay, Mythic+, and Arena brackets.",
             url: `${SITE_URL}/${locale}/how-to-create-wow-addons/what-is-an-addon`,
             datePublished: "2026-03-28T12:00:00Z",
+            dateModified: "2026-04-10T12:00:00Z",
+            citations: [
+              "https://www.blizzard.com/",
+              "https://wowpedia.fandom.com/wiki/AddOn",
+              "https://www.curseforge.com/wow/addons",
+            ],
           })),
         }}
       />
@@ -62,7 +68,8 @@ export default async function WhatIsAnAddon({ params }: { params: Promise<{ loca
         </header>
 
         <div className="font-mono text-xs text-[#FF8000]/80 mb-6 tracking-widest uppercase border-l-2 border-[#FF8000] pl-4">
-          Published: March 28, 2026
+          Published: March 28, 2026 <br/>
+          <span className="review-date text-white/50 mt-1 block">Reviewed: April 10, 2026</span>
         </div>
 
         <div className="flex flex-wrap gap-3 mb-10">
@@ -71,23 +78,35 @@ export default async function WhatIsAnAddon({ params }: { params: Promise<{ loca
           <span className="bg-[#FF8000]/10 text-[#FF8000] px-3 py-1 font-mono text-xs uppercase border border-[#FF8000]/20">#Gaming</span>
         </div>
 
+        <div className="ai-answer bg-[#FF8000]/5 border border-[#FF8000]/20 p-6 mb-10 text-sm">
+          <strong className="text-[#FF8000] block mb-2 uppercase tracking-widest font-mono">Key Takeaways (TL;DR)</strong>
+          <ul className="list-disc pl-5 text-bone-white/80 space-y-2">
+            <li>A World of Warcraft addon is a custom script that modifies the default User Interface (UI) to provide better information.</li>
+            <li>Custom addons bridge the gap in high-level competitive play (Mythic+, Arena) by tracking exact cooldowns and alerts.</li>
+            <li>All addons are completely legal as long as they operate within Blizzard's provided API sandbox without automation.</li>
+          </ul>
+        </div>
+
         <article className="space-y-8 font-body text-lg text-bone-white/80 leading-relaxed">
           <p>
-            A World of Warcraft addon is a custom piece of software that modifies the game&apos;s default User Interface (UI). Since its initial launch in 2004, <a href="https://www.blizzard.com/" target="_blank" rel="noopener noreferrer" className="text-[#FF8000] font-bold hover:underline">Blizzard Entertainment</a> has allowed players to write scripts that interact with the game engine to display information, automate UI tasks, and completely overhaul how the game looks and feels.
+            It is important to note that a <dfn title="World of Warcraft Addon">World of Warcraft addon</dfn> is a custom piece of software that modifies the game&apos;s default User Interface (<abbr title="User Interface">UI</abbr>). Since its initial launch in 2004, <a href="https://www.blizzard.com/" target="_blank" rel="noopener noreferrer" className="text-[#FF8000] font-bold hover:underline">Blizzard Entertainment</a> has allowed players to write scripts that interact with the game engine to display information, automate <abbr title="User Interface">UI</abbr> tasks, and completely overhaul how the game looks and feels.
           </p>
 
           <h2 className="text-2xl font-headline font-black text-white uppercase mt-12 mb-4 border-l-4 border-[#FF8000] pl-4">
-            1. How Does the Default UI Fall Short?
+            1. Why Does the Default WoW UI Fall Short in Competitive Play?
           </h2>
           <p>
-            The default World of Warcraft interface was designed to serve the widest possible audience, from casual levelers to first-time MMO players. Because of this, it prioritizes simplicity over information density. At the highest levels of competitive play (whether it is pushing Mythic+ keystones beyond +20, progressing through Mythic Raiding, or climbing the Gladiator arena brackets) information processing is the only bottleneck. The default UI is notoriously inefficient at communicating critical cooldowns, boss abilities, and buff timers in these high-pressure scenarios.
+            The default <abbr title="World of Warcraft">WoW</abbr> interface was designed to serve the widest possible audience, from casual levelers to first-time MMO players. Because of this, it prioritizes simplicity over information density.
+          </p>
+          <p>
+            At the highest levels of competitive play, information processing is the only bottleneck. The default UI is notoriously inefficient at communicating critical cooldowns, boss abilities, and buff timers in these high-pressure scenarios, such as pushing Mythic+ keystones beyond +20, progressing through Mythic Raiding, or climbing the Gladiator arena brackets.
           </p>
           <p>
             For example, the standard raid frames do not display absorb shields, incoming heals from other players, or precise debuff durations. Arena players cannot see exact enemy cooldown timers or track diminishing returns on crowd-control effects. Auction House traders struggle with the default interface that lacks any automated scanning, price history, or undercut detection. These are not edge cases; they are the fundamental pain points that every serious player encounters.
           </p>
 
           <h2 className="text-2xl font-headline font-black text-white uppercase mt-12 mb-4 border-l-4 border-[#FF8000] pl-4">
-            2. How Custom Addons Bridge the Gap
+            2. How Do Custom Addons Provide a Tactical Advantage?
           </h2>
           <p>
             Custom addons solve every one of these problems. A perfectly engineered addon can track exact diminishing returns in PvP, alert a raid about a lethal mechanic 3 seconds before it happens, or automatically filter thousands of auction house undercuts in milliseconds. Simply put: addons convert raw game data into an unfair, actionable tactical advantage.
@@ -104,7 +123,7 @@ export default async function WhatIsAnAddon({ params }: { params: Promise<{ loca
           </ul>
 
           <h2 className="text-2xl font-headline font-black text-white uppercase mt-12 mb-4 border-l-4 border-[#FF8000] pl-4">
-            3. The Private Addon Advantage
+            3. What is the Advantage of Private Custom Addons?
           </h2>
           <p>
             <a href="https://www.curseforge.com/wow/addons" target="_blank" rel="noopener noreferrer" className="text-[#FF8000] font-bold hover:underline">CurseForge</a> is an incredible platform and the backbone of the WoW addon ecosystem. Thousands of free, high-quality addons live there, and we are proud to <a href="https://www.curseforge.com/members/thelavforge/projects" target="_blank" rel="noopener noreferrer" className="text-[#FF8000] font-bold hover:underline">publish our own projects on CurseForge</a> as well. For most players, downloading from CurseForge is the perfect starting point.
@@ -114,14 +133,22 @@ export default async function WhatIsAnAddon({ params }: { params: Promise<{ loca
           </p>
 
           <h2 className="text-2xl font-headline font-black text-white uppercase mt-12 mb-4 border-l-4 border-[#FF8000] pl-4">
-            4. Are Addons Legal? Blizzard&apos;s Official Policy
+            4. Are Custom WoW Addons Legal According to Blizzard?
           </h2>
           <p>
-            Yes. Custom addons are 100% legal and officially supported by Blizzard. The <a href="https://wowpedia.fandom.com/wiki/AddOn" target="_blank" rel="noopener noreferrer" className="text-[#FF8000] font-bold hover:underline">WoW addon system</a> has been a core feature of the game since launch. Blizzard provides a public API that addons interact with, and the game client includes a dedicated AddOns button on the character select screen. The only restriction is that addons run inside a sandbox: they cannot interact with the operating system, read files, or automate actual gameplay inputs (like pressing keys or clicking). They can only read data from the game engine and display it to the player.
+            Yes. Custom addons are 100% legal and officially supported by Blizzard. The <a href="https://wowpedia.fandom.com/wiki/AddOn" target="_blank" rel="noopener noreferrer" className="text-[#FF8000] font-bold hover:underline">WoW addon system</a> has been a core feature of the game since launch. Blizzard provides a public API that addons interact with, and the game client includes a dedicated AddOns button on the character select screen.
           </p>
-          <div className="bg-[#FF8000]/10 border border-[#FF8000]/30 p-6 my-6 text-sm">
-            <strong className="text-[#FF8000] block mb-2 uppercase tracking-widest font-mono">Key Takeaway</strong>
-            Addons do not play the game for you. They give you better information, faster. In a game where split-second decisions determine whether your team wipes at 1% or earns a clean kill, that information advantage is everything.
+          <p>
+            The only restriction is that addons run inside a sandbox: they cannot interact with the operating system, read files, or automate actual gameplay inputs (like pressing keys or clicking). They can only read data from the game engine and display it to the player.
+          </p>
+          
+          <div className="mt-12 pt-8 border-t border-white/10">
+            <h3 className="font-label text-sm text-[#FF8000] uppercase tracking-widest mb-4">Trusted Sources & Citations</h3>
+            <ul className="list-disc pl-5 text-sm text-bone-white/60 space-y-2">
+              <li><a href="https://www.blizzard.com/" rel="nofollow" className="hover:text-[#FF8000] transition-colors">Blizzard Entertainment - Official Developer of World of Warcraft</a></li>
+              <li><a href="https://wowpedia.fandom.com/wiki/AddOn" rel="nofollow" className="hover:text-[#FF8000] transition-colors">WoWpedia - Technical Definition of an AddOn and API</a></li>
+              <li><a href="https://www.curseforge.com/wow/addons" rel="nofollow" className="hover:text-[#FF8000] transition-colors">CurseForge - Primary Repository for WoW Modifications</a></li>
+            </ul>
           </div>
         </article>
 

@@ -118,9 +118,9 @@ export default function VersionsSection({ dict }: VersionsSectionProps) {
           {/* Vignette overlay for readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-[1]"></div>
 
-          {/* Locked Content Block - Fixed height ensures perfect horizontal baseline alignment */}
+          {/* Locked Content Block - Min height ensures perfect horizontal baseline alignment without cutting off content */}
           <motion.div 
-            className="relative z-10 w-full h-[320px] flex flex-col justify-start"
+            className="relative z-10 w-full min-h-[380px] flex flex-col justify-start"
             variants={textVariants}
           >
             <motion.h3 
@@ -139,15 +139,17 @@ export default function VersionsSection({ dict }: VersionsSectionProps) {
               {ver.description}
             </motion.p>
             
-            {/* mt-auto pushes the protocol to the bottom of the 320px block, keeping it in line across cards */}
-            <motion.div 
-              className={`mt-auto font-label text-sm font-mono transition-all duration-500 ${ver.accent}`}
+            {/* mt-auto pushes the button to the bottom of the 320px block, keeping it in line across cards */}
+            <motion.a 
+              href="#request"
+              className={`mt-auto inline-flex items-center justify-between border border-white/10 bg-black/40 hover:bg-white/10 px-6 py-4 font-headline text-xs md:text-sm font-bold tracking-widest uppercase transition-all duration-300 ${ver.accent} hover:border-white/30`}
               variants={protocolVariants}
-              whileHover={{ scale: 1.1, letterSpacing: "0.15em" }}
-              transition={{ duration: 0.3 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              [ {ver.protocol} ]
-            </motion.div>
+              <span>{ver.protocol}</span>
+              <span className="material-symbols-outlined text-sm transform group-hover:translate-x-2 transition-transform duration-300">arrow_forward</span>
+            </motion.a>
           </motion.div>
         </motion.div>
       ))}

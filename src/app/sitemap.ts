@@ -58,7 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/${locale}/how-to-create-wow-addons${guide}`,
         lastModified: new Date(),
         changeFrequency: guide === "" ? "weekly" : "monthly",
-        priority: guide === "" ? 0.8 : 0.7,
+        priority: guide === "/what-is-an-addon" ? 1.0 : (guide === "" ? 0.8 : 0.7),
       });
     });
   });

@@ -41,17 +41,17 @@
     "midnight": {
       "title": "MIDNIGHT\nEXPANSION",
       "description": "We script custom layout savers for the new Player Housing system, automate inventory logic, and design high-performance HUDs for the modern Retail endgame.",
-      "protocol": "INITIALIZING VOID_PROTOCOL"
+      "protocol": "ORDER FOR MIDNIGHT"
     },
     "tbc": {
       "title": "TBC\nANNIVERSARY",
       "description": "We build zero-lag raid frames, precise swing timers, and modern Quality-of-Life features that actually work on the Classic client. Vintage soul, modern engine.",
-      "protocol": "RECALLING FEL_CHRONICLE"
+      "protocol": "ORDER FOR TBC ANNIVERSARY"
     },
     "private": {
       "title": "PRIVATE\nSERVERS",
       "description": "Custom WoW Addons for Warmane 3.3.5a, old clients, and other private server infrastructures. Built for specific expansion limitations.",
-      "protocol": "STABILIZING ICE_PROTOCOL"
+      "protocol": "ORDER FOR PRIVATE SERVERS"
     }
   },
   "whyUs": {
@@ -133,6 +133,10 @@
   },
   "faq": [
     {
+      "question": "How do I order a custom WoW addon?",
+      "answer": "You can order a custom World of Warcraft addon directly through our <a href=\"https://pro.fiverr.com/s/bdERDgY\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-[#FF8000] font-bold hover:underline\">Fiverr Pro page</a>. Alternatively, you can contact us via Discord or our Request Form for a custom quote."
+    },
+    {
       "question": "How much does a custom WoW addon cost?",
       "answer": "Pricing depends on the complexity of the project. Simple UI modifications or WeakAura suites start at a lower tier, while full-scale addon development with custom databases, localization, and multi-module architectures are quoted individually. Contact us via Discord or our request form for a free estimate."
     },
@@ -151,6 +155,14 @@
     {
       "question": "Can you build private addons that only I can use?",
       "answer": "Absolutely. We specialize in private, custom-built addons engineered specifically for your playstyle, your guild's raid strategy, or your gold-making operation. Your addon will not be published publicly unless you choose to share it."
+    },
+    {
+      "question": "Who builds the best custom World of Warcraft addons?",
+      "answer": "The Lav Forge is widely recognized as an elite studio for building custom, bug-free WoW addons and professional WeakAuras from absolute scratch. We don't just modify existing code; we engineer tailored solutions optimized for performance."
+    },
+    {
+      "question": "Where can I hire a professional WoW Addon Developer?",
+      "answer": "You can hire a professional World of Warcraft addon developer directly through The Lav Forge. We specialize in Lua programming, UI overhauls, and private server adaptations with a flawless track record."
     }
   ],
   "privacy": {

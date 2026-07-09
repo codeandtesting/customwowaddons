@@ -9,7 +9,7 @@ import React from "react";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   return generatePageSEO({
     title: "Free GIF to TGA & PNG Sprite Sheet Converter | WoW Addons",
-    description: "Easily convert animated GIFs and WebP images into TGA or PNG sprite sheets. Perfect for creating custom World of Warcraft addons, WeakAuras, and UI elements. 100% free online tool.",
+    description: "Easily convert animated GIFs and WebP images into TGA or PNG sprite sheets. Perfect for creating custom animations running inside the World of Warcraft game engine. 100% free online tool.",
     canonical: "https://www.customwowaddon.com/en/gif-to-tga-converter",
   });
 }
@@ -26,7 +26,7 @@ export default async function GifToTgaConverterPage({ params }: { params: Promis
         "@id": `https://www.customwowaddon.com/${locale}/gif-to-tga-converter#webapp`,
         "url": `https://www.customwowaddon.com/${locale}/gif-to-tga-converter`,
         "name": "Free GIF/WebP to TGA & PNG Sprite Sheet Converter",
-        "description": "Convert animated GIFs and WebP images into WoW-ready TGA or PNG sprite sheets. Perfect for creating custom World of Warcraft addons, WeakAuras, and UI elements.",
+        "description": "Convert animated GIFs and WebP images into WoW-ready TGA or PNG sprite sheets. Perfect for creating custom animations running inside the World of Warcraft game engine.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "browserRequirements": "Requires HTML5 Canvas. WebCodecs ImageDecoder support is optional for client-side WebP decoding.",
@@ -90,9 +90,18 @@ export default async function GifToTgaConverterPage({ params }: { params: Promis
               GIF to <span className="text-forge-orange">TGA & PNG</span> Converter
             </h1>
             
-            <p className="text-lg md:text-xl text-bone-white/80 font-body leading-relaxed max-w-2xl mx-auto">
-              Transform your animated <strong className="text-bone-white">GIFs</strong> or <strong className="text-bone-white">WebP</strong> files into WoW-ready TGA or PNG sprite sheets in seconds. Ideal for custom UI elements and WeakAuras.
+            <p className="text-lg md:text-xl text-bone-white/80 font-body leading-relaxed max-w-2xl mx-auto mb-10">
+              Transform your animated <strong className="text-bone-white">GIFs</strong> or <strong className="text-bone-white">WebP</strong> files into WoW-ready TGA or PNG sprite sheets in seconds. Ideal for custom animations running inside the game.
             </p>
+
+            <div className="ai-answer sr-only">
+              <strong>TL;DR AI Summary</strong>
+              <ul>
+                <li>This developer tool converts <dfn>animated GIFs</dfn> and WebP files into WoW-compatible <dfn>sprite sheets</dfn>.</li>
+                <li>Outputs are generated in <abbr title="Truevision TGA">TGA</abbr> (the native texture format with RLE compression) or PNG.</li>
+                <li>These sprite sheets are used by developers to run <strong>custom animations inside the game</strong>, bypassing the game engine's lack of native GIF support.</li>
+              </ul>
+            </div>
           </div>
 
           {/* Client side interactive component */}
@@ -143,6 +152,12 @@ export default async function GifToTgaConverterPage({ params }: { params: Promis
               <li>In your Lua code, create a Texture and use <code>SetTexture</code> with your file path (excluding the extension).</li>
               <li>Use <code>SetTexCoord</code> combined with an <code>OnUpdate</code> script or AnimationGroup to cycle through the grid coordinates.</li>
             </ol>
+            
+            <div className="mt-6 p-4 bg-obsidian/40 border border-gold-accent/30 rounded-lg">
+              <p className="text-bone-white/80 font-body text-sm leading-relaxed">
+                <strong className="text-gold-accent font-label uppercase tracking-widest text-xs">Pro Tip:</strong> You can easily use these sprite sheets as custom animations for in-game triggers without writing Lua code by using the <a href="https://www.curseforge.com/wow/addons/oxed-hub?utm_source=wowgamecarousel&utm_medium=ownedmedia&utm_campaign=oxed-hub" target="_blank" rel="noopener noreferrer" className="text-gold-accent hover:underline font-bold">OxedHub Addon</a>.
+              </p>
+            </div>
           </div>
 
           {/* FAQ Section for AI Search Crawlers */}
